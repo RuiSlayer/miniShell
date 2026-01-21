@@ -6,7 +6,7 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:13 by slayer            #+#    #+#             */
-/*   Updated: 2026/01/20 23:32:04 by slayer           ###   ########.fr       */
+/*   Updated: 2026/01/21 22:27:01 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	main(void)
 
 	while (1) {
 		line = readline("prompt> ");
-		if ((line == NULL))
+		if (line == NULL)
 			return (0);
 		if (exit_cmd(line))
 			return (free(line), 0);
