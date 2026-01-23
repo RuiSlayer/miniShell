@@ -6,7 +6,7 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:13 by slayer            #+#    #+#             */
-/*   Updated: 2026/01/22 19:44:30 by slayer           ###   ########.fr       */
+/*   Updated: 2026/01/23 19:24:35 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int main(void)
 		line = readline("prompt> ");
 		if (line == NULL) {
 			write(STDOUT_FILENO, "\n", 1);
-			return 0;
+			return (free(line), 0);
 		}
 		if (cmd_eval(line))
 			return (free(line), 0);
