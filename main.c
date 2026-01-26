@@ -6,7 +6,7 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:13 by slayer            #+#    #+#             */
-/*   Updated: 2026/01/23 19:24:35 by slayer           ###   ########.fr       */
+/*   Updated: 2026/01/26 14:59:18 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,14 @@ int	cmd_eval(char *line)
 
 	while (*p == ' ' || *p == '\t')
 		p++;
-	if (strcmp(line, "exit") == 0)
+	if (ft_strncmp(p, "exit", 3) == 0)
 		return (1);
-	if (strcmp(line, "echo") == 0)
+	if (ft_strncmp(p, "echo", 4) == 0 && (p[4] == ' ' || p[4] == '\t' || p[4] == '\0')) {
+		p += 4;
+		while (*p == ' ' || *p == '\t')
+			p++;
 		echo_cmd(p);
+	}
 	return (0);
 }
 
@@ -68,10 +72,10 @@ int main(void)
 		line = readline("prompt> ");
 		if (line == NULL) {
 			write(STDOUT_FILENO, "\n", 1);
-			return (free(line), 0);
+			return (rl_clear_history(), 0);
 		}
 		if (cmd_eval(line))
-			return (free(line), 0);
+			return (rl_clear_history(), free(line), 0);
 		if (*line)
 			add_history(line);
 		free(line);
