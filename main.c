@@ -6,7 +6,7 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:13 by slayer            #+#    #+#             */
-/*   Updated: 2026/01/29 18:32:59 by slayer           ###   ########.fr       */
+/*   Updated: 2026/02/12 18:34:34 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	cmd_eval(char *line)
 	return (0);
 }
 
-int main(void)
+int main(int argc, char **argv, char **envp)
 {
 	char *line;
 	struct sigaction sa;
