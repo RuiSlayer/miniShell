@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/07 18:48:54 by rucosta           #+#    #+#             */
-/*   Updated: 2026/01/26 16:43:36 by slayer           ###   ########.fr       */
+/*   Created: 2026/01/28 21:28:55 by slayer            #+#    #+#             */
+/*   Updated: 2026/01/29 17:32:40 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "miniShell.h"
 
-size_t	ft_strlen(const char *c)
+void	pwd(void)
 {
-	size_t	len;
+	char	*value;
 
-	len = 0;
-	while (c[len] != '\0')
-	{
-		len++;
-	}
-	return (len);
+	value = getenv("PWD");
+	write(1, value, ft_strlen(value));
+	write(1, "\n", 1);
 }

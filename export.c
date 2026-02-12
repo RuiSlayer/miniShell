@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/07 18:48:54 by rucosta           #+#    #+#             */
-/*   Updated: 2026/01/26 16:43:36 by slayer           ###   ########.fr       */
+/*   Created: 2026/01/29 17:46:41 by slayer            #+#    #+#             */
+/*   Updated: 2026/01/29 17:48:05 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "miniShell.h"
 
-size_t	ft_strlen(const char *c)
+void	export(char *line)
 {
-	size_t	len;
-
-	len = 0;
-	while (c[len] != '\0')
-	{
-		len++;
-	}
-	return (len);
+	
 }

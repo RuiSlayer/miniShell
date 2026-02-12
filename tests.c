@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   tests.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/07 18:48:54 by rucosta           #+#    #+#             */
-/*   Updated: 2026/01/26 16:43:36 by slayer           ###   ########.fr       */
+/*   Created: 2026/01/29 18:32:25 by slayer            #+#    #+#             */
+/*   Updated: 2026/01/29 18:36:32 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "miniShell.h"
 
-size_t	ft_strlen(const char *c)
+static int	go_back_one_dir(void)
 {
-	size_t	len;
+	char	*value;
+	int		i;
 
-	len = 0;
-	while (c[len] != '\0')
-	{
-		len++;
-	}
-	return (len);
+	value = getenv("PWD");
+	i = strlen(value);
+	while(i > 0 && value[i] != '/')
+		i--;
+	value[i] = '\0';
+	printf("%s\n", value);
+	/* chdir(value); */
+	return (0);
+}
+
+int main(void)
+{
+	go_back_one_dir();
 }

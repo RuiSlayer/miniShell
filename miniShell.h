@@ -6,7 +6,7 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:38 by slayer            #+#    #+#             */
-/*   Updated: 2026/01/26 14:55:41 by slayer           ###   ########.fr       */
+/*   Updated: 2026/01/28 21:36:38 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,4 +16,9 @@
 # include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <readline/chardefs.h>
 # include "42libft/libft.h"
+
+int		echo_cmd_std(char *line);
+int		echo_cmd_redir(char *line);
+void	pwd(void);
