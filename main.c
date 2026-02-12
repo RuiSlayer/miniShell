@@ -6,13 +6,13 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:13 by slayer            #+#    #+#             */
-/*   Updated: 2026/01/26 14:59:18 by slayer           ###   ########.fr       */
+/*   Updated: 2026/01/29 18:32:59 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniShell.h"
 
-static void handle_sigint(int sig)
+static void	handle_sigint(int sig)
 {
 	(void)sig;
 	write(STDOUT_FILENO, "\n", 1);  // async-signal-safe newline
@@ -29,26 +29,18 @@ static void handle_sigquit(int sig)
 	// write(STDOUT_FILENO, "Quit (ignored)\n", 15);
 }
 
-int	echo_cmd(char *line)
-{
-	printf("%s\n", line);
-	return (0);
-}
-
 int	cmd_eval(char *line)
 {
 	char *p = line;
 
 	while (*p == ' ' || *p == '\t')
 		p++;
-	if (ft_strncmp(p, "exit", 3) == 0)
+	if (ft_strncmp(p, "exit", 4) == 0)
 		return (1);
-	if (ft_strncmp(p, "echo", 4) == 0 && (p[4] == ' ' || p[4] == '\t' || p[4] == '\0')) {
-		p += 4;
-		while (*p == ' ' || *p == '\t')
-			p++;
-		echo_cmd(p);
-	}
+	if (ft_strncmp(p, "echo", 4) == 0)
+		echo_cmd_redir(p);
+	if (ft_strncmp(p, "pwd", 3) == 0)
+		pwd();
 	return (0);
 }
 
@@ -80,4 +72,5 @@ int main(void)
 			add_history(line);
 		free(line);
 	}
+	return (0);
 }
