@@ -1,34 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniShell.h                                        :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/20 18:58:38 by slayer            #+#    #+#             */
-/*   Updated: 2026/02/16 20:02:27 by rucosta          ###   ########.fr       */
+/*   Created: 2026/02/16 17:40:59 by rucosta           #+#    #+#             */
+/*   Updated: 2026/02/16 17:45:57 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <signal.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <readline/chardefs.h>
-# include "42libft/libft.h"
+#include "miniShell.h"
 
-
-typedef struct s_env
+int	env(char **envp)
 {
-	char	*var;
-	char	*val;
-	int		idx;
-	struct s_env *next;
-}	t_env;
+	int i = 0;
 
-int		echo_cmd_std(char *line);
-int		echo_cmd_redir(char *line);
-void	pwd(char **envp);
-int		env(char **envp);
+	while (envp[i] != NULL)
+	{
+		printf("%s\n", envp[i]);
+		i++;
+	}
+	return 0;
+}

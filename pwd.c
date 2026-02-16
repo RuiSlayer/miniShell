@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 21:28:55 by slayer            #+#    #+#             */
-/*   Updated: 2026/01/29 17:32:40 by slayer           ###   ########.fr       */
+/*   Updated: 2026/02/16 18:59:54 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniShell.h"
 
-void	pwd(void)
+void	pwd(char **envp)
 {
 	char	*value;
 
-	value = getenv("PWD");
+	value = envp[39];
+	value += 4;
 	write(1, value, ft_strlen(value));
 	write(1, "\n", 1);
 }

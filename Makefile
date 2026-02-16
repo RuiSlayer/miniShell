@@ -1,12 +1,12 @@
 NAME = miniShell
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -lreadline -g
-SRCS = main.c echo.c pwd.c
+CFLAGS = -Wall -Wextra -Werror -g
+SRCS = main.c echo.c pwd.c env.c
 OBJS = $(SRCS:.c=.o)
 
 $(NAME): $(OBJS)
 	$(MAKE) -C 42libft
-	$(CC) $(CFLAGS) $(OBJS) -I. 42libft/libft.a -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) -I. 42libft/libft.a -o $(NAME) -lreadline
 
 %.o: %.c 
 	$(CC) $(CFLAGS) -c $< -o $@
