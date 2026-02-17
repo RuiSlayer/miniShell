@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 20:08:45 by rucosta           #+#    #+#             */
-/*   Updated: 2026/02/16 20:38:30 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/02/17 18:02:53 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,38 +25,65 @@ t_env	*ms_lstlast(t_env *lst)
 	return (ls);
 }
 
-int	truncate(t_env *node, char *envp)
+void	find_var_val(t_env *node, char *envp)
 {
-	
+	int	i;
+
+	i = 0;
+	while (envp[i] && envp[i] != '=')
+		i++;
+	node->var = ft_substr(envp, 0, i);
+	if (envp[i] == '=')
+		node->val = ft_strdup(envp + i + 1);
+	else
+		node->val = ft_strdup("");
 }
 
-int	save_node(t_env **env, char *envp, int	first)
+void	save_node(t_env **env, char *envp, int i)
 {
 	t_env	*node;
 	t_env	*temp;
 
 	node = malloc(sizeof(t_env));
-	truncate(node, envp);
-	if(first)
-		(*env) = node;
+	if (!node)
+		return ;
+	node->next = NULL;
+	find_var_val(node, envp);
+	node->idx = i;
+	if (*env == NULL)
+		*env = node;
 	else
 	{
-		temp = s_lstlast(*env);
+		temp = ms_lstlast(*env);
 		temp->next = node;
 	}
 }
 
-int	save_env(t_env **env, char **envp)
+void	save_env(t_env **env, char **envp)
 {
-	int		i;
-	int		size;
+	int	i;
 
+	*env = NULL;
 	i = 0;
-	while(envp[i] != NULL)
+	while (envp[i] != NULL)
 	{
-		if(env == NULL)
-			save_node(env, envp[i], 1);
-		else
-			save_node(env, envp[i], 0);
+		save_node(env, envp[i], i);
+		i++;
 	}
 }
+
+/* int main(int argc, char **argv, char **envp)
+{
+    t_env *env = NULL;
+    t_env *tmp;
+
+    save_env(&env, envp);
+
+    tmp = env;
+    while (tmp && tmp->idx != 5)
+        tmp = tmp->next;
+    if (tmp)
+        printf("%s\n", tmp->val);
+
+    return 0;
+} */
