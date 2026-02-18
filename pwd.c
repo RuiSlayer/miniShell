@@ -6,22 +6,23 @@
 /*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 21:28:55 by slayer            #+#    #+#             */
-/*   Updated: 2026/02/18 17:14:16 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/02/18 17:59:37 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniShell.h"
 
-int	pwd(t_env *env)
+int	pwd(void)
 {
-	t_env *tmp;
+	char	*cwd;
 
-	tmp = env;
-	while (tmp)
+	cwd = getcwd(NULL, 0);
+	if (cwd == NULL)
 	{
-		if (tmp->var && ft_strncmp(tmp->var, "PWD", 3) == 0 && tmp->val)
-			return (printf("%s\n", tmp->val), 0);
-		tmp = tmp->next;
+		printf("pwd: error retrieving current directory: %s\n", strerror(errno));
+		return (1);
 	}
+	printf("%s\n", cwd);
+	free(cwd);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:38 by slayer            #+#    #+#             */
-/*   Updated: 2026/02/18 16:59:01 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/02/18 18:08:00 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <signal.h>
+# include <string.h>
+# include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <readline/chardefs.h>
@@ -30,6 +32,7 @@ typedef struct s_env
 
 int		echo_cmd_std(char *line);
 int		echo_cmd_redir(char *line);
-int		pwd(t_env *env);
+int		pwd(void);
+int		export(char *line, t_env *env);
 int		print_env(t_env *env);
 void	save_env(t_env **env, char **envp);

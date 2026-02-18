@@ -6,7 +6,7 @@
 /*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:13 by slayer            #+#    #+#             */
-/*   Updated: 2026/02/18 16:59:12 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/02/18 18:07:42 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,11 @@ int	cmd_eval(char *line, t_env *env)
 	if (ft_strncmp(p, "echo", 4) == 0)
 		echo_cmd_redir(p);
 	if (ft_strncmp(p, "pwd", 3) == 0)
-		pwd(env);
+		pwd();
 	if (ft_strncmp(p, "env", 3) == 0)
 		print_env(env);
+	if (ft_strncmp(p, "export", 6) == 0)
+		export(line, env);
 	return (0);
 }
 
