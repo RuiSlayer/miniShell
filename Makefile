@@ -1,7 +1,7 @@
 NAME = miniShell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
-SRCS = main.c echo.c pwd.c env.c
+SRCS = main.c echo.c pwd.c env.c save_env.c
 OBJS = $(SRCS:.c=.o)
 
 $(NAME): $(OBJS)

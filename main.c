@@ -6,7 +6,7 @@
 /*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:13 by slayer            #+#    #+#             */
-/*   Updated: 2026/02/16 19:55:14 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/02/18 16:59:12 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void handle_sigquit(int sig)
 	// write(STDOUT_FILENO, "Quit (ignored)\n", 15);
 }
 
-int	cmd_eval(char *line, char **envp)
+int	cmd_eval(char *line, t_env *env)
 {
 	char *p = line;
 
@@ -40,17 +40,20 @@ int	cmd_eval(char *line, char **envp)
 	if (ft_strncmp(p, "echo", 4) == 0)
 		echo_cmd_redir(p);
 	if (ft_strncmp(p, "pwd", 3) == 0)
-		pwd(envp);
+		pwd(env);
 	if (ft_strncmp(p, "env", 3) == 0)
-		env(envp);
+		print_env(env);
 	return (0);
 }
 
 int main(int argc, char **argv, char **envp)
 {
-	char *line;
-	struct sigaction sa;
+	char				*line;
+	struct sigaction	sa;
+	t_env				*env;
 
+	env = NULL;
+	save_env(&env, envp);
 	(void)argc;
 	(void)argv;
 	sa.sa_handler = handle_sigint;
@@ -70,7 +73,7 @@ int main(int argc, char **argv, char **envp)
 			write(STDOUT_FILENO, "\n", 1);
 			return (rl_clear_history(), 0);
 		}
-		if (cmd_eval(line, envp))
+		if (cmd_eval(line, env))
 			return (rl_clear_history(), free(line), 0);
 		if (*line)
 			add_history(line);

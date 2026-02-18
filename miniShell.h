@@ -6,7 +6,7 @@
 /*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:38 by slayer            #+#    #+#             */
-/*   Updated: 2026/02/16 20:02:27 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/02/18 16:59:01 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ typedef struct s_env
 
 int		echo_cmd_std(char *line);
 int		echo_cmd_redir(char *line);
-void	pwd(char **envp);
-int		env(char **envp);
+int		pwd(t_env *env);
+int		print_env(t_env *env);
+void	save_env(t_env **env, char **envp);

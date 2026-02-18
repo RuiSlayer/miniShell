@@ -6,18 +6,22 @@
 /*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 21:28:55 by slayer            #+#    #+#             */
-/*   Updated: 2026/02/16 18:59:54 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/02/18 17:14:16 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniShell.h"
 
-void	pwd(char **envp)
+int	pwd(t_env *env)
 {
-	char	*value;
+	t_env *tmp;
 
-	value = envp[39];
-	value += 4;
-	write(1, value, ft_strlen(value));
-	write(1, "\n", 1);
+	tmp = env;
+	while (tmp)
+	{
+		if (tmp->var && ft_strncmp(tmp->var, "PWD", 3) == 0 && tmp->val)
+			return (printf("%s\n", tmp->val), 0);
+		tmp = tmp->next;
+	}
+	return (0);
 }

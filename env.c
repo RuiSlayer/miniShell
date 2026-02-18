@@ -6,20 +6,26 @@
 /*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 17:40:59 by rucosta           #+#    #+#             */
-/*   Updated: 2026/02/16 17:45:57 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/02/18 16:46:58 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniShell.h"
 
-int	env(char **envp)
+int	print_env(t_env *env)
 {
-	int i = 0;
+	t_env *tmp;
 
-	while (envp[i] != NULL)
+	tmp = env;
+	while (tmp)
 	{
-		printf("%s\n", envp[i]);
-		i++;
+		if (tmp->val && tmp->val[0] != '\0')
+			printf("%s=%s\n", tmp->var, tmp->val);
+		else if (tmp->val && tmp->val[0] == '\0')
+			printf("%s=\n", tmp->var);
+		/* if you want to completely skip variables without value, 
+			remove the `else if` and keep only the first `if` */
+		tmp = tmp->next;
 	}
-	return 0;
+	return (0);
 }
