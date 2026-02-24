@@ -37,27 +37,20 @@ typedef struct s_token
 	struct s_token		*prev;
 }	t_token;
 
-int ft_append_separator(t_token_type type, char **line_ptr,
+int     ft_append_separator(t_token_type type, char **line_ptr,
 t_token **token_list);
-int ft_append_identifier(char **line_ptr, t_token **token_list);
-int ft_handle_separator(char **line_ptr, t_token **token_list);
+int     ft_append_identifier(char **line_ptr, t_token **token_list);
+int     ft_handle_separator(char **line_ptr, t_token **token_list);
 t_token	*ft_tokenization_handler(char *line);
 t_token *ft_new_token(char *value, t_token_type type);
 void    ft_token_list_add_back(t_token **lst, t_token *new_token);
 void    ft_clear_token_list(t_token **lst);
 const char *token_type_to_str(t_token_type type);
-void print_tokens(t_token *tokens);
-int	ft_is_quote(char c);
-int	ft_is_separator(char *s);
+void    print_tokens(t_token *tokens);
+int	    ft_is_quote(char c);
+int	    ft_is_separator(char *s);
 void	ft_skip_spaces(char **line);
 bool	ft_skip_quotes(char *line, size_t *i);
-int ft_isspace(int c);
-char *ft_strchr(const char *s, int c);
-int ft_strncmp(const char *s1, const char *s2, size_t n);
-char *ft_substr(char const *s, unsigned int start, size_t len);
-char *ft_strdup(const char *s);
-size_t ft_strlen(const char *s);
-void *ft_calloc(size_t count, size_t size);
-void ft_bzero(void *s, size_t n);
+int     ft_isspace(int c);
 
 #endif
