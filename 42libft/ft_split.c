@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruislayer <ruislayer@student.42.fr>        +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 17:26:57 by rucosta           #+#    #+#             */
-/*   Updated: 2025/04/30 17:56:29 by ruislayer        ###   ########.fr       */
+/*   Updated: 2026/02/17 16:34:35 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
 

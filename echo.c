@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 15:36:17 by slayer            #+#    #+#             */
-/*   Updated: 2026/01/26 18:42:32 by slayer           ###   ########.fr       */
+/*   Updated: 2026/02/24 23:03:14 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniShell.h"
+#include "miniShell_exec.h"
 
 int	ft_isspace(int c)
 {

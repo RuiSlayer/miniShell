@@ -3,20 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 21:28:55 by slayer            #+#    #+#             */
-/*   Updated: 2026/01/29 17:32:40 by slayer           ###   ########.fr       */
+/*   Updated: 2026/02/24 23:02:56 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniShell.h"
+#include "miniShell_exec.h"
 
-void	pwd(void)
+int	pwd(void)
 {
-	char	*value;
+	char	*cwd;
 
-	value = getenv("PWD");
-	write(1, value, ft_strlen(value));
-	write(1, "\n", 1);
+	cwd = getcwd(NULL, 0);
+	if (cwd == NULL)
+	{
+		printf("pwd: error retrieving current directory: %s\n", strerror(errno));
+		return (1);
+	}
+	printf("%s\n", cwd);
+	free(cwd);
+	return (0);
 }
