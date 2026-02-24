@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   save_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 20:08:45 by rucosta           #+#    #+#             */
-/*   Updated: 2026/02/17 18:02:53 by slayer           ###   ########.fr       */
+/*   Updated: 2026/02/24 23:02:52 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniShell.h"
+#include "miniShell_exec.h"
 
 t_env	*ms_lstlast(t_env *lst)
 {

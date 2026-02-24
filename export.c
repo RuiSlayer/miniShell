@@ -6,11 +6,11 @@
 /*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 17:46:41 by slayer            #+#    #+#             */
-/*   Updated: 2026/02/18 20:08:33 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/02/24 23:02:38 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniShell.h"
+#include "miniShell_exec.h"
 
 char	**get_val(char *line)
 {

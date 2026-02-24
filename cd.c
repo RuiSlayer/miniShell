@@ -3,53 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 17:55:19 by slayer            #+#    #+#             */
-/*   Updated: 2026/01/29 18:31:57 by slayer           ###   ########.fr       */
+/*   Updated: 2026/02/24 23:02:48 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "42libft/libft.h"
-#include "miniShell.h"
+#include "miniShell_exec.h"
 
-static int	go_back_one_dir(char *line)
+int	cd(char *line, t_env *env)
 {
-	char	*value;
-	int		i;
+	char	*home;
 
-	value = getenv("PWD");
-	i = ft_strlen(value);
-	while(i > 0 && value[i] != '/')
-		i--;
-	value[i] = '\0';
-	chdir(value);
-	return (0);
-}
-
-int	cd(char *line)
-{
-	if (line == NULL || ft_strncmp(line, "", ft_strlen(line)) == 0)
+	if (line == NULL || line[0] == '\0')
 	{
-		const char *home = getenv("HOME");
+		home = getenv("HOME");
 		if (!home)
-		{
-			fprintf(stderr, "cd: HOME not set\n");
-			return -1;
-		}
+			return (fprintf(stderr, "cd: HOME not set\n"), -1);
 		if (chdir(home) != 0)
-		{
-			perror("cd");
-			return (-1);
-		}
+			return (perror("cd"), -1);
 		return (0);
 	}
-	if(ft_strncmp(line, "..", ft_strlen(line)) == 0)
-		return (go_back_one_dir(line));
-	if (chdir(line) != 0)
+	if (line[0] == '.' && line[1] == '.' && line[2] == '\0')
 	{
-		perror("cd");
-		return (-1);
+		if (chdir("..") != 0)
+			return (perror("cd"), -1);
+		return (0);
 	}
+	if (chdir(line) != 0)
+		return (perror("cd"), -1);
 	return (0);
+	/* need updating PWD and OLDPWD in your t_env after successful chdir calls */
 }

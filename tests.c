@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tests.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 18:32:25 by slayer            #+#    #+#             */
-/*   Updated: 2026/01/29 18:36:32 by slayer           ###   ########.fr       */
+/*   Updated: 2026/02/24 23:03:26 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniShell.h"
+#include "miniShell_exec.h"
 
 static int	go_back_one_dir(void)
 {

@@ -6,11 +6,11 @@
 /*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 17:40:59 by rucosta           #+#    #+#             */
-/*   Updated: 2026/02/18 16:46:58 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/02/24 23:02:59 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniShell.h"
+#include "miniShell_exec.h"
 
 int	print_env(t_env *env)
 {
