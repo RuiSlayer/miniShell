@@ -6,7 +6,7 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 23:10:22 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/02/11 11:24:42 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/02/24 22:18:46 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdio.h>//printf
 # include <stdlib.h>
 # include <stddef.h>
-
+# include "42libft/libft.h"
 typedef enum e_token_type
 {
     T_IDENTIFIER,
