@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:13 by slayer            #+#    #+#             */
-/*   Updated: 2026/02/24 23:03:08 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/02/25 16:58:09 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ static void handle_sigquit(int sig)
 int	cmd_eval(char *line, t_env *env)
 {
 	char *p = line;
+	char *tmp[] = {"one=1", "two=2", NULL};
+	char **args = tmp;
 
 	while (*p == ' ' || *p == '\t')
 		p++;
@@ -44,7 +46,11 @@ int	cmd_eval(char *line, t_env *env)
 	if (ft_strncmp(p, "env", 3) == 0)
 		print_env(env);
 	if (ft_strncmp(p, "export", 6) == 0)
-		export(line, env);
+		export(args, env);
+	if (ft_strncmp(p, "cd", 2) == 0)
+		cd("..", env);
+	if (ft_strncmp(p, "unset", 5) == 0)
+		unset(args, env);
 	return (0);
 }
 
