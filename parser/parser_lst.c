@@ -6,7 +6,7 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 00:35:32 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/02/25 00:53:56 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/02/25 01:51:44 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,16 @@ static int  ft_add_redir(t_cmd *cmd, t_redir_type type, char *file)
     new = ft_calloc(1, sizeof(t_redir));
     if (!new)
         return (0);
-    
+    new->type = type;
+    new->file = ft_strdup(file);
+    if (!cmd->redirs)
+        cmd->redirs = new;
+    else
+    {
+        curr = cmd->redirs;
+        while (curr->next)
+            curr = curr->next;
+        curr->next = new;
+    }
+    return(1);
 }
