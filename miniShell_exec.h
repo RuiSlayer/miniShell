@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniShell.h                                        :+:      :+:    :+:   */
+/*   miniShell_exec.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:38 by slayer            #+#    #+#             */
-/*   Updated: 2026/02/18 18:08:00 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/02/25 01:41:53 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,3 +36,4 @@ int		pwd(void);
 int		export(char *line, t_env *env);
 int		print_env(t_env *env);
 void	save_env(t_env **env, char **envp);
+void	add_var(char *line, t_env *env);
