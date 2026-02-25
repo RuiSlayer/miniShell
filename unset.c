@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/29 17:46:41 by slayer            #+#    #+#             */
-/*   Updated: 2026/02/25 16:13:31 by slayer           ###   ########.fr       */
+/*   Created: 2026/02/25 16:30:06 by slayer            #+#    #+#             */
+/*   Updated: 2026/02/25 16:41:26 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniShell_exec.h"
 
-int	export(char **args, t_env *env)
+int	unset(char **args, t_env *env)
 {
-	int	i;
+		int	i;
 
 	i = 0;
 	while (args[i]) {
-		add_var(args[i], env);
+		remove_var(args[i], env);
 		i++;
 	}
 	return (0);

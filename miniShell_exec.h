@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniShell_exec.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:38 by slayer            #+#    #+#             */
-/*   Updated: 2026/02/25 01:41:53 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/02/25 16:42:05 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,11 @@ typedef struct s_env
 int		echo_cmd_std(char *line);
 int		echo_cmd_redir(char *line);
 int		pwd(void);
-int		export(char *line, t_env *env);
+int		export(char **args, t_env *env);
+int		unset(char **args, t_env *env);
 int		print_env(t_env *env);
 void	save_env(t_env **env, char **envp);
 void	add_var(char *line, t_env *env);
+int		cd(char *line, t_env *env);
+void	add_var(char *line, t_env *env);
+void	remove_var(char *arg, t_env *env);

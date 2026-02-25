@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 17:55:19 by slayer            #+#    #+#             */
-/*   Updated: 2026/02/25 02:06:09 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/02/25 16:01:59 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@ int	cd(char *line, t_env *env)
 
 	old_pwd = getcwd(NULL, 0);
 	if (old_pwd == NULL)
-		return (printf("pwd: error retrieving current directory: %s\n", strerror(errno)), 1);
+		return (printf("pwd: error retrieving current directory: \n"), 1);
 	if (line == NULL || line[0] == '\0')
 	{
 		home = getenv("HOME");
 		if (!home)
-			return (fprintf(stderr, "cd: HOME not set\n"), -1);
+			return (printf("cd: HOME not set\n"), 1);
 		if (chdir(home) != 0)
 			return (perror("cd"),free(old_pwd), 1);
 		return (update_pwd(old_pwd, env), free(old_pwd), 0);
