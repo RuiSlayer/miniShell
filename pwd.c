@@ -6,7 +6,7 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 21:28:55 by slayer            #+#    #+#             */
-/*   Updated: 2026/02/25 16:02:40 by slayer           ###   ########.fr       */
+/*   Updated: 2026/02/26 17:46:53 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	pwd(void)
 	cwd = getcwd(NULL, 0);
 	if (cwd == NULL)
 	{
-		printf("pwd: error retrieving current directory:\n");
+		perror("pwd\n");
 		return (1);
 	}
 	printf("%s\n", cwd);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 18:48:36 by rucosta           #+#    #+#             */
-/*   Updated: 2025/04/22 01:03:43 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/02/26 18:27:10 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,3 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size)
 	dst[dst_len + j] = '\0';
 	return (dst_len + src_len);
 }
-
-/* int main()
-{
-	char dst[20] = "Hello, ";
-    const char *src = "World!";
-
-    size_t result = ft_strlcat(dst, src, sizeof(dst));
-
-    printf("Concatenated string: %s\n", dst);
-    printf("Length of the string it tried to create: %zu\n", result);
-
-    return 0;
-} */
