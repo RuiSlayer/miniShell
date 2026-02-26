@@ -6,11 +6,10 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 00:21:58 by rucosta           #+#    #+#             */
-/*   Updated: 2026/02/25 16:46:34 by slayer           ###   ########.fr       */
+/*   Updated: 2026/02/26 18:06:46 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "42libft/libft.h"
 #include "miniShell_exec.h"
 
 void	free_var_val(char **var_val)
@@ -47,7 +46,7 @@ void	add_var(char *arg, t_env *env)
 	var_val = ft_split(arg, '=');
 	while (tmp)
 	{
-		 if (ft_strncmp(tmp->var, var_val[0], ft_strlen(var_val[0])) == 0)
+		 if (ft_strcmp(tmp->var, var_val[0]) == 0)
 		 {
 			free(tmp->val);
 			tmp->val = ft_strdup(var_val[1]);
@@ -69,7 +68,7 @@ void	remove_var(char *arg, t_env *env)
 	prev = NULL;
 	while (tmp)
 	{
-		if (ft_strncmp(tmp->var, arg, ft_strlen(arg)) == 0)
+		if (ft_strcmp(tmp->var, arg) == 0)
 		{
 			if (prev == NULL)
 				env = tmp->next;

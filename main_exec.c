@@ -6,7 +6,7 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:13 by slayer            #+#    #+#             */
-/*   Updated: 2026/02/25 16:58:09 by slayer           ###   ########.fr       */
+/*   Updated: 2026/02/26 18:35:15 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,24 +32,24 @@ static void handle_sigquit(int sig)
 int	cmd_eval(char *line, t_env *env)
 {
 	char *p = line;
-	char *tmp[] = {"one=1", "two=2", NULL};
+	char *tmp[] = {"COLORFGBG", "two=2", NULL};
 	char **args = tmp;
 
 	while (*p == ' ' || *p == '\t')
 		p++;
-	if (ft_strncmp(p, "exit", 4) == 0)
+	if (ft_strcmp(p, "exit") == 0)
 		return (1);
-	if (ft_strncmp(p, "echo", 4) == 0)
+	if (ft_strcmp(p, "echo") == 0)
 		echo_cmd_redir(p);
-	if (ft_strncmp(p, "pwd", 3) == 0)
+	if (ft_strcmp(p, "pwd") == 0)
 		pwd();
-	if (ft_strncmp(p, "env", 3) == 0)
+	if (ft_strcmp(p, "env") == 0)
 		print_env(env);
-	if (ft_strncmp(p, "export", 6) == 0)
+	if (ft_strcmp(p, "export") == 0)
 		export(args, env);
-	if (ft_strncmp(p, "cd", 2) == 0)
+	if (ft_strcmp(p, "cd") == 0)
 		cd("..", env);
-	if (ft_strncmp(p, "unset", 5) == 0)
+	if (ft_strcmp(p, "unset") == 0)
 		unset(args, env);
 	return (0);
 }

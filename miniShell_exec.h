@@ -6,10 +6,12 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:38 by slayer            #+#    #+#             */
-/*   Updated: 2026/02/25 16:42:05 by slayer           ###   ########.fr       */
+/*   Updated: 2026/02/26 17:59:05 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef MINISELL_EXEC
+# define MINISELL_EXEC
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -41,3 +43,7 @@ void	add_var(char *line, t_env *env);
 int		cd(char *line, t_env *env);
 void	add_var(char *line, t_env *env);
 void	remove_var(char *arg, t_env *env);
+
+
+
+#endif
