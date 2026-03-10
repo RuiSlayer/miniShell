@@ -6,12 +6,24 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 21:38:51 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/02/25 00:41:34 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/03/10 12:24:42 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
+# include <stdbool.h>//booleans
+# include <stdio.h>//printf
+# include <stdlib.h>
+# include <stddef.h>
+# include "42libft/libft.h"
+# include "tokens/tokens.h"
+
+//Error messages
+# define ERR_SYNTAX_PIPE "syntax error near unexpected token `|'"
+# define ERR_SYNTAX_REDIR "syntax error near unexpected token `newline'"
+# define ERR_SYNTAX_TOKEN "syntax error near unexpected token"
+# define ERR_MALLOC "minishell: memory allocation failed"
 
 typedef enum e_redir_type
 {

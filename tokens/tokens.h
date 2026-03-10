@@ -6,7 +6,7 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 23:10:22 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/02/24 22:18:46 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/03/10 11:54:13 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <stddef.h>
 # include "42libft/libft.h"
+
 typedef enum e_token_type
 {
     T_IDENTIFIER,
@@ -27,7 +28,6 @@ typedef enum e_token_type
     T_DGREAT,
     T_EOF
 } t_token_type;
-
 
 typedef struct s_token
 {
