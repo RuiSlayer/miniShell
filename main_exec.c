@@ -6,34 +6,19 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:13 by slayer            #+#    #+#             */
-/*   Updated: 2026/02/26 18:35:15 by slayer           ###   ########.fr       */
+/*   Updated: 2026/03/11 15:26:17 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniShell_exec.h"
 
-static void	handle_sigint(int sig)
-{
-	(void)sig;
-	write(STDOUT_FILENO, "\n", 1);  // async-signal-safe newline
-
-	rl_on_new_line();               // move to a new, empty line
-	rl_replace_line("", 0);         // clear current buffer
-	rl_redisplay();                 // show prompt again
-}
-static void handle_sigquit(int sig)
-{
-	(void)sig;
-	// At the interactive prompt, usually do nothing
-	// You could also print a newline if you want:
-	// write(STDOUT_FILENO, "Quit (ignored)\n", 15);
-}
-
-int	cmd_eval(char *line, t_env *env)
+int	cmd_eval(char *line, t_env **env)
 {
 	char *p = line;
-	char *tmp[] = {"COLORFGBG", "two=2", NULL};
-	char **args = tmp;
+	char *tmp_unset[] = {"COLORFGBG", "two=2", NULL};
+	char *tmp_export[] = {"two=2", NULL};
+	char **args_unset = tmp_unset;
+	char **args_export = tmp_export;
 
 	while (*p == ' ' || *p == '\t')
 		p++;
@@ -44,45 +29,36 @@ int	cmd_eval(char *line, t_env *env)
 	if (ft_strcmp(p, "pwd") == 0)
 		pwd();
 	if (ft_strcmp(p, "env") == 0)
-		print_env(env);
+		print_env(*env);
 	if (ft_strcmp(p, "export") == 0)
-		export(args, env);
+		built_export(args_export, env);
 	if (ft_strcmp(p, "cd") == 0)
 		cd("..", env);
 	if (ft_strcmp(p, "unset") == 0)
-		unset(args, env);
+		unset(args_unset, env);
 	return (0);
 }
 
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
-	char				*line;
-	struct sigaction	sa;
-	t_env				*env;
+	char	*line;
+	t_env	*env;
 
 	env = NULL;
 	save_env(&env, envp);
 	(void)argc;
 	(void)argv;
-	sa.sa_handler = handle_sigint;
-	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = SA_RESTART;
-	sigaction(SIGINT, &sa, NULL);
-
-	// now use handle_sigquit so it is not unused
-	sa.sa_handler = handle_sigquit;
-	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = 0;
-	sigaction(SIGQUIT, &sa, NULL);
-
-	while (1) {
+	setup_signals();
+	while (1)
+	{
 		line = readline("prompt> ");
-		if (line == NULL) {
+		if (line == NULL)
+		{
 			write(STDOUT_FILENO, "\n", 1);
-			return (rl_clear_history(), 0);
+			return (rl_clear_history(), free_env(env), 0);
 		}
-		if (cmd_eval(line, env))
-			return (rl_clear_history(), free(line), 0);
+		if (cmd_eval(line, &env))
+			return (rl_clear_history(), free_env(env), free(line), 0);
 		if (*line)
 			add_history(line);
 		free(line);

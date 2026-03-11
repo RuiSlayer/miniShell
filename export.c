@@ -6,7 +6,7 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 17:46:41 by slayer            #+#    #+#             */
-/*   Updated: 2026/02/26 17:25:40 by slayer           ###   ########.fr       */
+/*   Updated: 2026/03/11 14:31:57 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	parse_var_name(char *arg)
 	return (0);
 }
 
-int	export(char **args, t_env *env)
+int	built_export(char **args, t_env **env)
 {
 	int	i;
 	int	status;

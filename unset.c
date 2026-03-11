@@ -6,18 +6,19 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 16:30:06 by slayer            #+#    #+#             */
-/*   Updated: 2026/02/26 17:50:22 by slayer           ###   ########.fr       */
+/*   Updated: 2026/03/11 15:17:32 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniShell_exec.h"
 
-int	unset(char **args, t_env *env)
+int	unset(char **args, t_env **env)
 {
-		int	i;
+	int	i;
 
 	i = 0;
-	while (args[i]) {
+	while (args[i])
+	{
 		remove_var(args[i], env);
 		i++;
 	}
