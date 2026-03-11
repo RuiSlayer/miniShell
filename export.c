@@ -3,14 +3,96 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 17:46:41 by slayer            #+#    #+#             */
-/*   Updated: 2026/03/11 14:31:57 by slayer           ###   ########.fr       */
+/*   Updated: 2026/03/11 23:07:40 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniShell_exec.h"
+
+#include <stdlib.h>
+
+t_env	**env_copy(int n, t_env *tmp)
+{
+	int		i;
+	t_env	**arr;
+
+	arr = malloc(sizeof(t_env *) * n);
+	if (!arr)
+		return (NULL);
+	i = 0;
+	while (tmp)
+	{
+		arr[i++] = tmp;
+		tmp = tmp->next;
+	}
+	return (arr);
+}
+
+static int	env_size(t_env *env)
+{
+	int	n;
+
+	n = 0;
+	while (env)
+	{
+		n++;
+		env = env->next;
+	}
+	return (n);
+}
+
+static void	sort_env_array(t_env **arr, int n)
+{
+	int		i;
+	int		j;
+	t_env	*tmp;
+
+	i = 0;
+	while (i < n - 1)
+	{
+		j = 0;
+		while (j < n - 1 - i)
+		{
+			if (ft_strcmp(arr[j]->var, arr[j + 1]->var) > 0)
+			{
+				tmp = arr[j];
+				arr[j] = arr[j + 1];
+				arr[j + 1] = tmp;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+int	print_export(t_env **env)
+{
+	t_env	*tmp;
+	t_env	**arr;
+	int		n;
+	int		i;
+
+	n = env_size(*env);
+	tmp = *env;
+	arr = env_copy(n, tmp);
+	if (!arr)
+		return (1);
+	sort_env_array(arr, n);
+	i = 0;
+	while (i < n)
+	{
+		if (arr[i]->val)
+			printf("declare -x %s=\"%s\"\n", arr[i]->var, arr[i]->val);
+		else
+			printf("declare -x %s\n", arr[i]->var);
+		i++;
+	}
+	free(arr);
+	return (0);
+}
 
 int	parse_var_name(char *arg)
 {
@@ -35,7 +117,8 @@ int	built_export(char **args, t_env **env)
 {
 	int	i;
 	int	status;
-
+	if(!args)
+		return (print_export(env));
 	status = 0;
 	i = 0;
 	while (args[i])

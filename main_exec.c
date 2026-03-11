@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:13 by slayer            #+#    #+#             */
-/*   Updated: 2026/03/11 15:26:17 by slayer           ###   ########.fr       */
+/*   Updated: 2026/03/11 22:51:04 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ int	cmd_eval(char *line, t_env **env)
 {
 	char *p = line;
 	char *tmp_unset[] = {"COLORFGBG", "two=2", NULL};
-	char *tmp_export[] = {"two=2", NULL};
+	/* char *tmp_export[] = {"two=2", NULL}; */
 	char **args_unset = tmp_unset;
-	char **args_export = tmp_export;
+	/* char **args_export = tmp_export; */
 
 	while (*p == ' ' || *p == '\t')
 		p++;
@@ -31,7 +31,7 @@ int	cmd_eval(char *line, t_env **env)
 	if (ft_strcmp(p, "env") == 0)
 		print_env(*env);
 	if (ft_strcmp(p, "export") == 0)
-		built_export(args_export, env);
+		built_export(NULL, env);
 	if (ft_strcmp(p, "cd") == 0)
 		cd("..", env);
 	if (ft_strcmp(p, "unset") == 0)
