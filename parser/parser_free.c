@@ -6,7 +6,7 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 00:09:09 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/02/25 00:35:48 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/03/10 11:48:59 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static void	ft_free_redir_list(t_redir *redir)
 		redir = next;
 	}
 }
+
 void	ft_free_cmd_list(t_cmd **lst)
 {
 	t_cmd	*next;
@@ -33,7 +34,7 @@ void	ft_free_cmd_list(t_cmd **lst)
 	curr = *lst;
 	while(curr)
 	{
-		next = currt->next;
+		next = curr->next;
 		if (curr->args)
 		{
 			i = 0;
@@ -42,7 +43,6 @@ void	ft_free_cmd_list(t_cmd **lst)
 			free(curr->args);
 		}
 		ft_free_redir_list(curr->redirs);
-		free(curr->flag);
 		free(curr);
 		curr = next;
 	}
