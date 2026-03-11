@@ -6,13 +6,13 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 17:55:19 by slayer            #+#    #+#             */
-/*   Updated: 2026/02/26 17:48:11 by slayer           ###   ########.fr       */
+/*   Updated: 2026/03/11 14:38:03 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniShell_exec.h"
 
-int	update_pwd(char *old_pwd, t_env *env)
+int	update_pwd(char *old_pwd, t_env **env)
 {
 	char	*new_pwd;
 	char	*tmp;
@@ -37,7 +37,7 @@ int	update_pwd(char *old_pwd, t_env *env)
 	return (0);
 }
 
-int	cd(char *line, t_env *env)
+int	cd(char *line, t_env **env)
 {
 	char	*home;
 	char	*old_pwd;
