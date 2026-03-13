@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 23:10:22 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/03/10 11:54:13 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/03/13 17:45:29 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdio.h>//printf
 # include <stdlib.h>
 # include <stddef.h>
-# include "42libft/libft.h"
+# include "../42libft/libft.h"
 
 typedef enum e_token_type
 {

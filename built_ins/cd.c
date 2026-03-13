@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 17:55:19 by slayer            #+#    #+#             */
-/*   Updated: 2026/03/11 14:38:03 by slayer           ###   ########.fr       */
+/*   Updated: 2026/03/12 00:03:12 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,22 +39,14 @@ int	update_pwd(char *old_pwd, t_env **env)
 
 int	cd(char *line, t_env **env)
 {
-	char	*home;
 	char	*old_pwd;
 
 	old_pwd = getcwd(NULL, 0);
 	if (!old_pwd)
 		return (perror("cd: error retrieving current directory\n"), 1);
-	if (line == NULL || line[0] == '\0')
-	{
-		home = getenv("HOME");
-		if (!home)
-			return (printf("cd: HOME not set\n"), free(old_pwd), 1);
-		if (chdir(home) != 0)
-			return (perror("cd\n"), free(old_pwd), 1);
-		return (update_pwd(old_pwd, env));
-	}
+	if (!line || line[0] == '\0')
+		return (free(old_pwd), printf("cd: missing operand\n"), 1);
 	if (chdir(line) != 0)
-		return (perror("cd\n"), free(old_pwd), 1);
+		return (perror("cd"), free(old_pwd), 1);
 	return (update_pwd(old_pwd, env));
 }

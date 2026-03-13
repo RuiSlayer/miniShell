@@ -1,5 +1,4 @@
-#include "parser/parser.h"
-#include "tokens/tokens.h"
+#include "parser.h"
 #include <readline/readline.h>
 #include <readline/history.h>
 
