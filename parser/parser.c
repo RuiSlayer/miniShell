@@ -6,7 +6,7 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 11:51:21 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/03/10 12:19:43 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/03/12 16:14:55 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_cmd	*ft_parse_pipeline(t_token **tok)
 	while ((*tok)->type == T_PIPE)
 	{
 		*tok = (*tok)->next;
-		if ((*tok)->type = T_EOF || (*tok)->type == T_PIPE)
+		if ((*tok)->type == T_EOF || (*tok)->type == T_PIPE)
 			return (ft_free_cmd_list(&head), NULL);
 		new = ft_parse_command(tok);
 		if (!new)
@@ -87,4 +87,30 @@ t_cmd	*ft_parse(t_token *tokens)
 	cmds = ft_parse_pipeline(&tokens);
 	return (cmds);
 }
+//From this line down, functions meant for testing
+/* void	print_cmd_list(t_cmd *cmds)
+{
+	t_cmd   *cmd;
+    t_redir *redir;
+    int     i;
+    int     cmd_num;
+
+    cmd = cmds;
+    cmd_num = 1;
+    while (cmd)
+    {
+        printf("--- CMD %d ---\n", cmd_num++);
+        i = 0;
+        while (cmd->args && cmd->args[i])
+            printf("  arg[%d]: %s\n", i, cmd->args[i++]);
+        redir = cmd->redirs;
+        while (redir)
+        {
+            printf("  redir: %d -> %s\n", redir->type, redir->file);
+            redir = redir->next;
+        }
+        cmd = cmd->next;
+    }
+} */
+
 

@@ -6,13 +6,13 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 00:09:09 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/03/10 11:48:59 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/03/12 16:12:39 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-static void	ft_free_redir_list(t_redir *redir)
+void	ft_free_redir_list(t_redir *redir)
 {
 	t_redir	*next;
 
