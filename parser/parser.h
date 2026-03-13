@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 21:38:51 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/03/12 16:05:03 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/03/13 17:45:59 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
-# include "42libft/libft.h"
-# include "tokens/tokens.h"
+# include "../tokens/tokens.h"
 
 typedef enum e_redir_type
 {

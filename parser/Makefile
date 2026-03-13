@@ -1,7 +1,7 @@
-NAME = tokens.a
+NAME = parser.a
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
-SRCS = tokens_handler.c tokens_appenders.c tokens_lst.c tokens_utils.c
+SRCS = parser.c  parser_expand.c  parser_free.c parser_lst.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
