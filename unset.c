@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/07 18:48:14 by rucosta           #+#    #+#             */
-/*   Updated: 2026/02/26 18:28:08 by slayer           ###   ########.fr       */
+/*   Created: 2026/02/25 16:30:06 by slayer            #+#    #+#             */
+/*   Updated: 2026/03/11 15:17:32 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "miniShell_exec.h"
 
-void	*ft_memset(void *s, int c, size_t n)
+int	unset(char **args, t_env **env)
 {
-	unsigned char	*p;
-	unsigned char	ch;
+	int	i;
 
-	p = (unsigned char *)s;
-	ch = (unsigned char)c;
-	while (n != 0)
+	i = 0;
+	while (args[i])
 	{
-		*p++ = ch;
-		n--;
+		remove_var(args[i], env);
+		i++;
 	}
-	return (s);
+	return (0);
 }

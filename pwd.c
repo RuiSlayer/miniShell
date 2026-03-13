@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 21:28:55 by slayer            #+#    #+#             */
-/*   Updated: 2026/02/24 23:02:56 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/02/26 17:46:53 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	pwd(void)
 	cwd = getcwd(NULL, 0);
 	if (cwd == NULL)
 	{
-		printf("pwd: error retrieving current directory: %s\n", strerror(errno));
+		perror("pwd\n");
 		return (1);
 	}
 	printf("%s\n", cwd);

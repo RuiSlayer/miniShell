@@ -6,12 +6,11 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 17:26:57 by rucosta           #+#    #+#             */
-/*   Updated: 2026/02/17 16:34:35 by slayer           ###   ########.fr       */
+/*   Updated: 2026/02/26 18:27:50 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
+#include "libft.h"
 
 static int	count_words(const char *s, char c)
 {
@@ -107,39 +106,3 @@ char	**ft_split(char const *s, char c)
 	ptr[i] = NULL;
 	return (ptr);
 }
-
-/* void print_ft_split(char **split)
-{
-	int i = 0;
-	while (split[i])
-	{
-		printf("ft_split[%d]: \"%s\"\n", i, split[i]);
-		i++;
-	}
-} */
-
-/* // Utility to print strtok result
-void print_strtok(const char *s, char delimiter)
-{
-	char	*dup = strdup(s);
-	char	*token = strtok(dup, (char[]){delimiter, '\0'});
-	int		i = 0;
-
-	while (token)
-	{
-		printf("strtok[%d]:   \"%s\"\n", i++, token);
-		token = strtok(NULL, (char[]){delimiter, '\0'});
-	}
-	free(dup);
-} */
-
-/* 
-int main()
-{
-	char	*str = "this, is , a , tetst,";
-	char	**res = ft_split(str, ',');
-	print_ft_split(res);
-	for (int i = 0; res[i]; i++)
-		free(res[i]);
-	free(res);
-} */

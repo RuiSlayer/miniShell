@@ -6,83 +6,132 @@
 /*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 17:46:41 by slayer            #+#    #+#             */
-/*   Updated: 2026/02/24 23:02:38 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/03/11 23:07:40 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniShell_exec.h"
 
-char	**get_val(char *line)
+#include <stdlib.h>
+
+t_env	**env_copy(int n, t_env *tmp)
 {
-	int	i;
-	int	beguin;
-	int	j;
-	char	**vals;
+	int		i;
+	t_env	**arr;
 
-	i = 5;
-	while(line[i] != '=')
-		i++;
-	beguin = i + 2;
-	while (line[i] != '\0')
-	{
-		if (line[i] == ' ')
-		{
-			vals[j] = ft_substr(line, beguin, i - 1);
-			j++;
-			while((line[i] != '\0') && (line[i] != '='))
-				i++;
-			beguin = i;
-		}
-		i++;
-	}
-	return (vals);
-}
-
-char	**get_var(char *line)
-{
-	int	i;
-	int	beguin;
-	int	j;
-	char	**vars;
-
-	i = 5;
-	while(line[i] == ' ')
-		i++;
-	beguin = i;
-	while (line[i] != '\0')
-	{
-		if (line[i] == '=')
-		{
-			vars[j] = ft_substr(line, beguin, i - 1);
-			j++;
-			while((line[i] != '\0') && (line[i] != ' '))
-				i++;
-			beguin = i;
-		}
-		i++;
-	}
-	return (vars);
-}
-
-int	export(char *line, t_env *env)
-{
-	t_env *tmp;
-	int	i;
-	char	**vars;
-	char	**vals;
-
-	vars = get_var(line);
-	vals = get_vals(line);
-	tmp = env;
+	arr = malloc(sizeof(t_env *) * n);
+	if (!arr)
+		return (NULL);
 	i = 0;
 	while (tmp)
 	{
-		if (ft_strncmp(tmp->var, vars[i], ft_strlen(vars[i])) == 0)
-		{
-			tmp->val = vals[i];
-			i++;
-		}
+		arr[i++] = tmp;
 		tmp = tmp->next;
 	}
+	return (arr);
+}
+
+static int	env_size(t_env *env)
+{
+	int	n;
+
+	n = 0;
+	while (env)
+	{
+		n++;
+		env = env->next;
+	}
+	return (n);
+}
+
+static void	sort_env_array(t_env **arr, int n)
+{
+	int		i;
+	int		j;
+	t_env	*tmp;
+
+	i = 0;
+	while (i < n - 1)
+	{
+		j = 0;
+		while (j < n - 1 - i)
+		{
+			if (ft_strcmp(arr[j]->var, arr[j + 1]->var) > 0)
+			{
+				tmp = arr[j];
+				arr[j] = arr[j + 1];
+				arr[j + 1] = tmp;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+int	print_export(t_env **env)
+{
+	t_env	*tmp;
+	t_env	**arr;
+	int		n;
+	int		i;
+
+	n = env_size(*env);
+	tmp = *env;
+	arr = env_copy(n, tmp);
+	if (!arr)
+		return (1);
+	sort_env_array(arr, n);
+	i = 0;
+	while (i < n)
+	{
+		if (arr[i]->val)
+			printf("declare -x %s=\"%s\"\n", arr[i]->var, arr[i]->val);
+		else
+			printf("declare -x %s\n", arr[i]->var);
+		i++;
+	}
+	free(arr);
 	return (0);
+}
+
+int	parse_var_name(char *arg)
+{
+	int	i;
+
+	if (!arg || !arg[0])
+		return (1);
+	i = 0;
+	if (!(ft_isalpha(arg[i])) && (arg[i] != '_'))
+		return (1);
+	i++;
+	while (arg[i] && arg[i] != '=')
+	{
+		if (!(ft_isalnum(arg[i])) && (arg[i] != '_'))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int	built_export(char **args, t_env **env)
+{
+	int	i;
+	int	status;
+	if(!args)
+		return (print_export(env));
+	status = 0;
+	i = 0;
+	while (args[i])
+	{
+		if (parse_var_name(args[i]))
+		{
+			printf("export: %s: not a valid identifier\n", args[i]);
+			i++;
+			status = 1;
+			continue ;
+		}
+		add_var(args[i], env);
+		i++;
+	}
+	return (status);
 }

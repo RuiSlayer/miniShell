@@ -6,11 +6,11 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 18:48:27 by rucosta           #+#    #+#             */
-/*   Updated: 2026/02/17 16:39:33 by slayer           ###   ########.fr       */
+/*   Updated: 2026/02/26 18:27:30 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "libft.h"
 
 char	*ft_strchr(const char *s, int c)
 {
