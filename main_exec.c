@@ -6,86 +6,70 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:13 by slayer            #+#    #+#             */
-/*   Updated: 2026/02/26 18:35:15 by slayer           ###   ########.fr       */
+/*   Updated: 2026/03/14 17:27:15 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniShell_exec.h"
+#include "incs/miniShell_exec.h"
 
-static void	handle_sigint(int sig)
+int	cmd_eval(t_cmd *cmds, t_env **env)
 {
-	(void)sig;
-	write(STDOUT_FILENO, "\n", 1);  // async-signal-safe newline
 
-	rl_on_new_line();               // move to a new, empty line
-	rl_replace_line("", 0);         // clear current buffer
-	rl_redisplay();                 // show prompt again
-}
-static void handle_sigquit(int sig)
-{
-	(void)sig;
-	// At the interactive prompt, usually do nothing
-	// You could also print a newline if you want:
-	// write(STDOUT_FILENO, "Quit (ignored)\n", 15);
-}
-
-int	cmd_eval(char *line, t_env *env)
-{
-	char *p = line;
-	char *tmp[] = {"COLORFGBG", "two=2", NULL};
-	char **args = tmp;
-
-	while (*p == ' ' || *p == '\t')
-		p++;
-	if (ft_strcmp(p, "exit") == 0)
+	if (ft_strcmp(cmds->args[0], "exit") == 0)
 		return (1);
-	if (ft_strcmp(p, "echo") == 0)
-		echo_cmd_redir(p);
-	if (ft_strcmp(p, "pwd") == 0)
+	/* if (ft_strcmp(cmds->args[0], "echo") == 0)
+		echo_cmd_redir(cmds->args[0]); */
+	if (ft_strcmp(cmds->args[0], "pwd") == 0)
 		pwd();
-	if (ft_strcmp(p, "env") == 0)
-		print_env(env);
-	if (ft_strcmp(p, "export") == 0)
-		export(args, env);
-	if (ft_strcmp(p, "cd") == 0)
-		cd("..", env);
-	if (ft_strcmp(p, "unset") == 0)
-		unset(args, env);
+	if (ft_strcmp(cmds->args[0], "env") == 0)
+		print_env(*env);
+	if (ft_strcmp(cmds->args[0], "export") == 0)
+		built_export(cmds, env);
+	if (ft_strcmp(cmds->args[0], "cd") == 0)
+		cd(cmds, env);
+	if (ft_strcmp(cmds->args[0], "unset") == 0)
+		unset(cmds, env);
 	return (0);
 }
 
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
-	char				*line;
-	struct sigaction	sa;
-	t_env				*env;
+	char	*line;
+	t_env	*env;
+	t_token	*tokens;
+	t_cmd	*cmds;
 
 	env = NULL;
 	save_env(&env, envp);
 	(void)argc;
 	(void)argv;
-	sa.sa_handler = handle_sigint;
-	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = SA_RESTART;
-	sigaction(SIGINT, &sa, NULL);
+	setup_signals();
 
-	// now use handle_sigquit so it is not unused
-	sa.sa_handler = handle_sigquit;
-	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = 0;
-	sigaction(SIGQUIT, &sa, NULL);
-
-	while (1) {
+	while (1)
+	{
 		line = readline("prompt> ");
-		if (line == NULL) {
+		if (line == NULL)
+		{
 			write(STDOUT_FILENO, "\n", 1);
-			return (rl_clear_history(), 0);
+			return (rl_clear_history(), free_env(env), 0);
 		}
-		if (cmd_eval(line, env))
-			return (rl_clear_history(), free(line), 0);
-		if (*line)
-			add_history(line);
+		if (*line == '\0')
+		{
+			free(line);
+			continue ;
+		}
+		add_history(line);
+		tokens = ft_tokenization_handler(line);
 		free(line);
+		if (!tokens)
+			continue ;
+		cmds = ft_parse(tokens);
+		ft_clear_token_list(&tokens);
+		if (!cmds)
+			continue ;
+		if (cmd_eval(cmds, &env))
+			return (rl_clear_history(), free_env(env), ft_free_cmd_list(&cmds), 0);
+		ft_free_cmd_list(&cmds);
 	}
 	return (0);
 }

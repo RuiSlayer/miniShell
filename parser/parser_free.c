@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parser_free.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 00:09:09 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/02/25 00:35:48 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/03/14 17:37:42 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "../incs/parser.h"
 
-static void	ft_free_redir_list(t_redir *redir)
+void	ft_free_redir_list(t_redir *redir)
 {
 	t_redir	*next;
 
@@ -24,6 +24,7 @@ static void	ft_free_redir_list(t_redir *redir)
 		redir = next;
 	}
 }
+
 void	ft_free_cmd_list(t_cmd **lst)
 {
 	t_cmd	*next;
@@ -33,7 +34,7 @@ void	ft_free_cmd_list(t_cmd **lst)
 	curr = *lst;
 	while(curr)
 	{
-		next = currt->next;
+		next = curr->next;
 		if (curr->args)
 		{
 			i = 0;
@@ -42,7 +43,6 @@ void	ft_free_cmd_list(t_cmd **lst)
 			free(curr->args);
 		}
 		ft_free_redir_list(curr->redirs);
-		free(curr->flag);
 		free(curr);
 		curr = next;
 	}

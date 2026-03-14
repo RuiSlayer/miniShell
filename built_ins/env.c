@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/28 21:28:55 by slayer            #+#    #+#             */
-/*   Updated: 2026/02/26 17:46:53 by slayer           ###   ########.fr       */
+/*   Created: 2026/02/16 17:40:59 by rucosta           #+#    #+#             */
+/*   Updated: 2026/03/14 17:28:51 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniShell_exec.h"
+#include "../incs/miniShell_exec.h"
 
-int	pwd(void)
+int	print_env(t_env *env)
 {
-	char	*cwd;
+	t_env	*tmp;
 
-	cwd = getcwd(NULL, 0);
-	if (cwd == NULL)
+	tmp = env;
+	while (tmp)
 	{
-		perror("pwd\n");
-		return (1);
+		if (tmp->val && tmp->val[0] != '\0')
+			printf("%s=%s\n", tmp->var, tmp->val);
+		else if (tmp->val && tmp->val[0] == '\0')
+			printf("%s=\n", tmp->var);
+		tmp = tmp->next;
 	}
-	printf("%s\n", cwd);
-	free(cwd);
 	return (0);
 }

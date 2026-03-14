@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_lst.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/01 12:14:00 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/02/11 11:25:09 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/03/14 17:26:27 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokens.h"
+#include "../incs/tokens.h"
 
 t_token *ft_new_token(char *value, t_token_type type)
 {

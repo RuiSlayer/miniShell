@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/25 16:30:06 by slayer            #+#    #+#             */
-/*   Updated: 2026/02/26 17:50:22 by slayer           ###   ########.fr       */
+/*   Created: 2026/01/28 21:28:55 by slayer            #+#    #+#             */
+/*   Updated: 2026/03/14 17:29:13 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniShell_exec.h"
+#include "../incs/miniShell_exec.h"
 
-int	unset(char **args, t_env *env)
+int	pwd(void)
 {
-		int	i;
+	char	*cwd;
 
-	i = 0;
-	while (args[i]) {
-		remove_var(args[i], env);
-		i++;
+	cwd = getcwd(NULL, 0);
+	if (cwd == NULL)
+	{
+		perror("pwd\n");
+		return (1);
 	}
+	printf("%s\n", cwd);
+	free(cwd);
 	return (0);
 }

@@ -1,7 +1,7 @@
-NAME = tokens.a
+NAME = built_ins.a
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
-SRCS = tokens_handler.c tokens_appenders.c tokens_lst.c tokens_utils.c
+SRCS = cd.c echo.c env.c export.c pwd.c save_env.c unset.c update_env.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)

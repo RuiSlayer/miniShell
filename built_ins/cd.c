@@ -6,13 +6,13 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 17:55:19 by slayer            #+#    #+#             */
-/*   Updated: 2026/02/26 17:48:11 by slayer           ###   ########.fr       */
+/*   Updated: 2026/03/14 17:34:23 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniShell_exec.h"
+#include "../incs/miniShell_exec.h"
 
-int	update_pwd(char *old_pwd, t_env *env)
+int	update_pwd(char *old_pwd, t_env **env)
 {
 	char	*new_pwd;
 	char	*tmp;
@@ -37,24 +37,14 @@ int	update_pwd(char *old_pwd, t_env *env)
 	return (0);
 }
 
-int	cd(char *line, t_env *env)
+int	cd(t_cmd *cmds, t_env **env)
 {
-	char	*home;
 	char	*old_pwd;
 
 	old_pwd = getcwd(NULL, 0);
 	if (!old_pwd)
 		return (perror("cd: error retrieving current directory\n"), 1);
-	if (line == NULL || line[0] == '\0')
-	{
-		home = getenv("HOME");
-		if (!home)
-			return (printf("cd: HOME not set\n"), free(old_pwd), 1);
-		if (chdir(home) != 0)
-			return (perror("cd\n"), free(old_pwd), 1);
-		return (update_pwd(old_pwd, env));
-	}
-	if (chdir(line) != 0)
-		return (perror("cd\n"), free(old_pwd), 1);
+	if (chdir(cmds->args[1]) != 0)
+		return (perror("cd"), free(old_pwd), 1);
 	return (update_pwd(old_pwd, env));
 }

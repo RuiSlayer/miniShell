@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/01 16:29:21 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/02/11 11:24:52 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/03/14 17:26:24 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokens.h"
+#include "../incs/tokens.h"
 
 int ft_handle_separator(char **line_ptr, t_token **token_list)
 {
