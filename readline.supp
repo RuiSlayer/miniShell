@@ -1,23 +1,43 @@
 {
-    readline 1
-
-    Memcheck:Leak
-
-    match-leak-kinds: reachable
-
-    ...
-
-    obj:/usr/lib/aarch64-linux-gnu/libreadline.so.8.1
+   readline_prompt_leaks
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:strdup
+   fun:set_attribute_9*
+   fun:_nc_trim_sgr0
+   fun:tgetent_sp
+   fun:_rl_init_terminal_io
+   fun:readline_initialize_everything
+   fun:rl_initialize
+   fun:readline
 }
 
 {
-    readline 1
-
-    Memcheck:Leak
-
-    match-leak-kinds: reachable
-
-    ...
-
-    obj:/usr/lib/x86_64-linux-gnu/libreadline.so.8.1
+   readline_expand_prompt_leaks
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:realloc
+   fun:xrealloc
+   fun:expand_prompt*
+   fun:rl_expand_prompt
+   fun:rl_set_prompt
+   fun:readline
 }
+
+{
+   readline_keymap_leaks
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_termcap_arrow_keys
+   fun:_rl_init_terminal_io
+   fun:readline_initialize_everything
+   fun:rl_initialize
+   fun:readline
+}
+

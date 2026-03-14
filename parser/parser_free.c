@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser_free.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 00:09:09 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/03/12 16:12:39 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/03/14 17:37:42 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "../incs/parser.h"
 
 void	ft_free_redir_list(t_redir *redir)
 {

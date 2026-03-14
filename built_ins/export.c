@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 17:46:41 by slayer            #+#    #+#             */
-/*   Updated: 2026/03/11 23:07:40 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/03/14 17:41:53 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniShell_exec.h"
+#include "../incs/miniShell_exec.h"
 
 #include <stdlib.h>
 
@@ -113,24 +113,24 @@ int	parse_var_name(char *arg)
 	return (0);
 }
 
-int	built_export(char **args, t_env **env)
+int	built_export(t_cmd *cmds, t_env **env)
 {
 	int	i;
 	int	status;
-	if(!args)
+	if(!cmds->args[1])
 		return (print_export(env));
 	status = 0;
-	i = 0;
-	while (args[i])
+	i = 1;
+	while (cmds->args[i] != NULL)
 	{
-		if (parse_var_name(args[i]))
+		if (parse_var_name(cmds->args[i]))
 		{
-			printf("export: %s: not a valid identifier\n", args[i]);
+			printf("export: %s: not a valid identifier\n", cmds->args[i]);
 			i++;
 			status = 1;
 			continue ;
 		}
-		add_var(args[i], env);
+		add_var(cmds->args[i], env);
 		i++;
 	}
 	return (status);

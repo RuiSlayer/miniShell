@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 11:51:21 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/03/12 16:14:55 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/03/14 17:37:49 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "../incs/parser.h"
 
 static t_redir_type	ft_redir_type(t_token *tok)
 {

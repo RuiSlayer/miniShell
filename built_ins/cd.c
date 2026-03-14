@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 17:55:19 by slayer            #+#    #+#             */
-/*   Updated: 2026/03/12 00:03:12 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/03/14 17:34:23 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniShell_exec.h"
+#include "../incs/miniShell_exec.h"
 
 int	update_pwd(char *old_pwd, t_env **env)
 {
@@ -37,16 +37,14 @@ int	update_pwd(char *old_pwd, t_env **env)
 	return (0);
 }
 
-int	cd(char *line, t_env **env)
+int	cd(t_cmd *cmds, t_env **env)
 {
 	char	*old_pwd;
 
 	old_pwd = getcwd(NULL, 0);
 	if (!old_pwd)
 		return (perror("cd: error retrieving current directory\n"), 1);
-	if (!line || line[0] == '\0')
-		return (free(old_pwd), printf("cd: missing operand\n"), 1);
-	if (chdir(line) != 0)
+	if (chdir(cmds->args[1]) != 0)
 		return (perror("cd"), free(old_pwd), 1);
 	return (update_pwd(old_pwd, env));
 }

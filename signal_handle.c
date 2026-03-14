@@ -6,11 +6,11 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 15:24:21 by slayer            #+#    #+#             */
-/*   Updated: 2026/03/11 15:24:43 by slayer           ###   ########.fr       */
+/*   Updated: 2026/03/14 17:30:23 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniShell_exec.h"
+#include "incs/miniShell_exec.h"
 
 static void	handle_sigint(int sig)
 {

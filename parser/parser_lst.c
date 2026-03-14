@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser_lst.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 00:35:32 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/03/12 16:24:49 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/03/14 17:37:45 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "../incs/parser.h"
 
 int  ft_add_arg(t_cmd *cmd, char *value)
 {
