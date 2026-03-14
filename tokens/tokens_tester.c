@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-#include "tokens.h"
+#include "../incs/tokens.h"
 
 const char *token_type_to_str(t_token_type type)
 {

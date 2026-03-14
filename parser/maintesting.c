@@ -1,4 +1,4 @@
-#include "parser.h"
+#include "../incs/parser.h"
 #include <readline/readline.h>
 #include <readline/history.h>
 

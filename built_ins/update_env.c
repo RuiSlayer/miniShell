@@ -6,11 +6,11 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 00:21:58 by rucosta           #+#    #+#             */
-/*   Updated: 2026/03/11 15:21:18 by slayer           ###   ########.fr       */
+/*   Updated: 2026/03/14 17:29:27 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniShell_exec.h"
+#include "../incs/miniShell_exec.h"
 
 void	free_env(t_env *env)
 {

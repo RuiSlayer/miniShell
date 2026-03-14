@@ -6,20 +6,20 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 16:30:06 by slayer            #+#    #+#             */
-/*   Updated: 2026/03/11 15:17:32 by slayer           ###   ########.fr       */
+/*   Updated: 2026/03/14 17:43:20 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniShell_exec.h"
+#include "../incs/miniShell_exec.h"
 
-int	unset(char **args, t_env **env)
+int	unset(t_cmd *cmds, t_env **env)
 {
 	int	i;
 
-	i = 0;
-	while (args[i])
+	i = 1;
+	while (cmds->args[i])
 	{
-		remove_var(args[i], env);
+		remove_var(cmds->args[i], env);
 		i++;
 	}
 	return (0);

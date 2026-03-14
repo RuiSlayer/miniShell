@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 17:14:55 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/02/11 11:24:45 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/03/14 17:26:41 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokens.h"
+#include "../incs/tokens.h"
 
 int	ft_is_quote(char c)
 {

@@ -6,13 +6,13 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 21:38:51 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/03/13 17:45:59 by slayer           ###   ########.fr       */
+/*   Updated: 2026/03/14 17:28:30 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
-# include "../tokens/tokens.h"
+# include "tokens.h"
 
 typedef enum e_redir_type
 {
