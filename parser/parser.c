@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 11:51:21 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/03/14 17:37:49 by slayer           ###   ########.fr       */
+/*   Updated: 2026/03/23 16:40:13 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ t_cmd	*ft_parse(t_token *tokens)
 	cmds = ft_parse_pipeline(&tokens);
 	return (cmds);
 }
+
 //From this line down, functions meant for testing
 /* void	print_cmd_list(t_cmd *cmds)
 {

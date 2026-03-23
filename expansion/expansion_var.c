@@ -1,37 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expansion_utils.c                                  :+:      :+:    :+:   */
+/*   expansion_var.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/18 19:52:39 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/03/23 15:39:45 by fgameiro         ###   ########.fr       */
+/*   Created: 2026/03/23 15:05:35 by fgameiro          #+#    #+#             */
+/*   Updated: 2026/03/23 15:42:42 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/expansion.h"
 
-void	ft_append_char(char **result, char c)
+char	*ft_get_var_name(char *str, size_t *i)
 {
-	char	*tmp;
-	char	buf[2];
+	size_t	start;
 
-	buf[0] = c;
-	buf[1] = '\0';
-	tmp = ft_strjoin(*result, buf);
-	free(*result);
-	*result = tmp;
+	(i)++;
+	if (str[*i] == '?')
+	{
+		(*i)++;
+		return (ft_strdup("?"));
+	}
+	start = *i;
+	while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_'))
+		(*i)++;
+	return (ft_substr(str, start, *i - start));
 }
-
-void	ft_append_str(char **result, char *str)
-{
-	char	*tmp;
-
-	if (!str)
-		return;
-	tmp = ft_strjoin(*result, str);
-	free(*result);
-	*result = tmp;
-}
-
