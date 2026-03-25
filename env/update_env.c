@@ -3,30 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   update_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 00:21:58 by rucosta           #+#    #+#             */
-/*   Updated: 2026/03/14 17:29:27 by slayer           ###   ########.fr       */
+/*   Updated: 2026/03/25 00:48:24 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/miniShell_exec.h"
 
-void	free_env(t_env *env)
-{
-	t_env	*next;
 
-	while (env)
-	{
-		next = env->next;
-		free(env->var);
-		free(env->val);
-		free(env);
-		env = next;
-	}
-}
-
-void	free_var_val(char **var_val)
+static void	free_var_val(char **var_val)
 {
 	int	i;
 
@@ -36,18 +23,27 @@ void	free_var_val(char **var_val)
 	free(var_val);
 }
 
-void	create_node(char	**var_val, t_env **env)
+static void	create_node(char	**var_val, t_env **env)
 {
 	t_env	*new;
 	t_env	*tmp;
 
 	new = malloc(sizeof(t_env));
+	if (!new)
+		return ;
 	new->var = ft_strdup(var_val[0]);
 	new->val = ft_strdup(var_val[1]);
 	new->next = NULL;
+	new->idx = 0;
+	if (!env)
+	{
+		*env = new;
+		return ;
+	}
 	tmp = *env;
 	while (tmp->next)
 		tmp = tmp->next;
+	new->idx = tmp->idx + 1;
 	tmp->next = new;
 }
 

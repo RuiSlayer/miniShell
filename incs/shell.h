@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expansion_var.c                                    :+:      :+:    :+:   */
+/*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/23 15:05:35 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/03/24 21:57:40 by fgameiro         ###   ########.fr       */
+/*   Created: 2026/03/25 00:29:36 by fgameiro          #+#    #+#             */
+/*   Updated: 2026/03/25 00:29:51 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/expansion.h"
+#ifndef SHELL_H
+# define SHELL_H
 
-char	*ft_get_var_name(char *str, size_t *i)
+# include "env.h"
+# include "parser.h"
+
+typedef struct s_shell
 {
-	size_t	start;
+    t_env   *env;
+    t_cmd   *cmds;
+    int     exit_status;
+}   t_shell;
 
-	(i)++;
-	if (str[*i] == '?')
-	{
-		(*i)++;
-		return (ft_strdup("?"));
-	}
-	start = *i;
-	while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_'))
-		(*i)++;
-	return (ft_substr(str, start, *i - start));
-}
+#endif
