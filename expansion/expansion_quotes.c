@@ -6,7 +6,7 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/23 15:05:03 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/03/25 00:10:19 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/03/28 20:59:59 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	ft_handle_double_quote(char *str, size_t *i, char **result, t_shell *shell)
 			ft_append_char(result, str[*i]);
 			(*i)++;
 		}
-		(*i)++;
 	}
 }
 

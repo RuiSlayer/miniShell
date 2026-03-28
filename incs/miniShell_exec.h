@@ -6,7 +6,7 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:38 by slayer            #+#    #+#             */
-/*   Updated: 2026/03/25 00:31:00 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/03/28 20:23:58 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@
 # include "tokens.h"
 
 
-int		echo_cmd_std(char *line);
-int		echo_cmd_redir(char *line);
+//int		echo_cmd_std(char *line);
+//int		echo_cmd_redir(char *line);
+int		echo(t_cmd	*cmd);
 int		pwd(void);
 int		built_export(t_cmd *cmds, t_env **env);
 int		unset(t_cmd *cmds, t_env **env);
