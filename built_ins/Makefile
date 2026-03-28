@@ -1,7 +1,7 @@
 NAME = built_ins.a
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
-SRCS = cd.c echo.c env.c export.c pwd.c  unset.c
+SRCS = cd.c echo.c env.c export.c pwd.c unset.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
