@@ -1,7 +1,7 @@
 NAME = parser.a
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
-SRCS = parser.c  parser_expand.c  parser_free.c parser_lst.c
+SRCS = parser.c parser_free.c parser_lst.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
