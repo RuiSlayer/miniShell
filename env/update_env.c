@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 00:21:58 by rucosta           #+#    #+#             */
-/*   Updated: 2026/03/28 19:12:42 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/03/28 21:14:20 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,10 @@ void	add_var(char *arg, t_env **env)
 		if (ft_strcmp(tmp->var, var_val[0]) == 0)
 		{
 			free(tmp->val);
-			tmp->val = ft_strdup(var_val[1]);
+			if(var_val[1])
+				tmp->val = ft_strdup(var_val[1]);
+			else
+				tmp->val = "";
 			free_var_val(var_val);
 			return ;
 		}
