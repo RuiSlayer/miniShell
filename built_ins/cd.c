@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 17:55:19 by slayer            #+#    #+#             */
-/*   Updated: 2026/03/28 19:25:19 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/03/28 21:19:06 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,20 @@ int	update_pwd(char *old_pwd, t_env **env)
 int	cd(t_cmd *cmds, t_env **env)
 {
 	char	*old_pwd;
+	char	*home;
 
 	old_pwd = getcwd(NULL, 0);
 	if (!old_pwd)
-		return (perror("cd: error retrieving current directory\n"), 1);
+		return (perror("minishell: cd: OLDPWD not set\n"), 1);
 	if(!cmds->args[1])
-		chdir(cmds->args[0]);
+	{
+		home = ft_getenv(*env, "HOME");
+		if(!home || home[0])
+			return(printf("minishell: cd: HOME not set\n"), free(old_pwd), 1);
+		if (chdir(home) != 0)
+			return (perror("cd"), free(old_pwd), 1);
+		return (update_pwd(old_pwd, env), 0);
+	}
 	if (chdir(cmds->args[1]) != 0)
 		return (perror("cd"), free(old_pwd), 1);
 	return (update_pwd(old_pwd, env), 0);
