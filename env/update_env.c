@@ -6,7 +6,7 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 00:21:58 by rucosta           #+#    #+#             */
-/*   Updated: 2026/03/25 00:48:24 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/03/28 19:12:42 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ static void	create_node(char	**var_val, t_env **env)
 	if (!new)
 		return ;
 	new->var = ft_strdup(var_val[0]);
-	new->val = ft_strdup(var_val[1]);
+	if (var_val[1])
+		new->val = ft_strdup(var_val[1]);
+	else
+		new->val = ft_strdup("");
 	new->next = NULL;
 	new->idx = 0;
 	if (!env)
