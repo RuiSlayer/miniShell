@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 17:55:19 by slayer            #+#    #+#             */
-/*   Updated: 2026/03/14 17:34:23 by slayer           ###   ########.fr       */
+/*   Updated: 2026/03/28 19:25:19 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ int	cd(t_cmd *cmds, t_env **env)
 	old_pwd = getcwd(NULL, 0);
 	if (!old_pwd)
 		return (perror("cd: error retrieving current directory\n"), 1);
+	if(!cmds->args[1])
+		chdir(cmds->args[0]);
 	if (chdir(cmds->args[1]) != 0)
 		return (perror("cd"), free(old_pwd), 1);
-	return (update_pwd(old_pwd, env));
+	return (update_pwd(old_pwd, env), 0);
 }

@@ -1,4 +1,4 @@
-#include "../incs/parser.h"
+/* #include "../incs/parser.h"
 #include <readline/readline.h>
 #include <readline/history.h>
 
@@ -59,4 +59,4 @@ int    main(void)
         ft_free_cmd_list(&cmds);
     }
     return (0);
-}
+} */

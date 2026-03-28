@@ -3,16 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   save_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 20:08:45 by rucosta           #+#    #+#             */
-/*   Updated: 2026/03/14 17:43:33 by slayer           ###   ########.fr       */
+/*   Updated: 2026/03/24 22:28:25 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/miniShell_exec.h"
 
-t_env	*ms_lstlast(t_env *lst)
+void	free_env(t_env *env)
+{
+	t_env	*next;
+
+	while (env)
+	{
+		next = env->next;
+		free(env->var);
+		free(env->val);
+		free(env);
+		env = next;
+	}
+}
+
+static t_env	*ms_lstlast(t_env *lst)
 {
 	t_env	*ls;
 
