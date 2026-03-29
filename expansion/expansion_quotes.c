@@ -6,7 +6,7 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/23 15:05:03 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/03/28 20:59:59 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/03/29 03:46:17 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*ft_expand_string(char *str, t_shell *shell)
 			ft_handle_single_quote(str, &i, &result);
 		else if (str[i] == '"')
 			ft_handle_double_quote(str, &i, &result, shell);
-		else if (str[i] == '$')
+		else if (str[i] == '$' && str[i])
 			ft_handle_expansion(str, &i, &result, shell);
 		else
 			ft_append_char(&result, str[i++]);

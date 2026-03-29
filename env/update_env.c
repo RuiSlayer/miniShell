@@ -90,8 +90,7 @@ void	remove_var(char *arg, t_env **env)
 				*env = tmp->next;
 			else
 				prev->next = tmp->next;
-			if (strcmp(tmp->val, "") != 0)
-				free(tmp->val);
+			free(tmp->val);
 			free(tmp->var);
 			free(tmp);
 			return ;
