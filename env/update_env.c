@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 00:21:58 by rucosta           #+#    #+#             */
-/*   Updated: 2026/03/28 21:14:20 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/03/29 00:09:38 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	create_node(char	**var_val, t_env **env)
 		new->val = ft_strdup("");
 	new->next = NULL;
 	new->idx = 0;
-	if (!env)
+	if (!*env)
 	{
 		*env = new;
 		return ;
@@ -90,7 +90,8 @@ void	remove_var(char *arg, t_env **env)
 				*env = tmp->next;
 			else
 				prev->next = tmp->next;
-			free(tmp->val);
+			if (strcmp(tmp->val, "") != 0)
+				free(tmp->val);
 			free(tmp->var);
 			free(tmp);
 			return ;
