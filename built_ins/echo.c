@@ -6,7 +6,7 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 15:36:17 by slayer            #+#    #+#             */
-/*   Updated: 2026/03/28 21:11:07 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/03/29 03:10:52 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ int		echo(t_cmd	*cmd)
 
 	newline = 1;
 	i = 1;
-	if (cmd->args[i] && ft_strcmp(cmd->args[i], "-n") == 0)
+	while (cmd->args[i] && ft_strcmp(cmd->args[i], "-n") == 0)
 	{
 		newline = 0;
 		i++;

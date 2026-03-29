@@ -6,7 +6,8 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/29 00:14:59 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/03/29 00:25:13 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/03/29 02:17:09 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+static char	*ft_try_path
