@@ -6,7 +6,7 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 00:21:58 by rucosta           #+#    #+#             */
-/*   Updated: 2026/03/29 00:09:38 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/03/29 03:31:18 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	add_var(char *arg, t_env **env)
 			if(var_val[1])
 				tmp->val = ft_strdup(var_val[1]);
 			else
-				tmp->val = "";
+				tmp->val = ft_strdup("");
 			free_var_val(var_val);
 			return ;
 		}
@@ -90,8 +90,7 @@ void	remove_var(char *arg, t_env **env)
 				*env = tmp->next;
 			else
 				prev->next = tmp->next;
-			if (strcmp(tmp->val, "") != 0)
-				free(tmp->val);
+			free(tmp->val);
 			free(tmp->var);
 			free(tmp);
 			return ;
