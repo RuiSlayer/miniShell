@@ -6,20 +6,13 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 15:36:17 by slayer            #+#    #+#             */
-/*   Updated: 2026/03/18 19:45:57 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/03/29 03:10:52 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/miniShell_exec.h"
 
-int	ft_isspace(int c)
-{
-	return (c == ' ' || c == '\t'
-		|| c == '\n' || c == '\v'
-		|| c == '\f' || c == '\r');
-}
-
-static char	*left_trim(char *line)
+/* static char	*left_trim(char *line)
 {
 	char	*ptr_line;
 
@@ -126,5 +119,29 @@ int	echo_cmd_redir(char *line)
 	}
 	write(fd, "\n", 1);
 	close(fd);
+	return (0);
+} */
+
+int		echo(t_cmd	*cmd)
+{
+	int		i;
+	int		newline;
+
+	newline = 1;
+	i = 1;
+	while (cmd->args[i] && ft_strcmp(cmd->args[i], "-n") == 0)
+	{
+		newline = 0;
+		i++;
+	}
+	while (cmd->args[i])
+	{
+		ft_putstr_fd(cmd->args[i], STDOUT_FILENO);
+		if (cmd->args[i + 1])
+			ft_putstr_fd(" ", STDOUT_FILENO);
+		i++;
+	}
+	if (newline)
+		ft_putstr_fd("\n", STDOUT_FILENO);
 	return (0);
 }

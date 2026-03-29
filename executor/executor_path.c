@@ -1,31 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   executor_path.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/16 17:40:59 by rucosta           #+#    #+#             */
-/*   Updated: 2026/03/29 03:55:21 by rucosta          ###   ########.fr       */
+/*   Created: 2026/03/29 00:14:59 by fgameiro          #+#    #+#             */
+/*   Updated: 2026/03/29 02:17:09 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/miniShell_exec.h"
-
-int	print_env(t_env *env)
-{
-	t_env	*tmp;
-
-	tmp = env;
-	while (tmp)
-	{
-		if(!tmp->val)
-		{
-			tmp = tmp->next;
-			continue;
-		}
-		printf("%s=%s\n", tmp->var, tmp->val);
-		tmp = tmp->next;
-	}
-	return (0);
-}
+static char	*ft_try_path

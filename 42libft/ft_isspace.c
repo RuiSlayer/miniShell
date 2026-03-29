@@ -1,31 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/16 17:40:59 by rucosta           #+#    #+#             */
-/*   Updated: 2026/03/29 03:55:21 by rucosta          ###   ########.fr       */
+/*   Created: 2026/03/28 19:43:09 by fgameiro          #+#    #+#             */
+/*   Updated: 2026/03/28 19:44:03 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/miniShell_exec.h"
+#include "libft.h"
 
-int	print_env(t_env *env)
+int	ft_isspace(int c)
 {
-	t_env	*tmp;
-
-	tmp = env;
-	while (tmp)
-	{
-		if(!tmp->val)
-		{
-			tmp = tmp->next;
-			continue;
-		}
-		printf("%s=%s\n", tmp->var, tmp->val);
-		tmp = tmp->next;
-	}
-	return (0);
+	return (c == ' ' || c == '\t'
+		|| c == '\n' || c == '\v'
+		|| c == '\f' || c == '\r');
 }

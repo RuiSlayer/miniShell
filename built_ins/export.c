@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 17:46:41 by slayer            #+#    #+#             */
-/*   Updated: 2026/03/14 17:41:53 by slayer           ###   ########.fr       */
+/*   Updated: 2026/03/29 03:46:21 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	print_export(t_env **env)
 	i = 0;
 	while (i < n)
 	{
-		if (arr[i]->val)
+		if (arr[i]->val && arr[i]->val[0])
 			printf("declare -x %s=\"%s\"\n", arr[i]->var, arr[i]->val);
 		else
 			printf("declare -x %s\n", arr[i]->var);

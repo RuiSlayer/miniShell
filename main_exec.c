@@ -6,7 +6,7 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:13 by slayer            #+#    #+#             */
-/*   Updated: 2026/03/25 00:25:53 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/03/28 20:23:24 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int	cmd_eval(t_shell *shell)
 
 	if (ft_strcmp(shell->cmds->args[0], "exit") == 0)
 		return (1);
-	/* if (ft_strcmp(cmds->args[0], "echo") == 0)
-		echo_cmd_redir(cmds->args[0]); */
+	if (ft_strcmp(shell->cmds->args[0], "echo") == 0)
+		echo(shell->cmds);
 	if (ft_strcmp(shell->cmds->args[0], "pwd") == 0)
 		pwd();
 	if (ft_strcmp(shell->cmds->args[0], "env") == 0)

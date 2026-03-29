@@ -6,7 +6,7 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 19:52:42 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/03/25 00:40:53 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/03/29 03:53:58 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ void    ft_handle_expansion(char *str, size_t *i, char **result, t_shell *shell)
 	var_name = ft_get_var_name(str, i);
 	if (!var_name)
 		return ;
+	if (ft_strlen(var_name) == 0)
+	{
+		free(var_name);
+		ft_append_char(result, '$');
+		return ;
+	}
 	if (ft_strcmp(var_name, "?") == 0)
 	{
 		value = ft_itoa(shell->exit_status);
@@ -55,6 +61,7 @@ void    ft_expand(t_shell *shell)
 		{
 			if (redir->type != R_HEREDOC)
 				redir->file = ft_expand_string(redir->file, shell);
+			redir = redir->next;
 		}
 		cmd = cmd->next;
 	}

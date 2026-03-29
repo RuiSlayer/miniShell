@@ -6,7 +6,7 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/23 15:05:35 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/03/24 21:57:40 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/03/29 04:07:33 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,19 @@ char	*ft_get_var_name(char *str, size_t *i)
 {
 	size_t	start;
 
-	(i)++;
+	(*i)++;
+	if (str[*i] == '{')
+	{
+		(*i)++;
+		start = *i;
+		while (str[*i] && str[*i] != '}')
+			(*i)++;
+		if (str[*i] == '}')
+			(*i)++;
+		return (ft_substr(str, start, *i - start - 1));
+	}
+	if (!str[*i] || ft_isspace(str[*i]))
+		return (ft_strdup(""));
 	if (str[*i] == '?')
 	{
 		(*i)++;
