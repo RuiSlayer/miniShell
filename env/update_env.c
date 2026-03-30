@@ -3,15 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   update_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 00:21:58 by rucosta           #+#    #+#             */
-/*   Updated: 2026/03/29 04:00:19 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/03/30 17:35:09 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/miniShell_exec.h"
 
+
+int	ft_is_char_in(const char *s, int c)
+{
+	while (*s)
+	{
+		if ((char)c == *s)
+			return 1;
+		s++;
+	}
+	if ((char)c == '\0')
+		return (0);
+	return (0);
+}
 
 static void	free_var_val(char **var_val)
 {
@@ -23,7 +36,7 @@ static void	free_var_val(char **var_val)
 	free(var_val);
 }
 
-static void	create_node(char	**var_val, t_env **env)
+static void	create_node(char **var_val, t_env **env, int var_has_equal)
 {
 	t_env	*new;
 	t_env	*tmp;
@@ -32,10 +45,12 @@ static void	create_node(char	**var_val, t_env **env)
 	if (!new)
 		return ;
 	new->var = ft_strdup(var_val[0]);
-	if (var_val[1])
+	if(var_val[1])
 		new->val = ft_strdup(var_val[1]);
-	else
+	else if(var_has_equal)
 		new->val = ft_strdup("");
+	else
+		new->val = NULL;
 	new->next = NULL;
 	new->idx = 0;
 	if (!*env)
@@ -54,8 +69,10 @@ void	add_var(char *arg, t_env **env)
 {
 	t_env	*tmp;
 	char	**var_val;
+	int	var_has_equal;
 
 	tmp = *env;
+	var_has_equal = ft_is_char_in(arg, '=');
 	var_val = ft_split(arg, '=');
 	while (tmp)
 	{
@@ -64,14 +81,16 @@ void	add_var(char *arg, t_env **env)
 			free(tmp->val);
 			if(var_val[1])
 				tmp->val = ft_strdup(var_val[1]);
-			else
+			else if(var_has_equal)
 				tmp->val = ft_strdup("");
+			else
+				tmp->val = NULL;
 			free_var_val(var_val);
 			return ;
 		}
 		tmp = tmp->next;
 	}
-	create_node(var_val, env);
+	create_node(var_val, env, var_has_equal);
 	free_var_val(var_val);
 }
 
