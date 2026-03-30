@@ -4,6 +4,7 @@ CFLAGS = -Wall -Wextra -Werror -g
 SRCS = main_exec.c signal_handle.c
 OBJS = $(SRCS:.c=.o)
 LIBS = tokens/tokens.a parser/parser.a built_ins/built_ins.a expansion/expansion.a env/env.a 42libft/libft.a
+VALGRIND = valgrind --show-leak-kinds=all --suppressions=readline.supp
 
 $(NAME): $(OBJS)
 	$(MAKE) -C 42libft
@@ -16,6 +17,9 @@ $(NAME): $(OBJS)
 
 %.o: %.c 
 	$(CC) $(CFLAGS) -c $< -o $@
+
+valgrind: $(NAME)
+	$(VALGRIND) ./$(NAME) 2>&1 | tee valgrind.log
 
 all: $(NAME)
 

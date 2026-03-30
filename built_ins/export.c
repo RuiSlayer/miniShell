@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 17:46:41 by slayer            #+#    #+#             */
-/*   Updated: 2026/03/29 03:46:21 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/03/30 17:40:38 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,12 @@ int	print_export(t_env **env)
 	i = 0;
 	while (i < n)
 	{
-		if (arr[i]->val && arr[i]->val[0])
-			printf("declare -x %s=\"%s\"\n", arr[i]->var, arr[i]->val);
-		else
+		if (!arr[i]->val)
 			printf("declare -x %s\n", arr[i]->var);
+		else if (ft_strcmp(arr[i]->val, "\"\"") == 0)
+			printf("declare -x %s=\"%s\"\n", arr[i]->var, arr[i]->val);
+		else /* if (arr[i]->val && arr[i]->val[0]) */
+			printf("declare -x %s=\"%s\"\n", arr[i]->var, arr[i]->val);
 		i++;
 	}
 	free(arr);
