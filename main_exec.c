@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:13 by slayer            #+#    #+#             */
-/*   Updated: 2026/03/31 17:55:23 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/03/31 19:52:25 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,79 @@ int	cmd_eval(t_shell *shell)
 	return (0);
 }
 
+void	cmd_count(t_shell *shell)
+{
+	int	i;
+
+	i = 0;
+	while (shell->cmds->next)
+	{
+		i++;
+		shell->cmds->next;
+	}
+	shell->cmd_count = i;
+}
+
+int	cmd_exec_loop(t_shell *shell)
+{
+	int     fd[2];
+	int     prev_read = -1; // read-end carried from previous pipe
+	pid_t   pids[shell->cmd_count];
+	int     i = 0;
+	int     status;
+
+	while (shell->cmds)
+	{
+		if (shell->cmds->next)          // not the last command: create a pipe
+		{
+			if (pipe(fd) == -1)
+				return (perror("pipe"), 1);
+		}
+
+		pids[i] = fork();
+		if (pids[i] < 0)
+			return (perror("fork"), 1);
+
+		if (pids[i] == 0)               // ── child ──
+		{
+			if (prev_read != -1)        // wire previous pipe's read → stdin
+			{
+				dup2(prev_read, STDIN_FILENO);
+				close(prev_read);
+			}
+			if (shell->cmds->next)      // wire this pipe's write → stdout
+			{
+				dup2(fd[1], STDOUT_FILENO);
+				close(fd[1]);
+				close(fd[0]);
+			}
+			cmd_eval(shell);
+			perror("execve");
+			exit(1);
+		}
+
+		// ── parent ──
+		if (prev_read != -1)
+			close(prev_read);           // done with previous read-end
+		if (shell->cmds->next)
+		{
+			close(fd[1]);               // parent never writes
+			prev_read = fd[0];          // carry read-end to next iteration
+		}
+		shell->cmds = shell->cmds->next;
+		i++;
+	}
+
+	while (--i >= 0)                    // wait for ALL children after the loop
+		waitpid(pids[i], &status, 0);
+
+	return (WEXITSTATUS(status));
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell		shell;
-	t_token	*tokens;
+	t_token		*tokens;
 	char		*line;
 
 	(void)argc;
@@ -125,8 +194,10 @@ int	main(int argc, char **argv, char **envp)
 		if (!shell.cmds)
 			continue ;
 		ft_expand(&shell);
-		if (cmd_eval(&shell))
-			return (rl_clear_history(), free_env(shell.env), ft_free_cmd_list(&shell.cmds), shell.exit_status);
+		/* if (cmd_eval(&shell))
+			return (rl_clear_history(), free_env(shell.env), ft_free_cmd_list(&shell.cmds), shell.exit_status); */
+		cmd_count(&shell);
+		cmd_exec_loop(&shell);
 		ft_free_cmd_list(&shell.cmds);
 	}
 	return (shell.exit_status);
