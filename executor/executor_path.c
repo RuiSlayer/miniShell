@@ -6,11 +6,11 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/29 00:14:59 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/03/31 20:00:13 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/03/31 20:21:06 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/executor.h"
+#include "../incs/miniShell_exec.h"
 
 static char	*ft_try_path(char *dir, char *cmd)
 {
@@ -54,13 +54,12 @@ char	*ft_find_path(char *cmd, t_env *env)
 	if (!dirs)
 		return (NULL);
 	i = 0;
-	while (*dirs[i])
+	while (dirs[i])
 	{
-		full_path = ft_try_path(&dirs[i], cmd);
+		full_path = ft_try_path(dirs[i], cmd);
 		if (full_path)
 			return (ft_free_split(dirs), full_path);
 		i++;
 	}
-	ft_free_split(dirs);
-	return (NULL);
+	return (ft_free_split(dirs), NULL);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniShell_exec.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:38 by slayer            #+#    #+#             */
-/*   Updated: 2026/03/31 03:15:35 by slayer           ###   ########.fr       */
+/*   Updated: 2026/03/31 20:21:30 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 # include "expansion.h"
 # include "tokens.h"
 
-
 //int		echo_cmd_std(char *line);
 //int		echo_cmd_redir(char *line);
 int		echo(t_cmd	*cmd);
@@ -37,6 +36,7 @@ int		unset(t_cmd *cmds, t_env **env);
 int		print_env(t_env *env);
 int		cd(t_cmd *cmds, t_env **env);
 void	setup_signals(void);
+char	*ft_find_path(char *cmd, t_env *env);
 
 
 
