@@ -3,44 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:13 by slayer            #+#    #+#             */
-/*   Updated: 2026/03/31 19:52:25 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/03/31 20:29:54 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "incs/miniShell_exec.h"
-
-char	*resolve_path(char *cmd, char **envp)
-{
-    // If cmd is already absolute or relative
-    if (cmd[0] == '/' || cmd[0] == '.')
-        return cmd;
-
-    // Find PATH in envp
-    char *path_env = NULL;
-    for (int i = 0; envp[i]; i++) {
-        if (ft_strncmp(envp[i], "PATH=", 5) == 0) {
-            path_env = envp[i] + 5;
-            break;
-        }
-    }
-    if (!path_env) return NULL;
-
-    // Try each directory in PATH
-    char *dirs = ft_strdup(path_env);
-    char *dir  = strtok(dirs, ":"); // need to create a auxiliar function
-    while (dir) {
-        char full[1024];
-        snprintf(full, sizeof(full), "%s/%s", dir, cmd);
-        if (access(full, X_OK) == 0)
-            return strdup(full);
-        dir = strtok(NULL, ":");
-    }
-    free(dirs);
-    return NULL; // not found
-}
 
 int	external_cmds(t_shell *shell)
 {
@@ -53,7 +23,7 @@ int	external_cmds(t_shell *shell)
 	{
 		// Child process
 		char **envp = env_to_array(shell->env);
-		char *path = resolve_path(shell->cmds->args[0], envp); // find binary in PATH
+		char *path = ft_find_path(shell->cmds->args[0], shell->env); // find binary in PATH
 		
 		if (!path || execve(path, shell->cmds->args, envp) == -1)
 		{
@@ -91,13 +61,15 @@ int	cmd_eval(t_shell *shell)
 
 void	cmd_count(t_shell *shell)
 {
-	int	i;
+	t_cmd	*cmd;
+	int		i;
 
 	i = 0;
-	while (shell->cmds->next)
+	cmd = shell->cmds;
+	while (cmd)
 	{
 		i++;
-		shell->cmds->next;
+		cmd = cmd->next;
 	}
 	shell->cmd_count = i;
 }
