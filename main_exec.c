@@ -54,6 +54,7 @@ int	external_cmds(t_shell *shell)
 		// Child process
 		char **envp = env_to_array(shell->env);
 		char *path = resolve_path(shell->cmds->args[0], envp); // find binary in PATH
+		
 		if (!path || execve(path, shell->cmds->args, envp) == -1)
 		{
 			perror("execve");
