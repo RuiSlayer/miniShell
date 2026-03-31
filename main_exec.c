@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:13 by slayer            #+#    #+#             */
-/*   Updated: 2026/03/31 03:52:31 by slayer           ###   ########.fr       */
+/*   Updated: 2026/03/31 17:55:23 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	external_cmds(t_shell *shell)
 		// Child process
 		char **envp = env_to_array(shell->env);
 		char *path = resolve_path(shell->cmds->args[0], envp); // find binary in PATH
+		
 		if (!path || execve(path, shell->cmds->args, envp) == -1)
 		{
 			perror("execve");
