@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniShell_exec.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:38 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/01 01:03:37 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/01 21:54:22 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int		cd(t_cmd *cmds, t_env **env);
 void	setup_signals(void);
 char	*ft_find_path(char *cmd, t_env *env);
 void	ft_free_split(char **split);
+int	apply_heredoc(t_redir *redir);
+int	apply_redirects(t_redir *redir);
 
 
 #endif

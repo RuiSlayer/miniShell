@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:13 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/01 18:59:08 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/01 22:28:18 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,64 @@ int	apply_redirects(t_redir *redir)
 			dup2(fd, STDOUT_FILENO);
 			close(fd);
 		}
-	/*         else if (redir->type == R_HEREDOC) // <<
+		else if (redir->type == R_HEREDOC)
 		{
-			dup2(redir->heredoc_fd, STDIN_FILENO); // fd já preparado no parse
+			dup2(redir->heredoc_fd, STDIN_FILENO);
 			close(redir->heredoc_fd);
-		} */
+		}
 		redir = redir->next;
 	}
 	return 0;
+}
+
+int    ft_setup_heredocs(t_cmd *cmds)
+{
+	t_cmd   *cmd;
+	t_redir *redir;
+
+	cmd = cmds;
+	while (cmd)
+	{
+		redir = cmd->redirs;
+		while (redir)
+		{
+			if (redir->type == R_HEREDOC)
+			{
+				if (apply_heredoc(redir) == -1)
+					return (-1);
+			}
+			redir = redir->next;
+		}
+		cmd = cmd->next;
+	}
+	return (0);
+}
+
+int	apply_heredoc(t_redir *redir)
+{
+	int		pipefd[2];
+	char	*line;
+	
+	if (pipe(pipefd) == -1)
+	{
+		perror("pipe");
+		return (-1);
+	}
+	while (1)
+	{
+		line = readline("> ");
+		if (!line || ft_strcmp(line, redir->file) == 0)
+		{
+			free(line);
+			break ;
+		}
+		write(pipefd[1], line, ft_strlen(line));
+		write(pipefd[1], "\n", 1);
+		free(line);
+	}
+	close(pipefd[1]);
+	redir->heredoc_fd = pipefd[0];
+	return (0);
 }
 
 void	run_builtin_in_parent(t_cmd *cmd, t_shell *shell)
@@ -156,6 +206,8 @@ void	execute_pipeline(t_shell *shell)
 	t_cmd   *cmd = shell->cmds;
 	pid_t   last_pid;
 
+	if (ft_setup_heredocs(shell->cmds) == -1)
+		return ;
 	// Caso especial: comando único builtin sem pipe
 	if (!cmd->next && is_builtin(shell))
 	{
