@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 21:38:51 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/03/14 17:28:30 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/01 23:07:53 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_redir
     t_redir_type    type;
     char            *file;      // filename or heredoc delimiter
     struct s_redir  *next;
+    int heredoc_fd;
 }   t_redir;
 
 typedef struct s_cmd
