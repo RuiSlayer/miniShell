@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniShell_exec.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:38 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/01 21:54:22 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/01 23:31:55 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,14 @@
 # include "expansion.h"
 # include "tokens.h"
 
-//int		echo_cmd_std(char *line);
-//int		echo_cmd_redir(char *line);
+typedef struct s_pipe
+{
+	int		pipe_fd[2];
+	int		prev_fd;
+	t_cmd	*cmd;
+	pid_t	last_pid;
+}	t_pipe;
+
 int		echo(t_cmd	*cmd);
 int		pwd(void);
 int		built_export(t_cmd *cmds, t_env **env);
@@ -39,8 +45,12 @@ int		cd(t_cmd *cmds, t_env **env);
 void	setup_signals(void);
 char	*ft_find_path(char *cmd, t_env *env);
 void	ft_free_split(char **split);
-int	apply_heredoc(t_redir *redir);
-int	apply_redirects(t_redir *redir);
+void	execute_pipeline(t_shell *shell);
+int		external_cmds(t_shell *shell);
+int		run_builtin(t_shell *shell);
+int		is_builtin(t_shell *shell);
+void	run_builtin_in_parent(t_cmd *cmd, t_shell *shell);
+int		apply_redirects(t_redir *redir);
 
 
 #endif
