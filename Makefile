@@ -1,7 +1,7 @@
 NAME = miniShell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
-SRCS = main_exec.c signal_handle.c executor/cmds_runer.c  executor/executor_path.c executor/pipeline_loop.c 
+SRCS = main_exec.c signal_handle.c executor/cmds_runer.c  executor/executor_path.c executor/pipeline_loop.c executor/executor_redirs.c
 OBJS = $(SRCS:.c=.o)
 LIBS = tokens/tokens.a parser/parser.a built_ins/built_ins.a expansion/expansion.a env/env.a  42libft/libft.a
 VALGRIND = valgrind --show-leak-kinds=all --suppressions=readline.supp
