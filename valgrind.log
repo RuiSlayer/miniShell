@@ -1,86 +1,14 @@
-==24221== Memcheck, a memory error detector
-==24221== Copyright (C) 2002-2024, and GNU GPL'd, by Julian Seward et al.
-==24221== Using Valgrind-3.26.0 and LibVEX; rerun with -h for copyright info
-==24221== Command: ./miniShell
-==24221== 
-[?2004hprompt> echo ola > ola.txt | cat
-[?2004l==24227== 
-==24227== HEAP SUMMARY:
-==24227==     in use at exit: 249,586 bytes in 542 blocks
-==24227==   total heap usage: 811 allocs, 269 frees, 272,198 bytes allocated
-==24227== 
-==24227== LEAK SUMMARY:
-==24227==    definitely lost: 0 bytes in 0 blocks
-==24227==    indirectly lost: 0 bytes in 0 blocks
-==24227==      possibly lost: 0 bytes in 0 blocks
-==24227==    still reachable: 249,570 bytes in 540 blocks
-==24227==         suppressed: 16 bytes in 2 blocks
-==24227== Rerun with --leak-check=full to see details of leaked memory
-==24227== 
-==24227== For lists of detected and suppressed errors, rerun with: -s
-==24227== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-[?2004hprompt> echo ola > ola.txt | cat[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kclear
-[?2004l[H[2J[3J[?2004hprompt> ls
-[?2004l42libft
-built_ins
-env
-errors
-executor
-expansion
-incs
-main_exec.c
-main_exec.o
-Makefile
-miniShell
-ola.txt
-parser
-readline.supp
-signal_handle.c
-signal_handle.o
-tokens
-valgrind.log
-[?2004hprompt> rm ola.txt 
-[?2004l[?2004hprompt> clear
-[?2004l[H[2J[3J[?2004hprompt> echo ola [K > ola.txt | cat
-[?2004l==24246== 
-==24246== HEAP SUMMARY:
-==24246==     in use at exit: 249,807 bytes in 557 blocks
-==24246==   total heap usage: 1,034 allocs, 477 frees, 308,054 bytes allocated
-==24246== 
-==24246== LEAK SUMMARY:
-==24246==    definitely lost: 0 bytes in 0 blocks
-==24246==    indirectly lost: 0 bytes in 0 blocks
-==24246==      possibly lost: 0 bytes in 0 blocks
-==24246==    still reachable: 249,783 bytes in 554 blocks
-==24246==         suppressed: 24 bytes in 3 blocks
-==24246== Rerun with --leak-check=full to see details of leaked memory
-==24246== 
-==24246== For lists of detected and suppressed errors, rerun with: -s
-==24246== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-[?2004hprompt> cat ola.txt 
+==800959== Memcheck, a memory error detector
+==800959== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==800959== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==800959== Command: ./miniShell
+==800959== 
+[?2004hprompt> grep[K[K[K[Kcat ola << EOF
+[?2004l[?2004h> ola
+[?2004l[?2004h> EOF
+[?2004lcat: ola: No such file or directory
+[?2004hprompt> cat ola << EOF[1P[1P[1P[1P
+[?2004l[?2004h> ola
+[?2004l[?2004h> EOF
 [?2004lola
-[?2004hprompt> clear
-[?2004l[H[2J[3J[?2004hprompt> clearat ola.txt [C[C[C[C[C[C[C[Cecho ola > ola.txt | cat[C[C[C[C[C[C[C[C[12Pcat ola.txt [C[C[C[C[C[C[C[C[C[7Plearat ola.txt [C[C[C[C[C[C[C[Cecho ola > ola.txt | cat[K[K[K[K[K[K[1@>
-[?2004l[?2004hprompt> cat[K[K[Kecho ola >> ola.txt[C[C[C[C[C[C[C[Cclear[Kat ola.txt 
-[?2004lola
-ola
-[?2004hprompt> clear
-[?2004l[H[2J[3J[?2004hprompt> echo < ola.txt 
-[?2004l
-[?2004hprompt> [Kprompt> [Kprompt> [?2004l
-
-==24221== 
-==24221== HEAP SUMMARY:
-==24221==     in use at exit: 241,500 bytes in 245 blocks
-==24221==   total heap usage: 1,307 allocs, 1,062 frees, 410,449 bytes allocated
-==24221== 
-==24221== LEAK SUMMARY:
-==24221==    definitely lost: 0 bytes in 0 blocks
-==24221==    indirectly lost: 0 bytes in 0 blocks
-==24221==      possibly lost: 0 bytes in 0 blocks
-==24221==    still reachable: 241,476 bytes in 242 blocks
-==24221==         suppressed: 24 bytes in 3 blocks
-==24221== Rerun with --leak-check=full to see details of leaked memory
-==24221== 
-==24221== For lists of detected and suppressed errors, rerun with: -s
-==24221== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+[?2004hprompt> 

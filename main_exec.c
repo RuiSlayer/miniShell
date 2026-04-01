@@ -6,7 +6,7 @@
 /*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:13 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/01 22:30:34 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/01 23:30:25 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ int	apply_redirects(t_redir *redir)
 			dup2(fd, STDOUT_FILENO);
 			close(fd);
 		}
-	/*         else if (redir->type == R_HEREDOC) // <<
+		else if (redir->type == R_HEREDOC)
 		{
-			dup2(redir->heredoc_fd, STDIN_FILENO); // fd já preparado no parse
+			dup2(redir->heredoc_fd, STDIN_FILENO);
 			close(redir->heredoc_fd);
-		} */
+		}
 		redir = redir->next;
 	}
 	return 0;

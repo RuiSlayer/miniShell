@@ -6,13 +6,13 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 19:52:42 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/03/29 03:53:58 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/01 02:28:31 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/expansion.h"
 
-void    ft_handle_expansion(char *str, size_t *i, char **result, t_shell *shell)
+void	ft_handle_expansion(char *str, size_t *i, char **result, t_shell *shell)
 {
 	char	*var_name;
 	char	*value;
@@ -41,7 +41,7 @@ void    ft_handle_expansion(char *str, size_t *i, char **result, t_shell *shell)
 	free(var_name);
 }
 
-void    ft_expand(t_shell *shell)
+void	ft_expand(t_shell *shell)
 {
 	t_cmd	*cmd;
 	t_redir	*redir;
