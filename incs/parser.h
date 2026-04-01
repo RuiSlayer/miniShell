@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 21:38:51 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/03/14 17:28:30 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/01 20:46:09 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@ typedef enum e_redir_type
 
 typedef struct s_redir
 {
-    t_redir_type    type;
-    char            *file;      // filename or heredoc delimiter
-    struct s_redir  *next;
+	t_redir_type	type;
+	char			*file;      // filename or heredoc delimiter
+	int				heredoc_fd;
+	struct s_redir	*next;
 }   t_redir;
 
 typedef struct s_cmd
