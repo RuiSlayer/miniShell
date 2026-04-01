@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_path.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/29 00:14:59 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/03/31 20:21:06 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/03/31 23:19:10 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static char	*ft_try_path(char *dir, char *cmd)
 	return (NULL);
 }
 
-static void	ft_free_split(char **split)
+void	ft_free_split(char **split)
 {
 	int	i;
 

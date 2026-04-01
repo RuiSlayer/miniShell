@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniShell_exec.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:38 by slayer            #+#    #+#             */
-/*   Updated: 2026/03/31 20:21:30 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/01 01:03:37 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <readline/history.h>
 # include <readline/chardefs.h>
 # include <sys/wait.h>
+# include <linux/limits.h>
 # include "parser.h"
 # include "shell.h"
 # include "expansion.h"
@@ -37,7 +38,7 @@ int		print_env(t_env *env);
 int		cd(t_cmd *cmds, t_env **env);
 void	setup_signals(void);
 char	*ft_find_path(char *cmd, t_env *env);
-
+void	ft_free_split(char **split);
 
 
 #endif
