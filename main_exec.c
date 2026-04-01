@@ -3,14 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   main_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:13 by slayer            #+#    #+#             */
-/*   Updated: 2026/03/31 20:29:54 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/03/31 23:36:36 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "incs/miniShell_exec.h"
+
+int	external_cmds2(t_shell *shell)
+{
+/* 	pid_t pid;
+
+	pid = fork();
+	if (pid < 0)
+		return (perror("fork"), 1);
+	if (pid == 0)
+	{ */
+		// Child process
+		char **envp = env_to_array(shell->env);
+		char *path = ft_find_path(shell->cmds->args[0], shell->env); // find binary in PATH
+		
+		if (!path || execve(path, shell->cmds->args, envp) == -1)
+		{
+			perror("execve");
+			exit(EXIT_FAILURE);
+		}
+/* 	} else {
+		// Parent waits
+		int status;
+		waitpid(pid, &status, 0);
+	} */
+	return (0);
+}
 
 int	external_cmds(t_shell *shell)
 {
@@ -54,8 +80,10 @@ int	cmd_eval(t_shell *shell)
 		cd(shell->cmds, &shell->env);
 	else if (ft_strcmp(shell->cmds->args[0], "unset") == 0)
 		unset(shell->cmds, &shell->env);
-	else
+	else if (shell->cmd_count == 1)
 		external_cmds(shell);
+	else
+		external_cmds2(shell);
 	return (0);
 }
 
@@ -76,32 +104,38 @@ void	cmd_count(t_shell *shell)
 
 int	cmd_exec_loop(t_shell *shell)
 {
-	int     fd[2];
-	int     prev_read = -1; // read-end carried from previous pipe
-	pid_t   pids[shell->cmd_count];
-	int     i = 0;
-	int     status;
-
-	while (shell->cmds)
+	int		fd[2];
+	int		prev_read = -1; // read-end carried from previous pipe
+	pid_t	pids[shell->cmd_count];
+	int		i = 0;
+	int		status;
+	t_cmd	*cmd = shell->cmds;
+	
+	while (cmd)
 	{
-		if (shell->cmds->next)          // not the last command: create a pipe
+		if (shell->cmd_count == 1)
+		{
+			
+			return (cmd_eval(shell));
+		}
+		if (cmd->next)          // not the last command: create a pipe
 		{
 			if (pipe(fd) == -1)
 				return (perror("pipe"), 1);
 		}
-
 		pids[i] = fork();
 		if (pids[i] < 0)
 			return (perror("fork"), 1);
 
 		if (pids[i] == 0)               // ── child ──
 		{
+			shell->cmds = cmd;
 			if (prev_read != -1)        // wire previous pipe's read → stdin
 			{
 				dup2(prev_read, STDIN_FILENO);
 				close(prev_read);
 			}
-			if (shell->cmds->next)      // wire this pipe's write → stdout
+			if (cmd->next)      // wire this pipe's write → stdout
 			{
 				dup2(fd[1], STDOUT_FILENO);
 				close(fd[1]);
@@ -115,18 +149,17 @@ int	cmd_exec_loop(t_shell *shell)
 		// ── parent ──
 		if (prev_read != -1)
 			close(prev_read);           // done with previous read-end
-		if (shell->cmds->next)
+		if (cmd->next)
 		{
 			close(fd[1]);               // parent never writes
 			prev_read = fd[0];          // carry read-end to next iteration
 		}
-		shell->cmds = shell->cmds->next;
+		cmd = cmd->next;
 		i++;
 	}
 
 	while (--i >= 0)                    // wait for ALL children after the loop
 		waitpid(pids[i], &status, 0);
-
 	return (WEXITSTATUS(status));
 }
 
@@ -169,7 +202,8 @@ int	main(int argc, char **argv, char **envp)
 		/* if (cmd_eval(&shell))
 			return (rl_clear_history(), free_env(shell.env), ft_free_cmd_list(&shell.cmds), shell.exit_status); */
 		cmd_count(&shell);
-		cmd_exec_loop(&shell);
+		if (cmd_exec_loop(&shell))
+			return (rl_clear_history(), free_env(shell.env), ft_free_cmd_list(&shell.cmds), shell.exit_status);
 		ft_free_cmd_list(&shell.cmds);
 	}
 	return (shell.exit_status);
