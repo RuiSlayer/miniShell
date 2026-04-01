@@ -6,7 +6,7 @@
 /*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:13 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/01 22:25:44 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/01 22:30:34 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,42 +49,59 @@ int	apply_redirects(t_redir *redir)
 	return 0;
 }
 
-int	main(int argc, char **argv, char **envp)
+static void shell_init(t_shell *shell, char **envp)
 {
-	t_shell		shell;
-	t_token		*tokens;
-	char		*line;
+	shell->env = NULL;
+	shell->cmds = NULL;
+	shell->exit_status = 0;
+	save_env(&shell->env, envp);
+	setup_signals();
+}
+
+static void handle_eof(t_shell *shell)
+{
+	write(STDOUT_FILENO, "\n", 1);
+	rl_clear_history();
+	free_env(shell->env);
+}
+
+static void process_line(t_shell *shell, char *line)
+{
+	t_token	*tokens;
+
+	add_history(line);
+	tokens = ft_tokenization_handler(line);
+	free(line);
+	if (!tokens)
+		return ;
+	shell->cmds = ft_parse(tokens);
+	ft_clear_token_list(&tokens);
+	if (!shell->cmds)
+		return ;
+	ft_expand(shell);
+	execute_pipeline(shell);
+	ft_free_cmd_list(&shell->cmds);
+}
+
+int main(int argc, char **argv, char **envp)
+{
+	t_shell	shell;
+	char	*line;
 
 	(void)argc;
 	(void)argv;
-	shell.env = NULL;
-	shell.cmds = NULL;
-	shell.exit_status = 0;
-	save_env(&shell.env, envp);
-	setup_signals();
+	shell_init(&shell, envp);
 	while (1)
 	{
 		line = readline("prompt> ");
-		if (line == NULL)
-			return (write(STDOUT_FILENO, "\n", 1), rl_clear_history(), free_env(shell.env), 0);
+		if (!line)
+			return (handle_eof(&shell), shell.exit_status);
 		if (*line == '\0')
 		{
 			free(line);
 			continue ;
 		}
-		add_history(line);
-		tokens = ft_tokenization_handler(line);
-		free(line);
-		if (!tokens)
-			continue ;
-		shell.cmds = ft_parse(tokens);
-		ft_clear_token_list(&tokens);
-		if (!shell.cmds)
-			continue ;
-		ft_expand(&shell);
-		execute_pipeline(&shell);
-			/* return (rl_clear_history(), free_env(shell.env), ft_free_cmd_list(&shell.cmds), shell.exit_status); */
-		ft_free_cmd_list(&shell.cmds);
+		process_line(&shell, line);
 	}
 	return (shell.exit_status);
 }
