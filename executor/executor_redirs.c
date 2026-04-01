@@ -6,7 +6,7 @@
 /*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 23:14:58 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/01 23:07:08 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/01 23:26:59 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,4 +98,3 @@ int	apply_heredoc(t_redir *redir)
 	redir->heredoc_fd = pipefd[0];
 	return (0);
 }
-
