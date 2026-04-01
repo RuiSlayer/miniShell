@@ -3,164 +3,196 @@
 /*                                                        :::      ::::::::   */
 /*   main_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:13 by slayer            #+#    #+#             */
-/*   Updated: 2026/03/31 23:36:36 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/01 18:59:08 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "incs/miniShell_exec.h"
 
-int	external_cmds2(t_shell *shell)
-{
-/* 	pid_t pid;
-
-	pid = fork();
-	if (pid < 0)
-		return (perror("fork"), 1);
-	if (pid == 0)
-	{ */
-		// Child process
-		char **envp = env_to_array(shell->env);
-		char *path = ft_find_path(shell->cmds->args[0], shell->env); // find binary in PATH
-		
-		if (!path || execve(path, shell->cmds->args, envp) == -1)
-		{
-			perror("execve");
-			exit(EXIT_FAILURE);
-		}
-/* 	} else {
-		// Parent waits
-		int status;
-		waitpid(pid, &status, 0);
-	} */
-	return (0);
-}
-
 int	external_cmds(t_shell *shell)
 {
-	pid_t pid;
-
-	pid = fork();
-	if (pid < 0)
-		return (perror("fork"), 1);
-	if (pid == 0)
+	char **envp = env_to_array(shell->env);
+	char *path = ft_find_path(shell->cmds->args[0], shell->env); // find binary in PATH
+	
+	if (!path || execve(path, shell->cmds->args, envp) == -1)
 	{
-		// Child process
-		char **envp = env_to_array(shell->env);
-		char *path = ft_find_path(shell->cmds->args[0], shell->env); // find binary in PATH
-		
-		if (!path || execve(path, shell->cmds->args, envp) == -1)
-		{
-			perror("execve");
-			exit(EXIT_FAILURE);
-		}
-	} else {
-		// Parent waits
-		int status;
-		waitpid(pid, &status, 0);
+		perror("execve");
+		exit(EXIT_FAILURE);
 	}
 	return (0);
 }
 
-int	cmd_eval(t_shell *shell)
+int	run_builtin(t_shell *shell)
 {
 	if (ft_strcmp(shell->cmds->args[0], "exit") == 0)
 		return (1);
 	else if (ft_strcmp(shell->cmds->args[0], "echo") == 0)
-		echo(shell->cmds);
+		return (echo(shell->cmds));
 	else if (ft_strcmp(shell->cmds->args[0], "pwd") == 0)
-		pwd();
+		return (pwd());
 	else if (ft_strcmp(shell->cmds->args[0], "env") == 0)
-		print_env(shell->env);
+		return (print_env(shell->env));
 	else if (ft_strcmp(shell->cmds->args[0], "export") == 0)
-		built_export(shell->cmds, &shell->env);
+		return (built_export(shell->cmds, &shell->env));
 	else if (ft_strcmp(shell->cmds->args[0], "cd") == 0)
-		cd(shell->cmds, &shell->env);
+		return (cd(shell->cmds, &shell->env));
 	else if (ft_strcmp(shell->cmds->args[0], "unset") == 0)
-		unset(shell->cmds, &shell->env);
-	else if (shell->cmd_count == 1)
-		external_cmds(shell);
-	else
-		external_cmds2(shell);
+		return (unset(shell->cmds, &shell->env));
 	return (0);
 }
 
-void	cmd_count(t_shell *shell)
+int	is_builtin(t_shell *shell)
 {
-	t_cmd	*cmd;
-	int		i;
-
-	i = 0;
-	cmd = shell->cmds;
-	while (cmd)
-	{
-		i++;
-		cmd = cmd->next;
-	}
-	shell->cmd_count = i;
+	if (ft_strcmp(shell->cmds->args[0], "exit") == 0)
+		return (1);
+	else if (ft_strcmp(shell->cmds->args[0], "echo") == 0)
+		return (1);
+	else if (ft_strcmp(shell->cmds->args[0], "pwd") == 0)
+		return (1);
+	else if (ft_strcmp(shell->cmds->args[0], "env") == 0)
+		return (1);
+	else if (ft_strcmp(shell->cmds->args[0], "export") == 0)
+		return (1);
+	else if (ft_strcmp(shell->cmds->args[0], "cd") == 0)
+		return (1);
+	else if (ft_strcmp(shell->cmds->args[0], "unset") == 0)
+		return (1);
+	return (0);
 }
 
-int	cmd_exec_loop(t_shell *shell)
+int	apply_redirects(t_redir *redir)
 {
-	int		fd[2];
-	int		prev_read = -1; // read-end carried from previous pipe
-	pid_t	pids[shell->cmd_count];
-	int		i = 0;
-	int		status;
-	t_cmd	*cmd = shell->cmds;
-	
-	while (cmd)
+	int fd;
+
+	while (redir)
 	{
-		if (shell->cmd_count == 1)
+		if (redir->type == R_IN)          // <
 		{
-			
-			return (cmd_eval(shell));
+			fd = open(redir->file, O_RDONLY);
+			if (fd == -1) { perror(redir->file); return -1; }
+			dup2(fd, STDIN_FILENO);
+			close(fd);
 		}
-		if (cmd->next)          // not the last command: create a pipe
+		else if (redir->type == R_OUT)    // >
 		{
-			if (pipe(fd) == -1)
-				return (perror("pipe"), 1);
+			fd = open(redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			if (fd == -1) { perror(redir->file); return -1; }
+			dup2(fd, STDOUT_FILENO);
+			close(fd);
 		}
-		pids[i] = fork();
-		if (pids[i] < 0)
-			return (perror("fork"), 1);
+		else if (redir->type == R_APPEND) // >>
+		{
+			fd = open(redir->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+			if (fd == -1) { perror(redir->file); return -1; }
+			dup2(fd, STDOUT_FILENO);
+			close(fd);
+		}
+	/*         else if (redir->type == R_HEREDOC) // <<
+		{
+			dup2(redir->heredoc_fd, STDIN_FILENO); // fd já preparado no parse
+			close(redir->heredoc_fd);
+		} */
+		redir = redir->next;
+	}
+	return 0;
+}
 
-		if (pids[i] == 0)               // ── child ──
-		{
-			shell->cmds = cmd;
-			if (prev_read != -1)        // wire previous pipe's read → stdin
-			{
-				dup2(prev_read, STDIN_FILENO);
-				close(prev_read);
-			}
-			if (cmd->next)      // wire this pipe's write → stdout
-			{
-				dup2(fd[1], STDOUT_FILENO);
-				close(fd[1]);
-				close(fd[0]);
-			}
-			cmd_eval(shell);
-			perror("execve");
-			exit(1);
-		}
+void	run_builtin_in_parent(t_cmd *cmd, t_shell *shell)
+{
+	int saved_in  = dup(STDIN_FILENO);
+	int saved_out = dup(STDOUT_FILENO);
 
-		// ── parent ──
-		if (prev_read != -1)
-			close(prev_read);           // done with previous read-end
-		if (cmd->next)
-		{
-			close(fd[1]);               // parent never writes
-			prev_read = fd[0];          // carry read-end to next iteration
-		}
-		cmd = cmd->next;
-		i++;
+	// Aplica redirects temporariamente no pai
+	if (apply_redirects(cmd->redirs) == -1)
+	{
+		dup2(saved_in,  STDIN_FILENO);
+		dup2(saved_out, STDOUT_FILENO);
+		close(saved_in); close(saved_out);
+		return ;
 	}
 
-	while (--i >= 0)                    // wait for ALL children after the loop
-		waitpid(pids[i], &status, 0);
-	return (WEXITSTATUS(status));
+	shell->exit_status = run_builtin(shell);
+
+	// Restaura stdin/stdout originais
+	dup2(saved_in,  STDIN_FILENO);
+	dup2(saved_out, STDOUT_FILENO);
+	close(saved_in);
+	close(saved_out);
+}
+
+void	child_process(t_cmd *cmd, int prev_fd, int pipe_fd[], t_shell *shell)
+{
+    // 1. Conecta ao pipe anterior (stdin)
+    if (prev_fd != -1)
+    {
+        dup2(prev_fd, STDIN_FILENO);
+        close(prev_fd);
+    }
+    // 2. Conecta ao pipe seguinte (stdout)
+    if (cmd->next)
+    {
+        dup2(pipe_fd[1], STDOUT_FILENO);
+        close(pipe_fd[0]);
+        close(pipe_fd[1]);
+    }
+    // 3. Aplica redirects — em ordem, sobrescrevem os pipes se necessário
+	if (apply_redirects(cmd->redirs) == -1)
+		exit(1);
+	shell->cmds = cmd;
+	if (is_builtin(shell))
+		exit(run_builtin(shell)); // builtin no filho quando há pipe
+	external_cmds(shell);
+	perror(cmd->args[0]);
+	exit(126);
+}
+
+void	execute_pipeline(t_shell *shell)
+{
+	int     pipe_fd[2];
+	int     prev_fd = -1;   // read end do pipe anterior
+	t_cmd   *cmd = shell->cmds;
+	pid_t   last_pid;
+
+	// Caso especial: comando único builtin sem pipe
+	if (!cmd->next && is_builtin(shell))
+	{
+		run_builtin_in_parent(cmd, shell);
+		return ;
+	}
+	while (cmd)
+	{
+		// Cria pipe se ainda há comandos a seguir
+		if (cmd->next && pipe(pipe_fd) == -1)
+		{
+			// exit_error("pipe");
+			return;
+		}
+		last_pid = fork();
+		if (last_pid == -1)
+		{
+			// exit_error("fork");
+			return;
+		}
+		if (last_pid == 0)
+			child_process(cmd, prev_fd, pipe_fd, shell);
+
+		// Pai fecha os fds que passou ao filho
+		if (prev_fd != -1)
+			close(prev_fd);
+		if (cmd->next)
+		{
+			close(pipe_fd[1]);       // pai nunca escreve
+			prev_fd = pipe_fd[0];    // guarda read end para próximo filho
+		}
+		cmd = cmd->next;
+	}
+	// Pai espera por todos os filhos
+	waitpid(last_pid, &shell->exit_status, 0);
+	while (wait(NULL) > 0)
+		;
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -201,9 +233,8 @@ int	main(int argc, char **argv, char **envp)
 		ft_expand(&shell);
 		/* if (cmd_eval(&shell))
 			return (rl_clear_history(), free_env(shell.env), ft_free_cmd_list(&shell.cmds), shell.exit_status); */
-		cmd_count(&shell);
-		if (cmd_exec_loop(&shell))
-			return (rl_clear_history(), free_env(shell.env), ft_free_cmd_list(&shell.cmds), shell.exit_status);
+		execute_pipeline(&shell);
+			/* return (rl_clear_history(), free_env(shell.env), ft_free_cmd_list(&shell.cmds), shell.exit_status); */
 		ft_free_cmd_list(&shell.cmds);
 	}
 	return (shell.exit_status);
