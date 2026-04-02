@@ -6,7 +6,7 @@
 /*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 21:44:59 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/01 21:46:08 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/02 02:54:50 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ int	external_cmds(t_shell *shell)
 	path = ft_find_path(shell->cmds->args[0], shell->env);
 	if (!path || execve(path, shell->cmds->args, envp) == -1)
 	{
-		perror("execve");
-		exit(EXIT_FAILURE);
+		printf("%s: command not found\n", shell->cmds->args[0]);
+		free_env(shell->env);
+		ft_free_cmd_list(&shell->cmds);
+		exit(shell->exit_status);
 	}
 	return (0);
 }
