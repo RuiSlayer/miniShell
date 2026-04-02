@@ -6,11 +6,11 @@
 /*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:13 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/01 23:36:39 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/02 19:43:57 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "incs/miniShell_exec.h"
+#include "../incs/miniShell_exec.h"
 
 static void shell_init(t_shell *shell, char **envp)
 {

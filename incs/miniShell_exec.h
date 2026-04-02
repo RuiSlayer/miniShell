@@ -6,7 +6,7 @@
 /*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:38 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/01 23:31:55 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/02 19:45:39 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,8 @@
 # include <readline/chardefs.h>
 # include <sys/wait.h>
 # include <linux/limits.h>
-# include "parser.h"
-# include "shell.h"
 # include "expansion.h"
-# include "tokens.h"
+# include "shell.h"
 
 typedef struct s_pipe
 {
