@@ -6,7 +6,7 @@
 /*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:38 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/02 19:45:39 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/02 21:09:46 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,12 @@ char	*ft_find_path(char *cmd, t_env *env);
 void	ft_free_split(char **split);
 void	execute_pipeline(t_shell *shell);
 int		external_cmds(t_shell *shell);
-int		run_builtin(t_shell *shell);
+void	run_builtin(t_shell *shell);
 int		is_builtin(t_shell *shell);
 void	run_builtin_in_parent(t_cmd *cmd, t_shell *shell);
 int		apply_redirects(t_redir *redir);
-
+void	update_exit_status(t_shell *shell, int status);
+void		exit_built_in(t_shell *shell);
+void	clean_exit(t_shell *shell);
 
 #endif

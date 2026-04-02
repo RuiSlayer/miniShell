@@ -6,7 +6,7 @@
 /*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 21:47:26 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/01 22:17:43 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/02 21:12:39 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	child_process(t_cmd *cmd, int prev_fd, int pipe_fd[], t_shell *shell
 		exit(1);
 	shell->cmds = cmd;
 	if (is_builtin(shell))
-		exit(run_builtin(shell)); // builtin no filho quando há pipe
+		return (run_builtin(shell), clean_exit(shell));
 	external_cmds(shell);
 	perror(cmd->args[0]);
 	exit(126);
