@@ -6,7 +6,7 @@
 /*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 21:44:59 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/02 02:54:50 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/02 21:15:32 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,30 +22,28 @@ int	external_cmds(t_shell *shell)
 	if (!path || execve(path, shell->cmds->args, envp) == -1)
 	{
 		printf("%s: command not found\n", shell->cmds->args[0]);
-		free_env(shell->env);
-		ft_free_cmd_list(&shell->cmds);
-		exit(shell->exit_status);
+		update_exit_status(shell, 127);
+		clean_exit(shell);
 	}
 	return (0);
 }
 
-int	run_builtin(t_shell *shell)
+void	run_builtin(t_shell *shell)
 {
 	if (ft_strcmp(shell->cmds->args[0], "exit") == 0)
-		return (1);
+		exit_built_in(shell);
 	else if (ft_strcmp(shell->cmds->args[0], "echo") == 0)
-		return (echo(shell->cmds));
+		update_exit_status(shell, echo(shell->cmds));
 	else if (ft_strcmp(shell->cmds->args[0], "pwd") == 0)
-		return (pwd());
+		update_exit_status(shell, pwd());
 	else if (ft_strcmp(shell->cmds->args[0], "env") == 0)
-		return (print_env(shell->env));
+		update_exit_status(shell, print_env(shell->env));
 	else if (ft_strcmp(shell->cmds->args[0], "export") == 0)
-		return (built_export(shell->cmds, &shell->env));
+		update_exit_status(shell, built_export(shell->cmds, &shell->env));
 	else if (ft_strcmp(shell->cmds->args[0], "cd") == 0)
-		return (cd(shell->cmds, &shell->env));
+		update_exit_status(shell, cd(shell->cmds, &shell->env));
 	else if (ft_strcmp(shell->cmds->args[0], "unset") == 0)
-		return (unset(shell->cmds, &shell->env));
-	return (0);
+		update_exit_status(shell, unset(shell->cmds, &shell->env));
 }
 
 int	is_builtin(t_shell *shell)
@@ -82,7 +80,7 @@ void	run_builtin_in_parent(t_cmd *cmd, t_shell *shell)
 		close(saved_in); close(saved_out);
 		return ;
 	}
-	shell->exit_status = run_builtin(shell);
+	run_builtin(shell);
 	// Restaura stdin/stdout originais
 	dup2(saved_in,  STDIN_FILENO);
 	dup2(saved_out, STDOUT_FILENO);
