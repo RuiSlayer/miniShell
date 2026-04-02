@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 15:36:17 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/01 01:11:55 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/02 21:17:40 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,19 +121,39 @@ int	echo_cmd_redir(char *line)
 	close(fd);
 	return (0);
 } */
+static int		echo_n(char **args, int *newline)
+{
+	int	i;
+	int	j;
 
+	*newline = 1;
+	i = 1;
+	while (args[i])
+	{
+		if (strncmp(args[i], "-n", 2) == 0)
+		{
+			j = 1;
+			while (args[i][j] == 'n')
+				j++;
+			if (args[i][j] == '\0')
+			{
+				*newline = 0;
+				i++;
+			}
+			else
+				break ;
+		}
+		else
+			break ;
+	}
+	return (i);
+}
 int		echo(t_cmd	*cmd)
 {
 	int		i;
 	int		newline;
 
-	newline = 1;
-	i = 1;
-	while (cmd->args[i] && ft_strcmp(cmd->args[i], "-n") == 0)
-	{
-		newline = 0;
-		i++;
-	}
+	i = echo_n(cmd->args, &newline);
 	while (cmd->args[i])
 	{
 		ft_putstr_fd(cmd->args[i], STDOUT_FILENO);

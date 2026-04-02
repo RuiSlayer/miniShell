@@ -1,7 +1,7 @@
 NAME = miniShell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
-BUILT_INS = built_ins/cd.c built_ins/echo.c built_ins/env.c built_ins/export.c built_ins/pwd.c built_ins/unset.c
+BUILT_INS = built_ins/cd.c built_ins/echo.c built_ins/env.c built_ins/export.c built_ins/pwd.c built_ins/unset.c built_ins/exit.c
 ENV_UTILS = env_utils/get_env.c env_utils/save_env.c env_utils/update_env.c
 ERRORS = errors/errors.c
 EXECUTOR = executor/cmds_runer.c executor/executor_path.c executor/executor_redirs.c executor/pipeline_loop.c
