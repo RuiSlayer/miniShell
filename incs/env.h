@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 21:56:02 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/03/24 23:59:27 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/02 19:19:42 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ENV_H
 # define ENV_H
-# include "../42libft/libft.h"
+# include "errors.h"
 
 typedef struct s_env
 {

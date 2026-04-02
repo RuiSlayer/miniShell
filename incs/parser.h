@@ -6,13 +6,13 @@
 /*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 21:38:51 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/01 23:32:04 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/02 19:11:34 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
-# include "tokens.h"
+# include "errors.h"
 
 typedef enum e_redir_type
 {
