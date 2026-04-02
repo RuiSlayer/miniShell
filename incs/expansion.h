@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 19:50:50 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/03/25 00:30:36 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/02 19:18:16 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXPANSION_H
 # define EXPANSION_H
+# include "parser.h"
 # include "shell.h"
-# include "../42libft/libft.h"
 
 // entry point
-void    ft_expand(t_shell *shell);
+void	ft_expand(t_shell *shell);
 
 // main string transformer
 char    *ft_expand_string(char *str, t_shell *shell);

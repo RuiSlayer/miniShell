@@ -3,19 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 23:10:22 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/03/13 17:45:29 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/02 19:10:03 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKENS_H
 # define TOKENS_H
-# include <stdbool.h>//booleans
-# include <stdio.h>//printf
-# include <stdlib.h>
-# include <stddef.h>
+# include <stdbool.h>
 # include "../42libft/libft.h"
 
 typedef enum e_token_type

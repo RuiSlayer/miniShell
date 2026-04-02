@@ -6,7 +6,7 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 11:51:21 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/03/23 16:40:13 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/02 18:40:52 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,14 @@ t_cmd	*ft_parse_command(t_token **tok)
 		{
 			type = ft_redir_type(*tok);
 			*tok = (*tok)->next;
-			if ((*tok)->type != T_IDENTIFIER)
+			if (!*tok || (*tok)->type != T_IDENTIFIER)
+			{
+				if (!*tok || (*tok)->type == T_EOF)
+					ft_syntax_error("newline");
+				else
+					ft_syntax_error((*tok)->value);
 				return (ft_free_cmd_list(&cmd), NULL);
+			}
 			if (!ft_add_redir(cmd, type, (*tok)->value))
 				return (ft_free_cmd_list(&cmd), NULL);
 			*tok = (*tok)->next;
@@ -68,7 +74,10 @@ t_cmd	*ft_parse_pipeline(t_token **tok)
 	{
 		*tok = (*tok)->next;
 		if ((*tok)->type == T_EOF || (*tok)->type == T_PIPE)
+		{
+			ft_syntax_error("|");
 			return (ft_free_cmd_list(&head), NULL);
+		}
 		new = ft_parse_command(tok);
 		if (!new)
 			return (ft_free_cmd_list(&head), NULL);
@@ -82,8 +91,18 @@ t_cmd	*ft_parse(t_token *tokens)
 {
 	t_cmd	*cmds;
 	
-	if (!tokens || tokens->type == T_EOF)
+	if (!tokens)
 		return (NULL);
+	if (tokens->type == T_PIPE)
+	{
+		if (tokens->next->type == T_PIPE)
+		{
+			ft_syntax_error("||");
+			return(NULL);
+		}
+		ft_syntax_error("|");
+		return (NULL);
+	}
 	cmds = ft_parse_pipeline(&tokens);
 	return (cmds);
 }

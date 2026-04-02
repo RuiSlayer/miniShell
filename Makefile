@@ -1,18 +1,21 @@
 NAME = miniShell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
-SRCS = main_exec.c signal_handle.c
+BUILT_INS = built_ins/cd.c built_ins/echo.c built_ins/env.c built_ins/export.c built_ins/pwd.c built_ins/unset.c
+ENV_UTILS = env_utils/get_env.c env_utils/save_env.c env_utils/update_env.c
+ERRORS = errors/errors.c
+EXECUTOR = executor/cmds_runer.c executor/executor_path.c executor/executor_redirs.c executor/pipeline_loop.c
+EXPANSION = expansion/expansion.c expansion/expansion_quotes.c expansion/expansion_utils.c expansion/expansion_var.c
+PARSER = parser/parser.c parser/parser_free.c parser/parser_lst.c
+TOKENS = tokens/tokens_handler.c tokens/tokens_appenders.c tokens/tokens_lst.c tokens/tokens_utils.c
+MAIN = main/main_exec.c main/signal_handle.c 
+SRCS = $(BUILT_INS) $(ENV_UTILS) $(ERRORS) $(EXECUTOR) $(EXPANSION) $(PARSER) $(TOKENS) $(MAIN)
 OBJS = $(SRCS:.c=.o)
-LIBS = tokens/tokens.a parser/parser.a built_ins/built_ins.a expansion/expansion.a env/env.a 42libft/libft.a
+LIBS = 42libft/libft.a
 VALGRIND = valgrind --show-leak-kinds=all --suppressions=readline.supp
 
 $(NAME): $(OBJS)
 	$(MAKE) -C 42libft
-	$(MAKE) -C tokens
-	$(MAKE) -C parser
-	$(MAKE) -C env
-	$(MAKE) -C expansion
-	$(MAKE) -C built_ins
 	$(CC) $(CFLAGS) $(OBJS) -I. $(LIBS) -lreadline -o $(NAME)
 
 %.o: %.c 
@@ -26,11 +29,6 @@ all: $(NAME)
 clean:
 	rm -f $(OBJS)
 	$(MAKE) -C 42libft fclean
-	$(MAKE) -C tokens fclean
-	$(MAKE) -C parser fclean
-	$(MAKE) -C env fclean
-	$(MAKE) -C expansion fclean
-	$(MAKE) -C built_ins fclean
 
 fclean: clean
 	rm -f $(NAME)
