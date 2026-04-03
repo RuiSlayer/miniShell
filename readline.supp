@@ -1,47 +1,15 @@
 {
-    readline 1
-
+    readline_reachable
     Memcheck:Leak
-
     match-leak-kinds: reachable
-
     ...
-
-    obj:/usr/lib/aarch64-linux-gnu/libreadline.so.8.2
+    obj:*libreadline*
 }
 
 {
-    readline 1
-
+    libtinfo_ncurses_reachable
     Memcheck:Leak
-
     match-leak-kinds: reachable
-
     ...
-
-    obj:/usr/lib/x86_64-linux-gnu/libreadline.so.8.2
-}
-
-{
-    readline 1
-
-    Memcheck:Leak
-
-    match-leak-kinds: reachable
-
-    ...
-
-    obj:/usr/lib/aarch64-linux-gnu/libreadline.so.8.1
-}
-
-{
-    readline 1
-
-    Memcheck:Leak
-
-    match-leak-kinds: reachable
-
-    ...
-
-    obj:/usr/lib/x86_64-linux-gnu/libreadline.so.8.1
+    obj:*libtinfo*
 }
