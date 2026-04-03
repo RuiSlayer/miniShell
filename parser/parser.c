@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 11:51:21 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/02 18:40:52 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/03 01:42:10 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,31 +106,3 @@ t_cmd	*ft_parse(t_token *tokens)
 	cmds = ft_parse_pipeline(&tokens);
 	return (cmds);
 }
-
-//From this line down, functions meant for testing
-/* void	print_cmd_list(t_cmd *cmds)
-{
-	t_cmd   *cmd;
-    t_redir *redir;
-    int     i;
-    int     cmd_num;
-
-    cmd = cmds;
-    cmd_num = 1;
-    while (cmd)
-    {
-        printf("--- CMD %d ---\n", cmd_num++);
-        i = 0;
-        while (cmd->args && cmd->args[i])
-            printf("  arg[%d]: %s\n", i, cmd->args[i++]);
-        redir = cmd->redirs;
-        while (redir)
-        {
-            printf("  redir: %d -> %s\n", redir->type, redir->file);
-            redir = redir->next;
-        }
-        cmd = cmd->next;
-    }
-} */
-
-

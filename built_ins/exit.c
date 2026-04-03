@@ -6,7 +6,7 @@
 /*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 20:19:27 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/02 21:17:30 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/02 22:53:41 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	exit_built_in(t_shell *shell)
 		return ;
 	}
 	update_exit_status(shell, arg);
+	printf("exit\n");
 	clean_exit(shell);
 }
 
@@ -43,6 +44,5 @@ void	clean_exit(t_shell *shell)
 {
 	free_env(shell->env);
 	ft_free_cmd_list(&shell->cmds);
-	printf("exit\n");
 	exit(shell->exit_status);
 }
