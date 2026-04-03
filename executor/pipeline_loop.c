@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline_loop.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 21:47:26 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/03 02:54:39 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/03 16:38:09 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ static void	child_process(t_pipe *pipe_s, t_shell *shell)
 	shell->cmds = head_cmds;
 	if (is_builtin(shell))
 		return (free(pipe_s), run_builtin(shell), clean_exit(shell));
-	external_cmds(shell);
 	free(pipe_s);
+	external_cmds(shell);
 }
 
 static void pipe_setup(t_pipe **pipe_s, t_shell *shell)
@@ -67,7 +67,7 @@ void	execute_pipeline(t_shell *shell)
 
 	pipe_setup(&pipe_s, shell);
 	if (!pipe_s->cmd->next && is_builtin(shell))
-		return (run_builtin_in_parent(pipe_s->cmd, shell), free(pipe_s));
+		return (run_builtin_in_parent(pipe_s, shell));
 	while (pipe_s->cmd)
 	{
 		// Cria pipe se ainda há comandos a seguir

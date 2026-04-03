@@ -3,33 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   cmds_runer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 21:44:59 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/03 02:18:14 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/03 16:38:03 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/miniShell_exec.h"
+#include <stdlib.h>
 
 void	external_cmds(t_shell *shell)
 {
 	char	**envp;
 	char	*path;
-	int		status;
 
-	envp = env_to_array(shell->env);
 	path = ft_find_path(shell->cmds->args[0], shell->env);
-	status = execve(path, shell->cmds->args, envp);
-	free(path);
-	ft_free_double_pointer(envp);
-	update_exit_status(shell, status);
-	if (status == -1)
+	if (!path)
 	{
-		printf("%s: command not found\n", shell->cmds->args[0]);
+		printf("minishell: %s: command not found\n", shell->cmds->args[0]);
 		update_exit_status(shell, 127);
 		clean_exit(shell);
 	}
+	envp = env_to_array(shell->env);
+	execve(path, shell->cmds->args, envp);
+	printf("minishell: %s: %s\n", shell->cmds->args[0], strerror(errno));
+	update_exit_status(shell, 126);
+	free(path);
+	ft_free_double_pointer(envp);
 	clean_exit(shell);
 }
 
@@ -70,15 +71,16 @@ int	is_builtin(t_shell *shell)
 	return (0);
 }
 
-void	run_builtin_in_parent(t_cmd *cmd, t_shell *shell)
+void	run_builtin_in_parent(t_pipe *pipe_s, t_shell *shell)
 {
 	int	saved_in;
 	int	saved_out;
 
+	free(pipe_s);
 	saved_in  = dup(STDIN_FILENO);
 	saved_out = dup(STDOUT_FILENO);
 	// Aplica redirects temporariamente no pai
-	if (apply_redirects(cmd->redirs) == -1)
+	if (apply_redirects(shell->cmds->redirs) == -1)
 	{
 		dup2(saved_in,  STDIN_FILENO);
 		dup2(saved_out, STDOUT_FILENO);
