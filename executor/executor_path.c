@@ -6,7 +6,7 @@
 /*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/29 00:14:59 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/03/31 23:19:10 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/03 02:17:27 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static char	*ft_try_path(char *dir, char *cmd)
 	return (NULL);
 }
 
-void	ft_free_split(char **split)
+void	ft_free_double_pointer(char **split)
 {
 	int	i;
 
@@ -58,8 +58,8 @@ char	*ft_find_path(char *cmd, t_env *env)
 	{
 		full_path = ft_try_path(dirs[i], cmd);
 		if (full_path)
-			return (ft_free_split(dirs), full_path);
+			return (ft_free_double_pointer(dirs), full_path);
 		i++;
 	}
-	return (ft_free_split(dirs), NULL);
+	return (ft_free_double_pointer(dirs), NULL);
 }
