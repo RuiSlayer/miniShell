@@ -6,7 +6,7 @@
 /*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:13 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/02 19:43:57 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/03 02:49:25 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static void handle_eof(t_shell *shell)
 static void process_line(t_shell *shell, char *line)
 {
 	t_token	*tokens;
+	t_cmd	*head_cmds;
 
 	add_history(line);
 	tokens = ft_tokenization_handler(line);
@@ -42,7 +43,9 @@ static void process_line(t_shell *shell, char *line)
 	if (!shell->cmds)
 		return ;
 	ft_expand(shell);
+	head_cmds = shell->cmds;
 	execute_pipeline(shell);
+	shell->cmds = head_cmds;
 	ft_free_cmd_list(&shell->cmds);
 }
 

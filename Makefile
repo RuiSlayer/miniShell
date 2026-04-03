@@ -12,7 +12,7 @@ MAIN = main/main_exec.c main/signal_handle.c
 SRCS = $(BUILT_INS) $(ENV_UTILS) $(ERRORS) $(EXECUTOR) $(EXPANSION) $(PARSER) $(TOKENS) $(MAIN)
 OBJS = $(SRCS:.c=.o)
 LIBS = 42libft/libft.a
-VALGRIND = valgrind --show-leak-kinds=all --suppressions=readline.supp
+VALGRIND = valgrind --show-leak-kinds=all --leak-check=full --track-origins=yes -s --suppressions=./readline.supp ./miniShell
 
 $(NAME): $(OBJS)
 	$(MAKE) -C 42libft
