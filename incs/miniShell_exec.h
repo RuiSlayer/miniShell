@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniShell_exec.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:38 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/03 02:17:27 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/03 16:38:11 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	execute_pipeline(t_shell *shell);
 void	external_cmds(t_shell *shell);
 void	run_builtin(t_shell *shell);
 int		is_builtin(t_shell *shell);
-void	run_builtin_in_parent(t_cmd *cmd, t_shell *shell);
+void	run_builtin_in_parent(t_pipe *pipe_s, t_shell *shell);
 int		apply_redirects(t_redir *redir);
 void	update_exit_status(t_shell *shell, int status);
 void	exit_built_in(t_shell *shell);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 20:19:27 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/02 22:53:41 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/03 16:03:06 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	exit_built_in(t_shell *shell)
 		return ;
 	}
 	arg = ft_atoi(shell->cmds->args[1]);
-	printf("arg: %d\n",arg);
 	if (ft_isdigit(arg))
 	{
 		printf("exit\nminiShell: exit: %s: numeric argument required\n", shell->cmds->args[1]);
