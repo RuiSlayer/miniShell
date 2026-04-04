@@ -6,12 +6,11 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 21:44:59 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/03 16:38:03 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/04 02:54:29 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/miniShell_exec.h"
-#include <stdlib.h>
 
 void	external_cmds(t_shell *shell)
 {
@@ -21,7 +20,7 @@ void	external_cmds(t_shell *shell)
 	path = ft_find_path(shell->cmds->args[0], shell->env);
 	if (!path)
 	{
-		printf("minishell: %s: command not found\n", shell->cmds->args[0]);
+		printf("minishell: %s: %s\n", shell->cmds->args[0], strerror(errno));
 		update_exit_status(shell, 127);
 		clean_exit(shell);
 	}

@@ -6,7 +6,7 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 21:47:26 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/03 16:38:09 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/04 02:52:52 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 static void	child_process(t_pipe *pipe_s, t_shell *shell)
 {
-	t_cmd	*head_cmds;
-
-	head_cmds = shell->cmds;
 	if (pipe_s->prev_fd != -1)
 	{
 		dup2(pipe_s->prev_fd, STDIN_FILENO);
@@ -32,7 +29,7 @@ static void	child_process(t_pipe *pipe_s, t_shell *shell)
 	// 3. Aplica redirects — em ordem, sobrescrevem os pipes se necessário
 	if (apply_redirects(pipe_s->cmd->redirs) == -1)
 		exit(1);
-	shell->cmds = head_cmds;
+	shell->cmds = pipe_s->cmd;
 	if (is_builtin(shell))
 		return (free(pipe_s), run_builtin(shell), clean_exit(shell));
 	free(pipe_s);
