@@ -1,44 +1,15 @@
-==1349130== Memcheck, a memory error detector
-==1349130== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==1349130== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==1349130== Command: ./miniShell ./miniShell
-==1349130== 
-[?2004hprompt> [7mft_dprintf(2,"ola1\n");[27m[C[C[C[C[C[C[C[C[1Pft_dprintf(2,"ola1\n")[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[7mnot_cmd bonjour > salut[27m[C[C[C[C[C[C[C[Cnot_cmd bonjour > salut
-[?2004lminishell: not_cmd: No such file or directory
-ola1
-==1349179== 
-==1349179== HEAP SUMMARY:
-==1349179==     in use at exit: 208,489 bytes in 228 blocks
-==1349179==   total heap usage: 783 allocs, 555 frees, 240,664 bytes allocated
-==1349179== 
-==1349179== LEAK SUMMARY:
-==1349179==    definitely lost: 0 bytes in 0 blocks
-==1349179==    indirectly lost: 0 bytes in 0 blocks
-==1349179==      possibly lost: 0 bytes in 0 blocks
-==1349179==    still reachable: 0 bytes in 0 blocks
-==1349179==         suppressed: 208,489 bytes in 228 blocks
-==1349179== 
-==1349179== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
---1349179-- 
---1349179-- used_suppression:     69 readline_reachable ./readline.supp:2 suppressed: 208,489 bytes in 228 blocks
-==1349179== 
-==1349179== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-[?2004hprompt> exui[K[Kit
-[?2004l==1349130== 
-==1349130== HEAP SUMMARY:
-==1349130==     in use at exit: 208,530 bytes in 231 blocks
-==1349130==   total heap usage: 765 allocs, 534 frees, 240,135 bytes allocated
-==1349130== 
-==1349130== LEAK SUMMARY:
-==1349130==    definitely lost: 0 bytes in 0 blocks
-==1349130==    indirectly lost: 0 bytes in 0 blocks
-==1349130==      possibly lost: 0 bytes in 0 blocks
-==1349130==    still reachable: 0 bytes in 0 blocks
-==1349130==         suppressed: 208,530 bytes in 231 blocks
-==1349130== 
-==1349130== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
---1349130-- 
---1349130-- used_suppression:     68 readline_reachable ./readline.supp:2 suppressed: 208,522 bytes in 230 blocks
---1349130-- used_suppression:      1 libtinfo_ncurses_reachable ./readline.supp:10 suppressed: 8 bytes in 1 blocks
-==1349130== 
-==1349130== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==1190496== Memcheck, a memory error detector
+==1190496== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1190496== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==1190496== Command: ./miniShell ./miniShell
+==1190496== 
+[?2004hprompt> <<
+[?2004l
+minishell: syntax error near unexpected token  `newline'
+[?2004hprompt> << E[KEOF
+[?2004l
+[?2004hprompt> exit
+[?2004l
+[?2004hprompt> exit
+[?2004l
+[?2004hprompt> mak[K[K[K
