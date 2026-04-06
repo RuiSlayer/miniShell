@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 11:51:21 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/03 01:42:10 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/06 20:00:39 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,21 @@ static t_redir_type	ft_redir_type(t_token *tok)
 	if (tok->type == T_DLESS)
 		return (R_HEREDOC);
 	return (R_APPEND);
+}
+
+static char	*ft_token_to_str(t_token_type type) 
+{ 
+	if (type == T_LESS) 
+		return ("<");
+	if (type == T_GREAT)
+		return (">");
+	if (type == T_DLESS)
+		return ("<<");
+	if (type == T_DGREAT)
+		return (">>");
+	if (type == T_PIPE)
+		return ("|");
+	return (NULL);
 }
 
 t_cmd	*ft_parse_command(t_token **tok)
@@ -47,7 +62,7 @@ t_cmd	*ft_parse_command(t_token **tok)
 				if (!*tok || (*tok)->type == T_EOF)
 					ft_syntax_error("newline");
 				else
-					ft_syntax_error((*tok)->value);
+					ft_syntax_error(ft_token_to_str((*tok)->type));
 				return (ft_free_cmd_list(&cmd), NULL);
 			}
 			if (!ft_add_redir(cmd, type, (*tok)->value))
@@ -94,15 +109,7 @@ t_cmd	*ft_parse(t_token *tokens)
 	if (!tokens)
 		return (NULL);
 	if (tokens->type == T_PIPE)
-	{
-		if (tokens->next->type == T_PIPE)
-		{
-			ft_syntax_error("||");
-			return(NULL);
-		}
-		ft_syntax_error("|");
-		return (NULL);
-	}
+		return (ft_syntax_error(ft_token_to_str((tokens)->type)), NULL);
 	cmds = ft_parse_pipeline(&tokens);
 	return (cmds);
 }
