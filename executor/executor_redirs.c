@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_redirs.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 23:14:58 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/04 02:50:26 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/06 23:20:55 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	apply_redirects(t_redir *redir)
 		else if (redir->type == R_OUT)    // >
 		{
 			fd = open(redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-			if (fd == -1) { perror(redir->file); return -1; }
+			if (fd == -1) { ft_dprintf(2, "Error here"); return -1; }
 			dup2(fd, STDOUT_FILENO);
 			close(fd);
 		}
