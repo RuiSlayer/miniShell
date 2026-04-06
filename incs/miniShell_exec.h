@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniShell_exec.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:38 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/03 16:38:11 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/06 22:55:56 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,10 @@ int		apply_redirects(t_redir *redir);
 void	update_exit_status(t_shell *shell, int status);
 void	exit_built_in(t_shell *shell);
 void	clean_exit(t_shell *shell);
+int		apply_heredoc(t_redir *redir);
+int		ft_setup_heredocs(t_cmd *cmds);
+int		apply_redirects(t_redir *redir);
+
 
 
 #endif
