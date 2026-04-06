@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:13 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/05 23:02:16 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/06 22:59:27 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ static void process_line(t_shell *shell, char *line)
 	if (!shell->cmds)
 		return ;
 	ft_expand(shell);
+	if (ft_setup_heredocs(shell->cmds) == -1)
+		return(ft_free_cmd_list(&shell->cmds));
 	head_cmds = shell->cmds;
 	execute_pipeline(shell);
 	shell->cmds = head_cmds;
