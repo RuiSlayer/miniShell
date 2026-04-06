@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_redirs.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 23:14:58 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/02 00:27:23 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/04 02:50:26 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	apply_heredoc(t_redir *redir)
 	return (0);
 }
 
-int    ft_setup_heredocs(t_cmd *cmds)
+int	ft_setup_heredocs(t_cmd *cmds)
 {
 	t_cmd   *cmd;
 	t_redir *redir;
