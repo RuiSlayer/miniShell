@@ -6,7 +6,7 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 23:14:58 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/06 23:20:55 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/07 18:58:58 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,39 +62,38 @@ int	ft_setup_heredocs(t_cmd *cmds)
 	return (0);
 }
 
-int	apply_redirects(t_redir *redir)
+int    apply_redirects(t_redir *redir)
 {
-	int fd;
+    int    fd;
 
-	while (redir)
-	{
-		if (redir->type == R_IN)          // <
-		{
-			fd = open(redir->file, O_RDONLY);
-			if (fd == -1) { perror(redir->file); return -1; }
-			dup2(fd, STDIN_FILENO);
-			close(fd);
-		}
-		else if (redir->type == R_OUT)    // >
-		{
-			fd = open(redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-			if (fd == -1) { ft_dprintf(2, "Error here"); return -1; }
-			dup2(fd, STDOUT_FILENO);
-			close(fd);
-		}
-		else if (redir->type == R_APPEND) // >>
-		{
-			fd = open(redir->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
-			if (fd == -1) { perror(redir->file); return -1; }
-			dup2(fd, STDOUT_FILENO);
-			close(fd);
-		}
-		else if (redir->type == R_HEREDOC)
-		{
-			dup2(redir->heredoc_fd, STDIN_FILENO);
-			close(redir->heredoc_fd);
-		}
-		redir = redir->next;
-	}
-	return 0;
+    while (redir)
+    {
+        if (redir->type == R_IN)
+            fd = open(redir->file, O_RDONLY);
+        else if (redir->type == R_OUT)
+            fd = open(redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+        else if (redir->type == R_APPEND)
+            fd = open(redir->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+        else if (redir->type == R_HEREDOC)
+        {
+            dup2(redir->heredoc_fd, STDIN_FILENO);
+            close(redir->heredoc_fd);
+            redir = redir->next;
+            continue ;
+        }
+        else
+        {
+            redir = redir->next;
+            continue ;
+        }
+        if (fd == -1)
+            return (perror(redir->file), -1);
+        if (redir->type == R_IN)
+            dup2(fd, STDIN_FILENO);
+        else
+            dup2(fd, STDOUT_FILENO);
+        close(fd);
+        redir = redir->next;
+    }
+    return (0);
 }

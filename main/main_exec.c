@@ -44,7 +44,7 @@ static void process_line(t_shell *shell, char *line)
 	if (!shell->cmds)
 		return ;
 	ft_expand(shell);
-	if (ft_setup_heredocs(shell->cmds) == -1)
+	if (ft_setup_heredocs(shell->cmds) == -1 || )
 		return(ft_free_cmd_list(&shell->cmds));
 	head_cmds = shell->cmds;
 	execute_pipeline(shell);
