@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 13:27:00 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/07 03:33:15 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/07 17:30:33 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 void	ft_syntax_error(char *token)
 {
 	if (token)
-		ft_dprintf(2, "minishell: syntax error near unexpected token  `%s'\n", token);
+		ft_dprintf(2, "minishell: syntax error near unexpected token `%s'\n", token);
 	else
 		ft_dprintf(2, "minishell: syntax error near unexpected token");
 }
