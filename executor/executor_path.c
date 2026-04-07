@@ -6,7 +6,7 @@
 /*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/29 00:14:59 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/07 03:38:17 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/07 04:37:13 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*ft_find_path(char *cmd, t_env *env)
 	char	*path_env;
 	char	*full_path;
 
-	if (ft_strchr(cmd, '/') || ft_strncmp(cmd, "./", 2) == 0)
+	if (ft_strchr(cmd, '/') || ft_strncmp(cmd, "./", 3) == 0)
 		return ft_strdup(cmd);
 	path_env = ft_getenv(env, "PATH");
 	if (!path_env)

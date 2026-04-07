@@ -6,20 +6,21 @@
 /*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 21:44:59 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/07 03:52:00 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/07 05:49:35 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/miniShell_exec.h"
-#include <sys/stat.h>
 
 void	external_cmds(t_shell *shell)
 {
 	char	**envp;
 	char	*path;
+	int		error;
 
-	if (ft_strncmp(shell->cmds->args[0], "..", 3) == 0 || ft_strncmp(shell->cmds->args[0], ".", 2) == 0
-		|| !**shell->cmds->args)
+	if (!shell->cmds->args[0] || shell->cmds->args[0][0] == '\0')
+		return (update_exit_status(shell, 0), clean_exit(shell));
+	if (ft_strcmp(shell->cmds->args[0], "..") == 0 || ft_strcmp(shell->cmds->args[0], ".") == 0)
 	{
 		ft_dprintf(2, "%s: command not found\n", shell->cmds->args[0]);
 		return (update_exit_status(shell, 127), clean_exit(shell));
@@ -28,14 +29,9 @@ void	external_cmds(t_shell *shell)
 	parse_external_cmd_path(shell, path);
 	envp = env_to_array(shell->env);
 	execve(path, shell->cmds->args, envp);
+	error = errno;
 	ft_free_double_pointer(envp);
-	if (errno == EACCES)
-	{
-		ft_dprintf(2, "%s: Permission denied\n", shell->cmds->args[0]);
-		return (external_cmd_exit(shell, path, 1));
-	}
-	ft_dprintf(2, "%s: Unexpected execution error\n", shell->cmds->args[0]);
-	external_cmd_exit(shell, path, 126);
+	parse_external_cmd_execve(shell, path, error);
 }
 
 void	run_builtin(t_shell *shell)
