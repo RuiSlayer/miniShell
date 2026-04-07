@@ -6,7 +6,7 @@
 /*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:38 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/07 03:29:16 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/07 05:38:53 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <readline/history.h>
 # include <readline/chardefs.h>
 # include <sys/wait.h>
+#include <sys/stat.h>
 # include <linux/limits.h>
 # include "expansion.h"
 # include "shell.h"
@@ -57,5 +58,6 @@ int		ft_setup_heredocs(t_cmd *cmds);
 int		apply_redirects(t_redir *redir);
 void	external_cmd_exit(t_shell *shell, char *path, int status);
 void	parse_external_cmd_path(t_shell *shell, char *path);
+void	parse_external_cmd_execve(t_shell *shell, char *path, int error);
 
 #endif
