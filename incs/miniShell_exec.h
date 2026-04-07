@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniShell_exec.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:38 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/07 05:38:53 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/07 19:11:36 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		unset(t_cmd *cmds, t_env **env);
 int		print_env(t_env *env);
 int		cd(t_cmd *cmds, t_env **env);
 void	setup_signals(void);
-char	*ft_find_path(char *cmd, t_env *env);
+char	*ft_find_path(t_shell *shell, char *cmd, t_env *env);
 void	ft_free_double_pointer(char **split);
 void	execute_pipeline(t_shell *shell);
 void	external_cmds(t_shell *shell);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_path.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/29 00:14:59 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/07 04:37:13 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/07 19:10:55 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_free_double_pointer(char **ptr)
 	free(ptr);
 }
 
-char	*ft_find_path(char *cmd, t_env *env)
+char	*ft_find_path(t_shell *shell, char *cmd, t_env *env)
 {
 	char	**dirs;
 	int		i;
@@ -49,7 +49,10 @@ char	*ft_find_path(char *cmd, t_env *env)
 		return ft_strdup(cmd);
 	path_env = ft_getenv(env, "PATH");
 	if (!path_env)
-		return (printf("minishell: PATH not set\n"), NULL);
+	{
+		ft_dprintf(2, "%s: No such file or directory\n", shell->cmds->args[0]);
+		external_cmd_exit(shell, path_env, 127);
+	}
 	dirs = ft_split(path_env, ':');
 	if (!dirs)
 		return (NULL);

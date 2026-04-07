@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmds_runer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 21:44:59 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/07 05:49:35 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/07 19:13:59 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ void	external_cmds(t_shell *shell)
 		return (update_exit_status(shell, 0), clean_exit(shell));
 	if (ft_strcmp(shell->cmds->args[0], "..") == 0 || ft_strcmp(shell->cmds->args[0], ".") == 0)
 	{
-		ft_dprintf(2, "%s: command not found\n", shell->cmds->args[0]);
+		ft_dprintf(2, "minishell: %s: command not found\n", shell->cmds->args[0]);
 		return (update_exit_status(shell, 127), clean_exit(shell));
 	}
-	path = ft_find_path(shell->cmds->args[0], shell->env);
+	path = ft_find_path(shell, shell->cmds->args[0], shell->env);
 	parse_external_cmd_path(shell, path);
 	envp = env_to_array(shell->env);
 	execve(path, shell->cmds->args, envp);
@@ -79,7 +79,6 @@ void	run_builtin_in_parent(t_pipe *pipe_s, t_shell *shell)
 	free(pipe_s);
 	saved_in  = dup(STDIN_FILENO);
 	saved_out = dup(STDOUT_FILENO);
-	// Aplica redirects temporariamente no pai
 	if (apply_redirects(shell->cmds->redirs) == -1)
 	{
 		dup2(saved_in,  STDIN_FILENO);
@@ -88,7 +87,6 @@ void	run_builtin_in_parent(t_pipe *pipe_s, t_shell *shell)
 		return ;
 	}
 	run_builtin(shell);
-	// Restaura stdin/stdout originais
 	dup2(saved_in,  STDIN_FILENO);
 	dup2(saved_out, STDOUT_FILENO);
 	close(saved_in);

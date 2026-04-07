@@ -4,8 +4,10 @@
 ==6790== Command: ./minishell ./minishell
 ==6790== 
 [?2004hprompt> export $ VAR=""
-[?2004l[?2004hprompt> cat > $VAR
-[?2004lminishell: $VAR: ambiguous redirect
+[?2004l
+[?2004hprompt> cat > $VAR
+[?2004l
+minishell: $VAR: ambiguous redirect
 No such file or directory
 ==6792== 
 ==6792== HEAP SUMMARY:
@@ -146,7 +148,8 @@ No such file or directory
 ==6792== 
 ==6792== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
 [?2004hprompt> exit
-[?2004l==6790== 
+[?2004l
+==6790== 
 ==6790== HEAP SUMMARY:
 ==6790==     in use at exit: 232,810 bytes in 244 blocks
 ==6790==   total heap usage: 573 allocs, 329 frees, 255,040 bytes allocated
