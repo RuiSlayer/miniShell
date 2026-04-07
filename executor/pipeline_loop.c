@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline_loop.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 21:47:26 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/06 22:29:01 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/07 03:22:10 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ static void	parent_in_loop(t_pipe *pipe_s)
 void	execute_pipeline(t_shell *shell)
 {
 	t_pipe	*pipe_s;
+	int		status;
 
 	pipe_setup(&pipe_s, shell);
 	if (!pipe_s->cmd->next && is_builtin(shell))
@@ -78,7 +79,11 @@ void	execute_pipeline(t_shell *shell)
 		parent_in_loop(pipe_s);
 	}
 	// Pai espera por todos os filhos
-	waitpid(pipe_s->last_pid, &shell->exit_status, 0);
+	waitpid(pipe_s->last_pid, &status, 0);
+	if (WIFEXITED(status))
+		shell->exit_status = WEXITSTATUS(status);   // extracts the actual 0-255 exit code
+	else if (WIFSIGNALED(status))
+		shell->exit_status = 128 + WTERMSIG(status); // bash convention for signal deaths
 	while (wait(NULL) > 0)
 		;
 	free(pipe_s);

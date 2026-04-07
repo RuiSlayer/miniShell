@@ -1,11 +1,120 @@
-==1190496== Memcheck, a memory error detector
-==1190496== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==1190496== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==1190496== Command: ./miniShell ./miniShell
-==1190496== 
-[?2004hprompt> <<
-[?2004lminishell: syntax error near unexpected token  `newline'
-[?2004hprompt> << E[KEOF
-[?2004l[?2004hprompt> exit
-[?2004l[?2004hprompt> exit
-[?2004l[?2004hprompt> mak[K[K[K
+==1383491== Memcheck, a memory error detector
+==1383491== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1383491== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==1383491== Command: ./miniShell ./miniShell
+==1383491== 
+[?2004hprompt> ..
+[?2004l..: command not found
+==1383493== 
+==1383493== HEAP SUMMARY:
+==1383493==     in use at exit: 208,211 bytes in 225 blocks
+==1383493==   total heap usage: 659 allocs, 434 frees, 238,238 bytes allocated
+==1383493== 
+==1383493== LEAK SUMMARY:
+==1383493==    definitely lost: 0 bytes in 0 blocks
+==1383493==    indirectly lost: 0 bytes in 0 blocks
+==1383493==      possibly lost: 0 bytes in 0 blocks
+==1383493==    still reachable: 0 bytes in 0 blocks
+==1383493==         suppressed: 208,211 bytes in 225 blocks
+==1383493== 
+==1383493== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+--1383493-- 
+--1383493-- used_suppression:     66 readline_reachable ./readline.supp:2 suppressed: 208,211 bytes in 225 blocks
+==1383493== 
+==1383493== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+[?2004hprompt> .
+[?2004l.: command not found
+==1383495== 
+==1383495== HEAP SUMMARY:
+==1383495==     in use at exit: 208,249 bytes in 228 blocks
+==1383495==   total heap usage: 676 allocs, 448 frees, 238,479 bytes allocated
+==1383495== 
+==1383495== LEAK SUMMARY:
+==1383495==    definitely lost: 0 bytes in 0 blocks
+==1383495==    indirectly lost: 0 bytes in 0 blocks
+==1383495==      possibly lost: 0 bytes in 0 blocks
+==1383495==    still reachable: 0 bytes in 0 blocks
+==1383495==         suppressed: 208,249 bytes in 228 blocks
+==1383495== 
+==1383495== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+--1383495-- 
+--1383495-- used_suppression:     66 readline_reachable ./readline.supp:2 suppressed: 208,249 bytes in 228 blocks
+==1383495== 
+==1383495== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+[?2004hprompt> ,...
+[?2004l==1383496== 
+==1383496== HEAP SUMMARY:
+==1383496==     in use at exit: 208,290 bytes in 231 blocks
+==1383496==   total heap usage: 739 allocs, 508 frees, 239,596 bytes allocated
+==1383496== 
+==1383496== LEAK SUMMARY:
+==1383496==    definitely lost: 0 bytes in 0 blocks
+==1383496==    indirectly lost: 0 bytes in 0 blocks
+==1383496==      possibly lost: 0 bytes in 0 blocks
+==1383496==    still reachable: 0 bytes in 0 blocks
+==1383496==         suppressed: 208,290 bytes in 231 blocks
+==1383496== 
+==1383496== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+--1383496-- 
+--1383496-- used_suppression:     65 readline_reachable ./readline.supp:2 suppressed: 208,282 bytes in 230 blocks
+--1383496-- used_suppression:      1 libtinfo_ncurses_reachable ./readline.supp:10 suppressed: 8 bytes in 1 blocks
+==1383496== 
+==1383496== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+[?2004hprompt> clear
+[?2004l[H[2J[3J[?2004hprompt> ./minishell
+[?2004l./minishell : No such file or directory
+==1383558== 
+==1383558== HEAP SUMMARY:
+==1383558==     in use at exit: 208,380 bytes in 237 blocks
+==1383558==   total heap usage: 787 allocs, 550 frees, 240,325 bytes allocated
+==1383558== 
+==1383558== LEAK SUMMARY:
+==1383558==    definitely lost: 0 bytes in 0 blocks
+==1383558==    indirectly lost: 0 bytes in 0 blocks
+==1383558==      possibly lost: 0 bytes in 0 blocks
+==1383558==    still reachable: 0 bytes in 0 blocks
+==1383558==         suppressed: 208,380 bytes in 237 blocks
+==1383558== 
+==1383558== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+--1383558-- 
+--1383558-- used_suppression:     65 readline_reachable ./readline.supp:2 suppressed: 208,372 bytes in 236 blocks
+--1383558-- used_suppression:      1 libtinfo_ncurses_reachable ./readline.supp:10 suppressed: 8 bytes in 1 blocks
+==1383558== 
+==1383558== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+[?2004hprompt> ./minishell[1PhellShell
+[?2004l./miniShell : No such file or directory
+==1383564== 
+==1383564== HEAP SUMMARY:
+==1383564==     in use at exit: 208,699 bytes in 245 blocks
+==1383564==   total heap usage: 827 allocs, 582 frees, 241,062 bytes allocated
+==1383564== 
+==1383564== LEAK SUMMARY:
+==1383564==    definitely lost: 0 bytes in 0 blocks
+==1383564==    indirectly lost: 0 bytes in 0 blocks
+==1383564==      possibly lost: 0 bytes in 0 blocks
+==1383564==    still reachable: 0 bytes in 0 blocks
+==1383564==         suppressed: 208,699 bytes in 245 blocks
+==1383564== 
+==1383564== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+--1383564-- 
+--1383564-- used_suppression:     74 readline_reachable ./readline.supp:2 suppressed: 208,699 bytes in 245 blocks
+==1383564== 
+==1383564== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+[?2004hprompt> exit
+[?2004l==1383491== 
+==1383491== HEAP SUMMARY:
+==1383491==     in use at exit: 208,715 bytes in 246 blocks
+==1383491==   total heap usage: 804 allocs, 558 frees, 240,377 bytes allocated
+==1383491== 
+==1383491== LEAK SUMMARY:
+==1383491==    definitely lost: 0 bytes in 0 blocks
+==1383491==    indirectly lost: 0 bytes in 0 blocks
+==1383491==      possibly lost: 0 bytes in 0 blocks
+==1383491==    still reachable: 0 bytes in 0 blocks
+==1383491==         suppressed: 208,715 bytes in 246 blocks
+==1383491== 
+==1383491== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+--1383491-- 
+--1383491-- used_suppression:     72 readline_reachable ./readline.supp:2 suppressed: 208,715 bytes in 246 blocks
+==1383491== 
+==1383491== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

@@ -3,34 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   cmds_runer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 21:44:59 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/05 23:01:04 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/07 03:52:00 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/miniShell_exec.h"
+#include <sys/stat.h>
 
 void	external_cmds(t_shell *shell)
 {
 	char	**envp;
 	char	*path;
 
-	path = ft_find_path(shell->cmds->args[0], shell->env);
-	if (!path)
+	if (ft_strncmp(shell->cmds->args[0], "..", 3) == 0 || ft_strncmp(shell->cmds->args[0], ".", 2) == 0
+		|| !**shell->cmds->args)
 	{
-		ft_dprintf(2, "minishell: %s: %s\n", shell->cmds->args[0], strerror(errno));
-		update_exit_status(shell, 127);
-		clean_exit(shell);
+		ft_dprintf(2, "%s: command not found\n", shell->cmds->args[0]);
+		return (update_exit_status(shell, 127), clean_exit(shell));
 	}
+	path = ft_find_path(shell->cmds->args[0], shell->env);
+	parse_external_cmd_path(shell, path);
 	envp = env_to_array(shell->env);
 	execve(path, shell->cmds->args, envp);
-	ft_dprintf(2, "minishell: %s: %s\n", shell->cmds->args[0], strerror(errno));
-	update_exit_status(shell, 126);
-	free(path);
 	ft_free_double_pointer(envp);
-	clean_exit(shell);
+	if (errno == EACCES)
+	{
+		ft_dprintf(2, "%s: Permission denied\n", shell->cmds->args[0]);
+		return (external_cmd_exit(shell, path, 1));
+	}
+	ft_dprintf(2, "%s: Unexpected execution error\n", shell->cmds->args[0]);
+	external_cmd_exit(shell, path, 126);
 }
 
 void	run_builtin(t_shell *shell)
