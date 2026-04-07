@@ -6,7 +6,7 @@
 /*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/29 00:14:59 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/03 02:17:27 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/07 03:38:17 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,16 @@ static char	*ft_try_path(char *dir, char *cmd)
 	return (NULL);
 }
 
-void	ft_free_double_pointer(char **split)
+void	ft_free_double_pointer(char **ptr)
 {
 	int	i;
 
-	if (!split)
+	if (!ptr)
 		return ;
 	i = 0;
-	while (split[i])
-		free(split[i++]);
-	free(split);
+	while (ptr[i])
+		free(ptr[i++]);
+	free(ptr);
 }
 
 char	*ft_find_path(char *cmd, t_env *env)
@@ -45,8 +45,8 @@ char	*ft_find_path(char *cmd, t_env *env)
 	char	*path_env;
 	char	*full_path;
 
-	if (cmd[0] == '/' || cmd[0] == '.')
-		return cmd;
+	if (ft_strchr(cmd, '/') || ft_strncmp(cmd, "./", 2) == 0)
+		return ft_strdup(cmd);
 	path_env = ft_getenv(env, "PATH");
 	if (!path_env)
 		return (printf("minishell: PATH not set\n"), NULL);
