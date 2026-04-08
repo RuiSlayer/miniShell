@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handle.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 15:24:21 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/08 02:35:05 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/08 11:47:50 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,13 @@
 static void	handle_sigint(int sig)
 {
 	(void)sig;
-	write(STDOUT_FILENO, "\n", 1);  // async-signal-safe newline
-
-	rl_on_new_line();               // move to a new, empty line
-	rl_replace_line("", 0);         // clear current buffer
-	rl_redisplay();                 // show prompt again
+	write(STDOUT_FILENO, "\n", 1);// async-signal-safe newline
+	rl_on_new_line();// move to a new, empty line
+	rl_replace_line("", 0);// clear current buffer
+	rl_redisplay();// show prompt again
 }
 
-static void handle_sigquit(int sig)
+static void	handle_sigquit(int sig)
 {
 	(void)sig;
 	// At the interactive prompt, usually do nothing

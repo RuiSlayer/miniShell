@@ -3,29 +3,59 @@
 /*                                                        :::      ::::::::   */
 /*   executor_redirs.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 23:14:58 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/08 02:23:36 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/08 11:31:59 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/miniShell_exec.h"
 
+static char	*ft_strip_delimiter(char *str)
+{
+	char	*result;
+	int		i;
+	char	quote;
+
+	result = ft_strdup("");
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '"')
+		{
+			quote = str[i++];
+			while (str[i] && str[i] != quote)
+			{
+				ft_append_char(&result, str[i]);
+				i++;
+			}
+			if (str[i])
+				i++;
+		}
+		else
+		{
+			ft_append_char(&result, str[i]);
+		}
+	}
+	return (result);
+}
+
 int	apply_heredoc(t_redir *redir)
 {
 	int		pipefd[2];
 	char	*line;
+	char	*delimiter;
 
 	if (pipe(pipefd) == -1)
-	{
-		perror("pipe");
+		return (perror("pipe"), -1);
+	delimiter = ft_strip_delimiter(redir->file);
+	if (!delimiter)
 		return (-1);
-	}
 	while (1)
 	{
 		line = readline("> ");
-		if (!line || ft_strcmp(line, redir->file) == 0)
+		if (!line || ft_strcmp(line, delimiter) == 0)
 		{
 			free(line);
 			break ;
@@ -34,6 +64,7 @@ int	apply_heredoc(t_redir *redir)
 		write(pipefd[1], "\n", 1);
 		free(line);
 	}
+	free(delimiter);
 	close(pipefd[1]);
 	redir->heredoc_fd = pipefd[0];
 	return (0);

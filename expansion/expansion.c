@@ -6,7 +6,7 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 19:52:42 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/08 10:43:30 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/08 11:32:15 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	ft_handle_expansion(char *str, size_t *i, char **result, t_shell *shell)
 	free(var_name);
 }
 
-int		ft_expand(t_shell *shell)
+int	ft_expand(t_shell *shell)
 {
 	t_cmd	*cmd;
 	t_redir	*redir;
@@ -94,7 +94,6 @@ int		ft_expand(t_shell *shell)
 				{
 					ft_dprintf(2, "minishell: %s: ambiguous redirect\n", original);
 					free(original);
-					ft_free_cmd_list(&shell->cmds);
 					return (-1);
 				}
 				free(original);
