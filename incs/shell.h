@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 00:29:36 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/08 02:32:42 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/08 11:24:43 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@
 
 typedef struct s_shell
 {
-    t_env   *env;
-    t_cmd   *cmds;
-    short     exit_status;
-    int     cmd_count;
-    int is_subshell;
-}   t_shell;
+	t_env	*env;
+	t_cmd	*cmds;
+	short	exit_status;
+	int		cmd_count;
+	int		is_subshell;
+}	t_shell;
 
 #endif

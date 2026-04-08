@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion_quotes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/23 15:05:03 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/08 02:24:33 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/08 11:05:30 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	ft_handle_double_quote(char *str, size_t *i,
 			(*i)++;
 		}
 	}
+	(*i)++;
 }
 
 char	*ft_expand_string(char *str, t_shell *shell)
