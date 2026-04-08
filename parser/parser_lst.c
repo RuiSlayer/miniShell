@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parser_lst.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 00:35:32 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/03/18 19:31:29 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/08 02:37:29 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/parser.h"
 
-int  ft_add_arg(t_cmd *cmd, char *value)
+int	ft_add_arg(t_cmd *cmd, char *value)
 {
 	int		count;
 	char	**new_args;
@@ -24,7 +24,7 @@ int  ft_add_arg(t_cmd *cmd, char *value)
 	if (!new_args)
 		return (0);
 	count = 0;
-	while (cmd->args && cmd->args[count])  // copy existing args
+	while (cmd->args && cmd->args[count])
 	{
 		new_args[count] = cmd->args[count];
 		count++;
@@ -36,10 +36,10 @@ int  ft_add_arg(t_cmd *cmd, char *value)
 	return (1);
 }
 
-int  ft_add_redir(t_cmd *cmd, t_redir_type type, char *file)
+int	ft_add_redir(t_cmd *cmd, t_redir_type type, char *file)
 {
-	t_redir *new;
-	t_redir *curr;
+	t_redir	*new;
+	t_redir	*curr;
 
 	new = ft_calloc(1, sizeof(t_redir));
 	if (!new)
@@ -55,5 +55,5 @@ int  ft_add_redir(t_cmd *cmd, t_redir_type type, char *file)
 			curr = curr->next;
 		curr->next = new;
 	}
-	return(1);
+	return (1);
 }

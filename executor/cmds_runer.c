@@ -6,7 +6,7 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 21:44:59 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/07 19:13:59 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/08 02:18:39 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,11 @@ void	external_cmds(t_shell *shell)
 
 	if (!shell->cmds->args[0] || shell->cmds->args[0][0] == '\0')
 		return (update_exit_status(shell, 0), clean_exit(shell));
-	if (ft_strcmp(shell->cmds->args[0], "..") == 0 || ft_strcmp(shell->cmds->args[0], ".") == 0)
+	if (ft_strcmp(shell->cmds->args[0], "..") == 0
+		|| ft_strcmp(shell->cmds->args[0], ".") == 0)
 	{
-		ft_dprintf(2, "minishell: %s: command not found\n", shell->cmds->args[0]);
+		ft_dprintf(2, "minishell: %s: command not found\n",
+			shell->cmds->args[0]);
 		return (update_exit_status(shell, 127), clean_exit(shell));
 	}
 	path = ft_find_path(shell, shell->cmds->args[0], shell->env);
@@ -77,17 +79,18 @@ void	run_builtin_in_parent(t_pipe *pipe_s, t_shell *shell)
 	int	saved_out;
 
 	free(pipe_s);
-	saved_in  = dup(STDIN_FILENO);
+	saved_in = dup(STDIN_FILENO);
 	saved_out = dup(STDOUT_FILENO);
 	if (apply_redirects(shell->cmds->redirs) == -1)
 	{
-		dup2(saved_in,  STDIN_FILENO);
+		dup2(saved_in, STDIN_FILENO);
 		dup2(saved_out, STDOUT_FILENO);
-		close(saved_in); close(saved_out);
+		close(saved_in);
+		close(saved_out);
 		return ;
 	}
 	run_builtin(shell);
-	dup2(saved_in,  STDIN_FILENO);
+	dup2(saved_in, STDIN_FILENO);
 	dup2(saved_out, STDOUT_FILENO);
 	close(saved_in);
 	close(saved_out);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 19:52:39 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/03/24 21:58:28 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/08 02:26:17 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,8 @@ void	ft_append_str(char **result, char *str)
 	char	*tmp;
 
 	if (!str)
-		return;
+		return ;
 	tmp = ft_strjoin(*result, str);
 	free(*result);
 	*result = tmp;
 }
-

@@ -6,7 +6,7 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 00:09:09 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/03/14 17:37:42 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/08 02:36:36 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_free_redir_list(t_redir *redir)
 {
 	t_redir	*next;
 
-	while(redir)
+	while (redir)
 	{
 		next = redir->next;
 		free(redir->file);
@@ -30,15 +30,15 @@ void	ft_free_cmd_list(t_cmd **lst)
 	t_cmd	*next;
 	t_cmd	*curr;
 	int		i;
-	
+
 	curr = *lst;
-	while(curr)
+	while (curr)
 	{
 		next = curr->next;
 		if (curr->args)
 		{
 			i = 0;
-			while(curr->args[i])
+			while (curr->args[i])
 				free(curr->args[i++]);
 			free(curr->args);
 		}

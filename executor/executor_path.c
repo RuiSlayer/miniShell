@@ -6,7 +6,7 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/29 00:14:59 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/07 19:10:55 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/08 02:20:21 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ void	ft_free_double_pointer(char **ptr)
 		return ;
 	i = 0;
 	while (ptr[i])
+	{
 		free(ptr[i++]);
+	}
 	free(ptr);
 }
 
@@ -46,7 +48,7 @@ char	*ft_find_path(t_shell *shell, char *cmd, t_env *env)
 	char	*full_path;
 
 	if (ft_strchr(cmd, '/') || ft_strncmp(cmd, "./", 3) == 0)
-		return ft_strdup(cmd);
+		return (ft_strdup(cmd));
 	path_env = ft_getenv(env, "PATH");
 	if (!path_env)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 11:51:21 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/06 20:00:39 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/08 02:38:30 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ static t_redir_type	ft_redir_type(t_token *tok)
 	return (R_APPEND);
 }
 
-static char	*ft_token_to_str(t_token_type type) 
-{ 
-	if (type == T_LESS) 
+static char	*ft_token_to_str(t_token_type type)
+{
+	if (type == T_LESS)
 		return ("<");
 	if (type == T_GREAT)
 		return (">");
@@ -48,7 +48,8 @@ t_cmd	*ft_parse_command(t_token **tok)
 		return (NULL);
 	while ((*tok)->type != T_PIPE && (*tok)->type != T_EOF)
 	{
-		if ((*tok)->type == T_IDENTIFIER){
+		if ((*tok)->type == T_IDENTIFIER)
+		{
 			if (!ft_add_arg(cmd, (*tok)->value))
 				return (ft_free_cmd_list(&cmd), NULL);
 			*tok = (*tok)->next;
@@ -79,7 +80,7 @@ t_cmd	*ft_parse_pipeline(t_token **tok)
 	t_cmd	*curr;
 	t_cmd	*new;
 
-	if((*tok)->type == T_PIPE)
+	if ((*tok)->type == T_PIPE)
 		return (NULL);
 	head = ft_parse_command(tok);
 	if (!head)
@@ -105,7 +106,7 @@ t_cmd	*ft_parse_pipeline(t_token **tok)
 t_cmd	*ft_parse(t_token *tokens)
 {
 	t_cmd	*cmds;
-	
+
 	if (!tokens)
 		return (NULL);
 	if (tokens->type == T_PIPE)
