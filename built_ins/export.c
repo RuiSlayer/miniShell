@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 17:46:41 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/06 19:14:33 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/07 23:30:16 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	print_export(t_env **env)
 			printf("declare -x %s\n", arr[i]->var);
 		else if (ft_strcmp(arr[i]->val, "\"\"") == 0)
 			printf("declare -x %s=\"%s\"\n", arr[i]->var, arr[i]->val);
-		else /* if (arr[i]->val && arr[i]->val[0]) */
+		else
 			printf("declare -x %s=\"%s\"\n", arr[i]->var, arr[i]->val);
 		i++;
 	}
@@ -119,7 +119,8 @@ int	built_export(t_cmd *cmds, t_env **env)
 {
 	int	i;
 	int	status;
-	if(!cmds->args[1])
+
+	if (!cmds->args[1])
 		return (print_export(env));
 	status = 0;
 	i = 1;

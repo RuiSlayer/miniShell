@@ -6,7 +6,7 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 03:26:41 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/07 19:00:48 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/07 23:36:32 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@ void	external_cmd_exit(t_shell *shell, char *path, int status)
 
 int	is_directory(const char *path)
 {
-	struct stat st;
+	struct stat	st;
+
 	if (stat(path, &st) != 0)
-		return -1;
-	return S_ISDIR(st.st_mode);
+		return (-1);
+	return (S_ISDIR(st.st_mode));
 }
 
 void	parse_external_cmd_execve(t_shell *shell, char *path, int error)
@@ -60,12 +61,15 @@ void	parse_external_cmd_path(t_shell *shell, char *path)
 			ft_dprintf(2, "%s: Not a directory\n", shell->cmds->args[0]);
 			return (external_cmd_exit(shell, path, 126));
 		}
-		if (ft_strchr(shell->cmds->args[0], '/') || ft_strncmp(shell->cmds->args[0], "./", 2) == 0)
+		if (ft_strchr(shell->cmds->args[0], '/')
+			|| ft_strncmp(shell->cmds->args[0], "./", 2) == 0)
 		{
-			ft_dprintf(2, "%s: No such file or directory\n", shell->cmds->args[0]);
+			ft_dprintf(2, "%s: No such file or directory\n",
+				shell->cmds->args[0]);
 			return (external_cmd_exit(shell, path, 127));
 		}
-		ft_dprintf(2, "minishell: %s: command not found\n", shell->cmds->args[0]);
+		ft_dprintf(2, "minishell: %s: command not found\n",
+			shell->cmds->args[0]);
 		return (update_exit_status(shell, 127), clean_exit(shell));
 	}
 	if (is_directory(path) == 1)
