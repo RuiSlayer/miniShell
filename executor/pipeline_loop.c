@@ -6,7 +6,7 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 21:47:26 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/07 18:59:52 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/08 02:21:32 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	child_process(t_pipe *pipe_s, t_shell *shell)
 	external_cmds(shell);
 }
 
-static void pipe_setup(t_pipe **pipe_s, t_shell *shell)
+static void	pipe_setup(t_pipe **pipe_s, t_shell *shell)
 {
 	*pipe_s = malloc(sizeof(t_pipe));
 	if (!*pipe_s)
@@ -56,7 +56,7 @@ static void	parent_in_loop(t_pipe *pipe_s)
 	pipe_s->cmd = pipe_s->cmd->next;
 }
 
-void	set_status(t_shell *shell, int	status)
+void	set_status(t_shell *shell, int status)
 {
 	if (WIFEXITED(status))
 		shell->exit_status = WEXITSTATUS(status);
@@ -77,11 +77,11 @@ void	execute_pipeline(t_shell *shell)
 	while (pipe_s->cmd)
 	{
 		if (pipe_s->cmd->next && pipe(pipe_s->pipe_fd) == -1)
-			return(free(pipe_s), perror("pipe: failior"));
+			return (free(pipe_s), perror("pipe: failior"));
 		pipe_s->last_pid = fork();
 		i++;
 		if (pipe_s->last_pid == -1)
-			return(free(pipe_s), perror("fork: failior"));
+			return (free(pipe_s), perror("fork: failior"));
 		if (pipe_s->last_pid == 0)
 			child_process(pipe_s, shell);
 		parent_in_loop(pipe_s);

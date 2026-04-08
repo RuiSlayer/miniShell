@@ -6,12 +6,13 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:38 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/07 19:11:36 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/08 02:32:33 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISELL_EXEC_H
-# define MINISELL_EXEC_H
+#ifndef MINISHELL_EXEC_H
+# define MINISHELL_EXEC_H
+
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -22,7 +23,7 @@
 # include <readline/history.h>
 # include <readline/chardefs.h>
 # include <sys/wait.h>
-#include <sys/stat.h>
+# include <sys/stat.h>
 # include <linux/limits.h>
 # include "expansion.h"
 # include "shell.h"

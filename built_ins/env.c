@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 17:40:59 by rucosta           #+#    #+#             */
-/*   Updated: 2026/03/29 03:55:21 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/07 23:27:59 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ int	print_env(t_env *env)
 	tmp = env;
 	while (tmp)
 	{
-		if(!tmp->val)
+		if (!tmp->val)
 		{
 			tmp = tmp->next;
-			continue;
+			continue ;
 		}
 		printf("%s=%s\n", tmp->var, tmp->val);
 		tmp = tmp->next;

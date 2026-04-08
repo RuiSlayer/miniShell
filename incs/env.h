@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 21:56:02 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/02 19:19:42 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/08 02:29:59 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,4 @@ void	add_var(char *arg, t_env **env);
 void	remove_var(char *arg, t_env **env);
 char	**env_to_array(t_env *env);
 char	*ft_getenv(t_env *env, char *name);
-
-
 #endif
