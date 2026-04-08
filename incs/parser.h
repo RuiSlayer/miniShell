@@ -6,7 +6,7 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 21:38:51 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/08 11:38:43 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/08 21:40:52 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,4 @@ t_cmd	*ft_parse_command(t_token **tok);
 //BUILD
 int		ft_add_arg(t_cmd *cmd, char *value);
 int		ft_add_redir(t_cmd *cmd, t_redir_type type, char *file);
-//TESTING
-void	print_cmd_list(t_cmd *cmds);
 #endif

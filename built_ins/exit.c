@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 20:19:27 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/07 23:29:24 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/08 21:54:11 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ void	exit_built_in(t_shell *shell)
 		clean_exit(shell);
 	if (!ft_is_numeric(shell->cmds->args[1]))
 	{
-		ft_dprintf(2, "exit\nminiShell: exit: %s: numeric argument required\n",
+		ft_dprintf(2, "miniShell: exit: %s: numeric argument required\n",
 			shell->cmds->args[1]);
-		return ;
+		clean_exit(shell);
 	}
 	arg = ft_atoi(shell->cmds->args[1]);
 	if (shell->cmds->args[2])
 	{
-		ft_dprintf(2, "exit\nminiShell: exit: too many arguments\n");
+		ft_dprintf(2, "miniShell: exit: too many arguments\n");
 		return ;
 	}
 	update_exit_status(shell, arg);
