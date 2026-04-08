@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 11:51:21 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/02 18:40:52 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/08 02:38:30 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,21 @@ static t_redir_type	ft_redir_type(t_token *tok)
 	return (R_APPEND);
 }
 
+static char	*ft_token_to_str(t_token_type type)
+{
+	if (type == T_LESS)
+		return ("<");
+	if (type == T_GREAT)
+		return (">");
+	if (type == T_DLESS)
+		return ("<<");
+	if (type == T_DGREAT)
+		return (">>");
+	if (type == T_PIPE)
+		return ("|");
+	return (NULL);
+}
+
 t_cmd	*ft_parse_command(t_token **tok)
 {
 	t_cmd			*cmd;
@@ -33,7 +48,8 @@ t_cmd	*ft_parse_command(t_token **tok)
 		return (NULL);
 	while ((*tok)->type != T_PIPE && (*tok)->type != T_EOF)
 	{
-		if ((*tok)->type == T_IDENTIFIER){
+		if ((*tok)->type == T_IDENTIFIER)
+		{
 			if (!ft_add_arg(cmd, (*tok)->value))
 				return (ft_free_cmd_list(&cmd), NULL);
 			*tok = (*tok)->next;
@@ -47,7 +63,7 @@ t_cmd	*ft_parse_command(t_token **tok)
 				if (!*tok || (*tok)->type == T_EOF)
 					ft_syntax_error("newline");
 				else
-					ft_syntax_error((*tok)->value);
+					ft_syntax_error(ft_token_to_str((*tok)->type));
 				return (ft_free_cmd_list(&cmd), NULL);
 			}
 			if (!ft_add_redir(cmd, type, (*tok)->value))
@@ -64,7 +80,7 @@ t_cmd	*ft_parse_pipeline(t_token **tok)
 	t_cmd	*curr;
 	t_cmd	*new;
 
-	if((*tok)->type == T_PIPE)
+	if ((*tok)->type == T_PIPE)
 		return (NULL);
 	head = ft_parse_command(tok);
 	if (!head)
@@ -90,47 +106,11 @@ t_cmd	*ft_parse_pipeline(t_token **tok)
 t_cmd	*ft_parse(t_token *tokens)
 {
 	t_cmd	*cmds;
-	
+
 	if (!tokens)
 		return (NULL);
 	if (tokens->type == T_PIPE)
-	{
-		if (tokens->next->type == T_PIPE)
-		{
-			ft_syntax_error("||");
-			return(NULL);
-		}
-		ft_syntax_error("|");
-		return (NULL);
-	}
+		return (ft_syntax_error(ft_token_to_str((tokens)->type)), NULL);
 	cmds = ft_parse_pipeline(&tokens);
 	return (cmds);
 }
-
-//From this line down, functions meant for testing
-/* void	print_cmd_list(t_cmd *cmds)
-{
-	t_cmd   *cmd;
-    t_redir *redir;
-    int     i;
-    int     cmd_num;
-
-    cmd = cmds;
-    cmd_num = 1;
-    while (cmd)
-    {
-        printf("--- CMD %d ---\n", cmd_num++);
-        i = 0;
-        while (cmd->args && cmd->args[i])
-            printf("  arg[%d]: %s\n", i, cmd->args[i++]);
-        redir = cmd->redirs;
-        while (redir)
-        {
-            printf("  redir: %d -> %s\n", redir->type, redir->file);
-            redir = redir->next;
-        }
-        cmd = cmd->next;
-    }
-} */
-
-

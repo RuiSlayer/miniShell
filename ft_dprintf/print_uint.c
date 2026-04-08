@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isspace.c                                       :+:      :+:    :+:   */
+/*   print_uint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/28 19:43:09 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/07 23:24:56 by slayer           ###   ########.fr       */
+/*   Created: 2026/04/05 22:43:51 by slayer            #+#    #+#             */
+/*   Updated: 2026/04/05 22:44:03 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-int	ft_isspace(int c)
+int	print_uint(int fd, uint num)
 {
-	return (c == ' ' || c == '\t'
-		|| c == '\n' || c == '\v'
-		|| c == '\f' || c == '\r');
+	uint	len;
+	char	out;
+
+	len = 0;
+	if (num >= 10)
+		len += print_uint(fd, num / 10);
+	out = num % 10 + '0';
+	len += write(fd, &out, 1);
+	return (len);
 }

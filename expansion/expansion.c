@@ -3,14 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 19:52:42 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/01 02:28:31 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/08 02:26:56 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/expansion.h"
+
+static int	ft_word_count(char *str)
+{
+	int	i;
+	int	in_word;
+
+	i = 0;
+	in_word = 0;
+	if (!str)
+		return (0);
+	while (*str)
+	{
+		if ((*str != ' ' && *str != '\t' && *str != '\n'))
+		{
+			if (!in_word)
+			{
+				in_word = 1;
+				i++;
+			}
+		}
+		else
+			in_word = 0;
+		str++;
+	}
+	return (i);
+}
 
 void	ft_handle_expansion(char *str, size_t *i, char **result, t_shell *shell)
 {
@@ -46,6 +72,7 @@ void	ft_expand(t_shell *shell)
 	t_cmd	*cmd;
 	t_redir	*redir;
 	int		i;
+	char	*original;
 
 	cmd = shell->cmds;
 	while (cmd)
@@ -60,7 +87,19 @@ void	ft_expand(t_shell *shell)
 		while (redir)
 		{
 			if (redir->type != R_HEREDOC)
+			{
+				original = ft_strdup(redir->file);
 				redir->file = ft_expand_string(redir->file, shell);
+				if (redir->file == NULL || ft_word_count(redir->file) != 1)
+				{
+					ft_dprintf(2, "minishell: %s: ambiguous redirect\n",
+						original);
+					free(original);
+					//update_exit_status for clean exit in main loop;
+					return ;
+				}
+				free(original);
+			}
 			redir = redir->next;
 		}
 		cmd = cmd->next;

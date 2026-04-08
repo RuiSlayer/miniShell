@@ -3,32 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 13:27:00 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/02 21:17:11 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/07 23:34:16 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/errors.h"
 #include "../42libft/libft.h"
+#include "../ft_dprintf/ft_printf.h"
+#include <errno.h>
 
 void	ft_syntax_error(char *token)
 {
-	ft_putstr_fd("minishell: ", 2);
 	if (token)
 	{
-		ft_putstr_fd("syntax error near unexpected token  `", 2);
-		ft_putstr_fd(token, 2);
-		ft_putstr_fd("'\n", 2);
+		ft_dprintf(2,
+			"minishell: syntax error near unexpected token `%s'\n", token);
 	}
 	else
-		ft_putstr_fd("syntax error near unexpected token", 2);
+		ft_dprintf(2, "minishell: syntax error near unexpected token");
 }
 
-void	ft_error(char *msg)
+/* int	ft_exec(char **argv, char **envp)
 {
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(msg, 2);
-	ft_putstr_fd("\n", 2);
-}
+	char	*path;
+
+	if (ft_strncmp(argv[0], "..", 3) == 0 || ft_strncmp(argv[0], ".", 2) == 0
+		|| !**argv)
+		return (ft_err_m(false, argv[0], ": command not found\n"), 127);
+	if (ft_strchr(argv[0], '/') || ft_strncmp(argv[0], "./", 2) == 0)
+		path = ft_strdup(argv[0]);
+	else
+		path = ft_get_path(argv[0], envp);
+	if (!path || access(path, F_OK) != 0)
+	{
+		if (errno == ENOTDIR)
+			return (ft_err_m(true, argv[0], ": Not a directory\n"), 126);
+		else if (ft_strchr(argv[0], '/') || ft_strncmp(argv[0], "./", 2) == 0)
+			ft_err_m(true, argv[0], ": No such file or directory\n");
+		else
+			ft_err_m(false, argv[0], ": command not found\n");
+		ft_free(&path);
+		return (127);
+	}
+	execve(path, argv, envp);
+	if (errno == EACCES)
+		return (ft_access_prompt(path, argv[0]), 126);
+	ft_err_m(true, argv[0], ": Unexpected execution error\n");
+	return (ft_free(&path), 1);
+} */

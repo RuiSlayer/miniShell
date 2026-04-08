@@ -1,20 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isspace.c                                       :+:      :+:    :+:   */
+/*   print_dec_int.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/28 19:43:09 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/07 23:24:56 by slayer           ###   ########.fr       */
+/*   Created: 2026/04/05 22:43:10 by slayer            #+#    #+#             */
+/*   Updated: 2026/04/05 22:43:13 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-int	ft_isspace(int c)
+int	print_dec_int(int fd, int n)
 {
-	return (c == ' ' || c == '\t'
-		|| c == '\n' || c == '\v'
-		|| c == '\f' || c == '\r');
+	long	decimal;
+	int		len;
+	char	number;
+
+	len = 0;
+	decimal = n;
+	if (decimal < 0)
+	{
+		len += write(fd, "-", 1);
+		decimal = -decimal;
+	}
+	if (decimal >= 10)
+		len += print_dec_int(fd, decimal / 10);
+	number = (decimal % 10) + '0';
+	len += write(fd, &number, 1);
+	return (len);
 }

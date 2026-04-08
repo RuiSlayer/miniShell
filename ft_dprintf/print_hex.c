@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isspace.c                                       :+:      :+:    :+:   */
+/*   print_hex.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/28 19:43:09 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/07 23:24:56 by slayer           ###   ########.fr       */
+/*   Created: 2026/04/05 22:43:24 by slayer            #+#    #+#             */
+/*   Updated: 2026/04/05 22:43:27 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-int	ft_isspace(int c)
+int	print_hex(int fd, uint hex, char *hex_case)
 {
-	return (c == ' ' || c == '\t'
-		|| c == '\n' || c == '\v'
-		|| c == '\f' || c == '\r');
+	int		len;
+	char	out;
+
+	len = 0;
+	if (hex >= 16)
+		len += print_hex(fd, hex / 16, hex_case);
+	out = hex_case[hex % 16];
+	len += write(fd, &out, 1);
+	return (len);
 }

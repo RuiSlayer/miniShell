@@ -1,22 +1,175 @@
-==1054579== Memcheck, a memory error detector
-==1054579== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==1054579== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==1054579== Command: ./miniShell
-==1054579== 
-[?2004hprompt> exit 42
-[?2004larg: 42
-==1054579== 
-==1054579== HEAP SUMMARY:
-==1054579==     in use at exit: 208,248 bytes in 226 blocks
-==1054579==   total heap usage: 668 allocs, 442 frees, 238,346 bytes allocated
-==1054579== 
-==1054579== LEAK SUMMARY:
-==1054579==    definitely lost: 0 bytes in 0 blocks
-==1054579==    indirectly lost: 0 bytes in 0 blocks
-==1054579==      possibly lost: 0 bytes in 0 blocks
-==1054579==    still reachable: 208,248 bytes in 226 blocks
-==1054579==         suppressed: 0 bytes in 0 blocks
-==1054579== Rerun with --leak-check=full to see details of leaked memory
-==1054579== 
-==1054579== For lists of detected and suppressed errors, rerun with: -s
-==1054579== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==6790== Memcheck, a memory error detector
+==6790== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==6790== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==6790== Command: ./minishell ./minishell
+==6790== 
+[?2004hprompt> export $ VAR=""
+[?2004l
+[?2004hprompt> cat > $VAR
+[?2004l
+minishell: $VAR: ambiguous redirect
+No such file or directory
+==6792== 
+==6792== HEAP SUMMARY:
+==6792==     in use at exit: 235,804 bytes in 304 blocks
+==6792==   total heap usage: 552 allocs, 248 frees, 254,773 bytes allocated
+==6792== 
+==6792== 1 bytes in 1 blocks are still reachable in loss record 1 of 90
+==6792==    at 0x4885250: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-arm64-linux.so)
+==6792==    by 0x10E8D3: ft_strdup (in /minishell/42/Cursus/lvl3/miniShell/miniShell/minishell)
+==6792==    by 0x10A3E7: create_node (update_env.c:51)
+==6792==    by 0x10A593: add_var (update_env.c:93)
+==6792==    by 0x109C0F: built_export (export.c:135)
+==6792==    by 0x10AD0B: run_builtin (cmds_runer.c:48)
+==6792==    by 0x10AF97: run_builtin_in_parent (cmds_runer.c:90)
+==6792==    by 0x10B703: execute_pipeline (pipeline_loop.c:68)
+==6792==    by 0x10DE27: process_line (main_exec.c:49)
+==6792==    by 0x10DF27: main (main_exec.c:72)
+==6792== 
+==6792== 1 bytes in 1 blocks are still reachable in loss record 2 of 90
+==6792==    at 0x4885250: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-arm64-linux.so)
+==6792==    by 0x10EA1F: ft_strjoin (in /minishell/42/Cursus/lvl3/miniShell/miniShell/minishell)
+==6792==    by 0x10BF43: ft_append_str (expansion_utils.c:33)
+==6792==    by 0x10B9F7: ft_handle_expansion (expansion.c:65)
+==6792==    by 0x10BE0B: ft_expand_string (expansion_quotes.c:55)
+==6792==    by 0x10BAEF: ft_expand (expansion.c:92)
+==6792==    by 0x10DDEF: process_line (main_exec.c:45)
+==6792==    by 0x10DF27: main (main_exec.c:72)
+==6792== 
+==6792== 4 bytes in 1 blocks are still reachable in loss record 4 of 90
+==6792==    at 0x4885250: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-arm64-linux.so)
+==6792==    by 0x10EA1F: ft_strjoin (in /minishell/42/Cursus/lvl3/miniShell/miniShell/minishell)
+==6792==    by 0x10BECB: ft_append_char (expansion_utils.c:22)
+==6792==    by 0x10BE2F: ft_expand_string (expansion_quotes.c:57)
+==6792==    by 0x10BA6F: ft_expand (expansion.c:83)
+==6792==    by 0x10DDEF: process_line (main_exec.c:45)
+==6792==    by 0x10DF27: main (main_exec.c:72)
+==6792== 
+==6792== 4 bytes in 1 blocks are still reachable in loss record 5 of 90
+==6792==    at 0x4885250: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-arm64-linux.so)
+==6792==    by 0x10E8D3: ft_strdup (in /minishell/42/Cursus/lvl3/miniShell/miniShell/minishell)
+==6792==    by 0x10A38F: create_node (update_env.c:47)
+==6792==    by 0x10A593: add_var (update_env.c:93)
+==6792==    by 0x109C0F: built_export (export.c:135)
+==6792==    by 0x10AD0B: run_builtin (cmds_runer.c:48)
+==6792==    by 0x10AF97: run_builtin_in_parent (cmds_runer.c:90)
+==6792==    by 0x10B703: execute_pipeline (pipeline_loop.c:68)
+==6792==    by 0x10DE27: process_line (main_exec.c:49)
+==6792==    by 0x10DF27: main (main_exec.c:72)
+==6792== 
+==6792== 5 bytes in 1 blocks are definitely lost in loss record 6 of 90
+==6792==    at 0x4885250: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-arm64-linux.so)
+==6792==    by 0x10E8D3: ft_strdup (in /minishell/42/Cursus/lvl3/miniShell/miniShell/minishell)
+==6792==    by 0x10BADB: ft_expand (expansion.c:91)
+==6792==    by 0x10DDEF: process_line (main_exec.c:45)
+==6792==    by 0x10DF27: main (main_exec.c:72)
+==6792== 
+==6792== 16 bytes in 1 blocks are still reachable in loss record 18 of 90
+==6792==    at 0x4885250: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-arm64-linux.so)
+==6792==    by 0x10D387: ft_add_arg (parser_lst.c:23)
+==6792==    by 0x10CECF: ft_parse_command (parser.c:52)
+==6792==    by 0x10D093: ft_parse_pipeline (parser.c:84)
+==6792==    by 0x10D1E7: ft_parse (parser.c:113)
+==6792==    by 0x10DDC3: process_line (main_exec.c:41)
+==6792==    by 0x10DF27: main (main_exec.c:72)
+==6792== 
+==6792== 24 bytes in 1 blocks are still reachable in loss record 22 of 90
+==6792==    at 0x4885250: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-arm64-linux.so)
+==6792==    by 0x10E223: ft_calloc (in /minishell/42/Cursus/lvl3/miniShell/miniShell/minishell)
+==6792==    by 0x10CE87: ft_parse_command (parser.c:46)
+==6792==    by 0x10D093: ft_parse_pipeline (parser.c:84)
+==6792==    by 0x10D1E7: ft_parse (parser.c:113)
+==6792==    by 0x10DDC3: process_line (main_exec.c:41)
+==6792==    by 0x10DF27: main (main_exec.c:72)
+==6792== 
+==6792== 32 bytes in 1 blocks are still reachable in loss record 25 of 90
+==6792==    at 0x4885250: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-arm64-linux.so)
+==6792==    by 0x10B5D7: pipe_setup (pipeline_loop.c:41)
+==6792==    by 0x10B6D3: execute_pipeline (pipeline_loop.c:66)
+==6792==    by 0x10DE27: process_line (main_exec.c:49)
+==6792==    by 0x10DF27: main (main_exec.c:72)
+==6792== 
+==6792== 32 bytes in 1 blocks are still reachable in loss record 26 of 90
+==6792==    at 0x4885250: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-arm64-linux.so)
+==6792==    by 0x10A373: create_node (update_env.c:44)
+==6792==    by 0x10A593: add_var (update_env.c:93)
+==6792==    by 0x109C0F: built_export (export.c:135)
+==6792==    by 0x10AD0B: run_builtin (cmds_runer.c:48)
+==6792==    by 0x10AF97: run_builtin_in_parent (cmds_runer.c:90)
+==6792==    by 0x10B703: execute_pipeline (pipeline_loop.c:68)
+==6792==    by 0x10DE27: process_line (main_exec.c:49)
+==6792==    by 0x10DF27: main (main_exec.c:72)
+==6792== 
+==6792== 32 bytes in 1 blocks are still reachable in loss record 27 of 90
+==6792==    at 0x4885250: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-arm64-linux.so)
+==6792==    by 0x10E223: ft_calloc (in /minishell/42/Cursus/lvl3/miniShell/miniShell/minishell)
+==6792==    by 0x10D48B: ft_add_redir (parser_lst.c:44)
+==6792==    by 0x10CFBF: ft_parse_command (parser.c:68)
+==6792==    by 0x10D093: ft_parse_pipeline (parser.c:84)
+==6792==    by 0x10D1E7: ft_parse (parser.c:113)
+==6792==    by 0x10DDC3: process_line (main_exec.c:41)
+==6792==    by 0x10DF27: main (main_exec.c:72)
+==6792== 
+==6792== 169 bytes in 18 blocks are still reachable in loss record 38 of 90
+==6792==    at 0x4885250: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-arm64-linux.so)
+==6792==    by 0x10EC53: ft_substr (in /minishell/42/Cursus/lvl3/miniShell/miniShell/minishell)
+==6792==    by 0x10A0FF: find_var_val (save_env.c:49)
+==6792==    by 0x10A1AB: save_node (save_env.c:65)
+==6792==    by 0x10A247: save_env (save_env.c:84)
+==6792==    by 0x10DD1F: shell_init (main_exec.c:20)
+==6792==    by 0x10DEB3: main (main_exec.c:61)
+==6792== 
+==6792== 576 bytes in 18 blocks are still reachable in loss record 40 of 90
+==6792==    at 0x4885250: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-arm64-linux.so)
+==6792==    by 0x10A187: save_node (save_env.c:61)
+==6792==    by 0x10A247: save_env (save_env.c:84)
+==6792==    by 0x10DD1F: shell_init (main_exec.c:20)
+==6792==    by 0x10DEB3: main (main_exec.c:61)
+==6792== 
+==6792== 2,144 bytes in 18 blocks are still reachable in loss record 57 of 90
+==6792==    at 0x4885250: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-arm64-linux.so)
+==6792==    by 0x10E8D3: ft_strdup (in /minishell/42/Cursus/lvl3/miniShell/miniShell/minishell)
+==6792==    by 0x10A137: find_var_val (save_env.c:51)
+==6792==    by 0x10A1AB: save_node (save_env.c:65)
+==6792==    by 0x10A247: save_env (save_env.c:84)
+==6792==    by 0x10DD1F: shell_init (main_exec.c:20)
+==6792==    by 0x10DEB3: main (main_exec.c:61)
+==6792== 
+==6792== LEAK SUMMARY:
+==6792==    definitely lost: 5 bytes in 1 blocks
+==6792==    indirectly lost: 0 bytes in 0 blocks
+==6792==      possibly lost: 0 bytes in 0 blocks
+==6792==    still reachable: 3,035 bytes in 63 blocks
+==6792==         suppressed: 232,764 bytes in 240 blocks
+==6792== 
+==6792== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+--6792-- 
+--6792-- used_suppression:     77 readline_reachable ./readline.supp:2 suppressed: 232,764 bytes in 240 blocks
+==6792== 
+==6792== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+[?2004hprompt> exit
+[?2004l
+==6790== 
+==6790== HEAP SUMMARY:
+==6790==     in use at exit: 232,810 bytes in 244 blocks
+==6790==   total heap usage: 573 allocs, 329 frees, 255,040 bytes allocated
+==6790== 
+==6790== 5 bytes in 1 blocks are definitely lost in loss record 2 of 78
+==6790==    at 0x4885250: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-arm64-linux.so)
+==6790==    by 0x10E8D3: ft_strdup (in /minishell/42/Cursus/lvl3/miniShell/miniShell/minishell)
+==6790==    by 0x10BADB: ft_expand (expansion.c:91)
+==6790==    by 0x10DDEF: process_line (main_exec.c:45)
+==6790==    by 0x10DF27: main (main_exec.c:72)
+==6790== 
+==6790== LEAK SUMMARY:
+==6790==    definitely lost: 5 bytes in 1 blocks
+==6790==    indirectly lost: 0 bytes in 0 blocks
+==6790==      possibly lost: 0 bytes in 0 blocks
+==6790==    still reachable: 0 bytes in 0 blocks
+==6790==         suppressed: 232,805 bytes in 243 blocks
+==6790== 
+==6790== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+--6790-- 
+--6790-- used_suppression:     77 readline_reachable ./readline.supp:2 suppressed: 232,805 bytes in 243 blocks
+==6790== 
+==6790== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)

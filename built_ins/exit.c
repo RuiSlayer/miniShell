@@ -3,14 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 20:19:27 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/02 21:17:30 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/07 23:29:24 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/miniShell_exec.h"
+
+int	ft_is_numeric(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 void	update_exit_status(t_shell *shell, int status)
 {
@@ -23,16 +39,16 @@ void	exit_built_in(t_shell *shell)
 
 	if (!shell->cmds->args[1])
 		clean_exit(shell);
-	if (shell->cmds->args[2])
+	if (!ft_is_numeric(shell->cmds->args[1]))
 	{
-		printf("exit\nminiShell: exit: too many arguments\n");
+		ft_dprintf(2, "exit\nminiShell: exit: %s: numeric argument required\n",
+			shell->cmds->args[1]);
 		return ;
 	}
 	arg = ft_atoi(shell->cmds->args[1]);
-	printf("arg: %d\n",arg);
-	if (ft_isdigit(arg))
+	if (shell->cmds->args[2])
 	{
-		printf("exit\nminiShell: exit: %s: numeric argument required\n", shell->cmds->args[1]);
+		ft_dprintf(2, "exit\nminiShell: exit: too many arguments\n");
 		return ;
 	}
 	update_exit_status(shell, arg);
@@ -43,6 +59,7 @@ void	clean_exit(t_shell *shell)
 {
 	free_env(shell->env);
 	ft_free_cmd_list(&shell->cmds);
-	printf("exit\n");
+	if (!shell->is_subshell)
+		ft_dprintf(2, "exit\n");
 	exit(shell->exit_status);
 }
