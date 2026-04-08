@@ -1,49 +1,33 @@
-==1499950== Memcheck, a memory error detector
-==1499950== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==1499950== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==1499950== Command: ./minishell ./minishell
-==1499950== 
-[?2004hprompt> cat << EOF[K[K[K"EOF"
-[?2004l[?2004h> ola
-[?2004l[?2004h> EOF
-[?2004lola
-[?2004hprompt> cat << "EO[KNF[KD OF FILE"
-[?2004l[?2004h> ola
-[?2004l[?2004h> sou
-[?2004l[?2004h> gay
-[?2004l[?2004h> "END[K[K[K[Kend of [K[K[K[K[K[K[KEND OF FILE
-[?2004lola
-sou
-gay
-[?2004hprompt> cat << "END OF FILE"
-[?2004l[?2004h> E[KOLA
-[?2004l[?2004h> SOU
-[?2004l[?2004h> gay
-[?2004l[?2004h> "en[K[Ken[K[KEND OF FILE"
-[?2004l[?2004h> cat << "END OF FILE"[C[C[K"[Kend [K[K[K[Ken[K[K"END OF FILE
-[?2004l[?2004h> cat << "END OF FILE"[C[C[Kcat << "END OF FILE"[C[C[Ken[K[KEND OF FILE
-[?2004lOLA
-SOU
-gay
-"END OF FILE"
-"END OF FILE
+==1554799== Memcheck, a memory error detector
+==1554799== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1554799== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==1554799== Command: ./minishell ./minishell
+==1554799== 
+[?2004hprompt> mkdir lala
+[?2004l[?2004hprompt> cd lala/
+[?2004l[?2004hprompt> rm -r ../lala
+[?2004l[?2004hprompt> pwd
+[?2004lpwd: No such file or directory
+[?2004hprompt> cd ..
+[?2004l[?2004hprompt> pwd
+[?2004l/home/rucosta/Desktop/miniShell
 [?2004hprompt> exit
 [?2004lexit
-==1499950== 
-==1499950== HEAP SUMMARY:
-==1499950==     in use at exit: 208,379 bytes in 234 blocks
-==1499950==   total heap usage: 906 allocs, 672 frees, 242,016 bytes allocated
-==1499950== 
-==1499950== LEAK SUMMARY:
-==1499950==    definitely lost: 0 bytes in 0 blocks
-==1499950==    indirectly lost: 0 bytes in 0 blocks
-==1499950==      possibly lost: 0 bytes in 0 blocks
-==1499950==    still reachable: 0 bytes in 0 blocks
-==1499950==         suppressed: 208,379 bytes in 234 blocks
-==1499950== 
-==1499950== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
---1499950-- 
---1499950-- used_suppression:     65 readline_reachable ./readline.supp:2 suppressed: 208,371 bytes in 233 blocks
---1499950-- used_suppression:      1 libtinfo_ncurses_reachable ./readline.supp:10 suppressed: 8 bytes in 1 blocks
-==1499950== 
-==1499950== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==1554799== 
+==1554799== HEAP SUMMARY:
+==1554799==     in use at exit: 208,477 bytes in 243 blocks
+==1554799==   total heap usage: 860 allocs, 617 frees, 290,274 bytes allocated
+==1554799== 
+==1554799== LEAK SUMMARY:
+==1554799==    definitely lost: 0 bytes in 0 blocks
+==1554799==    indirectly lost: 0 bytes in 0 blocks
+==1554799==      possibly lost: 0 bytes in 0 blocks
+==1554799==    still reachable: 0 bytes in 0 blocks
+==1554799==         suppressed: 208,477 bytes in 243 blocks
+==1554799== 
+==1554799== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+--1554799-- 
+--1554799-- used_suppression:     65 readline_reachable ./readline.supp:2 suppressed: 208,469 bytes in 242 blocks
+--1554799-- used_suppression:      1 libtinfo_ncurses_reachable ./readline.supp:10 suppressed: 8 bytes in 1 blocks
+==1554799== 
+==1554799== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
