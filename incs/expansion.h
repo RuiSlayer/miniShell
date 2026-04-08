@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 19:50:50 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/08 02:29:40 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/08 10:43:48 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # include "parser.h"
 # include "shell.h"
 
-void	ft_expand(t_shell *shell);
+int		ft_expand(t_shell *shell);
 char	*ft_expand_string(char *str, t_shell *shell);
 void	ft_handle_single_quote(char *str, size_t *i, char **result);
 void	ft_handle_double_quote(char *str,
