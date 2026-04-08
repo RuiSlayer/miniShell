@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/23 15:05:35 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/07 23:32:12 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/08 11:30:15 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ char	**env_to_array(t_env *env)
 	count = 0;
 	curr = env;
 	while (curr)
-		(count++, curr = curr->next);
+	{
+		count++;
+		curr = curr->next;
+	}
 	array = malloc(sizeof(char *) * (count + 1));
 	if (!array)
 		return (NULL);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:13 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/08 02:33:58 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/08 10:44:21 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ static void	process_line(t_shell *shell, char *line)
 	ft_clear_token_list(&tokens);
 	if (!shell->cmds)
 		return ;
-	ft_expand(shell);
-	if (ft_setup_heredocs(shell->cmds) == -1 || )
+	if (ft_expand(shell) == -1)
+		return (ft_free_cmd_list(&shell->cmds));
+	if (ft_setup_heredocs(shell->cmds) == -1)
 		return (ft_free_cmd_list(&shell->cmds));
 	head_cmds = shell->cmds;
 	execute_pipeline(shell);
