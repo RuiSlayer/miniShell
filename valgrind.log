@@ -1,49 +1,91 @@
-==1499950== Memcheck, a memory error detector
-==1499950== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==1499950== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==1499950== Command: ./minishell ./minishell
-==1499950== 
-[?2004hprompt> cat << EOF[K[K[K"EOF"
-[?2004l[?2004h> ola
-[?2004l[?2004h> EOF
-[?2004lola
-[?2004hprompt> cat << "EO[KNF[KD OF FILE"
-[?2004l[?2004h> ola
-[?2004l[?2004h> sou
-[?2004l[?2004h> gay
-[?2004l[?2004h> "END[K[K[K[Kend of [K[K[K[K[K[K[KEND OF FILE
-[?2004lola
-sou
-gay
-[?2004hprompt> cat << "END OF FILE"
-[?2004l[?2004h> E[KOLA
-[?2004l[?2004h> SOU
-[?2004l[?2004h> gay
-[?2004l[?2004h> "en[K[Ken[K[KEND OF FILE"
-[?2004l[?2004h> cat << "END OF FILE"[C[C[K"[Kend [K[K[K[Ken[K[K"END OF FILE
-[?2004l[?2004h> cat << "END OF FILE"[C[C[Kcat << "END OF FILE"[C[C[Ken[K[KEND OF FILE
-[?2004lOLA
-SOU
-gay
-"END OF FILE"
-"END OF FILE
+==1599870== Memcheck, a memory error detector
+==1599870== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1599870== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==1599870== Command: ./minishell ./minishell
+==1599870== 
+[?2004hprompt>  ola 
+[?2004lminishell: ola: command not found
+==1599872== 
+==1599872== HEAP SUMMARY:
+==1599872==     in use at exit: 208,217 bytes in 225 blocks
+==1599872==   total heap usage: 700 allocs, 475 frees, 239,028 bytes allocated
+==1599872== 
+==1599872== LEAK SUMMARY:
+==1599872==    definitely lost: 0 bytes in 0 blocks
+==1599872==    indirectly lost: 0 bytes in 0 blocks
+==1599872==      possibly lost: 0 bytes in 0 blocks
+==1599872==    still reachable: 0 bytes in 0 blocks
+==1599872==         suppressed: 208,217 bytes in 225 blocks
+==1599872== 
+==1599872== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+--1599872-- 
+--1599872-- used_suppression:     66 readline_reachable ./readline.supp:2 suppressed: 208,217 bytes in 225 blocks
+==1599872== 
+==1599872== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+[?2004hprompt>  ola    
+[?2004lminishell: ola: command not found
+==1599874== 
+==1599874== HEAP SUMMARY:
+==1599874==     in use at exit: 208,276 bytes in 230 blocks
+==1599874==   total heap usage: 726 allocs, 496 frees, 239,363 bytes allocated
+==1599874== 
+==1599874== LEAK SUMMARY:
+==1599874==    definitely lost: 0 bytes in 0 blocks
+==1599874==    indirectly lost: 0 bytes in 0 blocks
+==1599874==      possibly lost: 0 bytes in 0 blocks
+==1599874==    still reachable: 0 bytes in 0 blocks
+==1599874==         suppressed: 208,276 bytes in 230 blocks
+==1599874== 
+==1599874== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+--1599874-- 
+--1599874-- used_suppression:     71 readline_reachable ./readline.supp:2 suppressed: 208,276 bytes in 230 blocks
+==1599874== 
+==1599874== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+[?2004hprompt>  ola    ola   
+[?2004lminishell: ola: command not found
+==1599875== 
+==1599875== HEAP SUMMARY:
+==1599875==     in use at exit: 208,316 bytes in 233 blocks
+==1599875==   total heap usage: 760 allocs, 527 frees, 239,796 bytes allocated
+==1599875== 
+==1599875== LEAK SUMMARY:
+==1599875==    definitely lost: 0 bytes in 0 blocks
+==1599875==    indirectly lost: 0 bytes in 0 blocks
+==1599875==      possibly lost: 0 bytes in 0 blocks
+==1599875==    still reachable: 0 bytes in 0 blocks
+==1599875==         suppressed: 208,316 bytes in 233 blocks
+==1599875== 
+==1599875== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+--1599875-- 
+--1599875-- used_suppression:     71 readline_reachable ./readline.supp:2 suppressed: 208,316 bytes in 233 blocks
+==1599875== 
+==1599875== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+[?2004hprompt> make fclean
+[?2004lmake[1]: Entering directory '/home/fgameiro/Desktop/42/Lvl3/miniShell'
+rm -f built_ins/cd.o built_ins/echo.o built_ins/env.o built_ins/export.o built_ins/pwd.o built_ins/unset.o built_ins/exit.o env_utils/get_env.o env_utils/save_env.o env_utils/update_env.o errors/errors.o errors/errors_external_cmds.o executor/cmds_runer.o executor/executor_path.o executor/executor_redirs.o executor/pipeline_loop.o expansion/expansion.o expansion/expansion_quotes.o expansion/expansion_utils.o expansion/expansion_var.o ft_dprintf/format_delegator.o ft_dprintf/ft_printf.o ft_dprintf/print_char.o ft_dprintf/print_dec_int.o ft_dprintf/print_hex.o ft_dprintf/print_pointer.o ft_dprintf/print_string.o ft_dprintf/print_uint.o parser/parser.o parser/parser_free.o parser/parser_lst.o tokens/tokens_handler.o tokens/tokens_appenders.o tokens/tokens_lst.o tokens/tokens_utils.o main/main_exec.o main/signal_handle.o
+make -C 42libft fclean
+make[2]: Entering directory '/home/fgameiro/Desktop/42/Lvl3/miniShell/42libft'
+rm -f ft_atoi.o ft_bzero.o ft_calloc.o ft_isalpha.o ft_isascii.o ft_isdigit.o ft_isprint.o ft_itoa.o ft_memchr.o ft_memcmp.o ft_memcpy.o ft_memmove.o ft_memset.o ft_putchar_fd.o ft_putendl_fd.o ft_putnbr_fd.o ft_putstr_fd.o ft_split.o ft_strchr.o ft_strdup.o ft_striteri.o ft_strjoin.o ft_strlcat.o ft_strlcpy.o ft_strlen.o ft_strmapi.o ft_strncmp.o ft_strnstr.o ft_strrchr.o ft_strtrim.o ft_substr.o ft_tolower.o ft_toupper.o ft_isalnum.o ft_putnbr_fd.o ft_strcmp.o ft_isspace.o
+rm -f libft.a
+make[2]: Leaving directory '/home/fgameiro/Desktop/42/Lvl3/miniShell/42libft'
+rm -f minishell
+make[1]: Leaving directory '/home/fgameiro/Desktop/42/Lvl3/miniShell'
 [?2004hprompt> exit
 [?2004lexit
-==1499950== 
-==1499950== HEAP SUMMARY:
-==1499950==     in use at exit: 208,379 bytes in 234 blocks
-==1499950==   total heap usage: 906 allocs, 672 frees, 242,016 bytes allocated
-==1499950== 
-==1499950== LEAK SUMMARY:
-==1499950==    definitely lost: 0 bytes in 0 blocks
-==1499950==    indirectly lost: 0 bytes in 0 blocks
-==1499950==      possibly lost: 0 bytes in 0 blocks
-==1499950==    still reachable: 0 bytes in 0 blocks
-==1499950==         suppressed: 208,379 bytes in 234 blocks
-==1499950== 
-==1499950== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
---1499950-- 
---1499950-- used_suppression:     65 readline_reachable ./readline.supp:2 suppressed: 208,371 bytes in 233 blocks
---1499950-- used_suppression:      1 libtinfo_ncurses_reachable ./readline.supp:10 suppressed: 8 bytes in 1 blocks
-==1499950== 
-==1499950== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==1599870== 
+==1599870== HEAP SUMMARY:
+==1599870==     in use at exit: 208,380 bytes in 237 blocks
+==1599870==   total heap usage: 771 allocs, 534 frees, 239,685 bytes allocated
+==1599870== 
+==1599870== LEAK SUMMARY:
+==1599870==    definitely lost: 0 bytes in 0 blocks
+==1599870==    indirectly lost: 0 bytes in 0 blocks
+==1599870==      possibly lost: 0 bytes in 0 blocks
+==1599870==    still reachable: 0 bytes in 0 blocks
+==1599870==         suppressed: 208,380 bytes in 237 blocks
+==1599870== 
+==1599870== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+--1599870-- 
+--1599870-- used_suppression:     69 readline_reachable ./readline.supp:2 suppressed: 208,380 bytes in 237 blocks
+==1599870== 
+==1599870== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
