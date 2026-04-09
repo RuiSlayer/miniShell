@@ -6,12 +6,12 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 02:02:42 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/09 16:05:05 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/09 20:49:10 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/miniShell_exec.h"
-/* 
+
 int	ft_setup_heredocs(t_cmd *cmds)
 {
 	t_cmd	*cmd;
@@ -63,6 +63,6 @@ int	write_heredoc(t_redir *redir)
 		free(line);
 	}
 	free(line);
-} */
+}
 
 

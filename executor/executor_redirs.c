@@ -6,7 +6,7 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 23:14:58 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/09 16:25:35 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/09 21:01:18 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,12 @@ int	apply_heredoc(t_redir *redir)
 	{
 		line = readline("> ");
 		if (!line || ft_strcmp(line, delimiter) == 0)
-		{
-			free(line);
 			break ;
-		}
 		write(pipefd[1], line, ft_strlen(line));
 		write(pipefd[1], "\n", 1);
 		free(line);
 	}
+	free(line);
 	free(delimiter);
 	close(pipefd[1]);
 	redir->heredoc_fd = pipefd[0];

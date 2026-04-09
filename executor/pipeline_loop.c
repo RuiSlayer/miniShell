@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline_loop.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 21:47:26 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/08 02:21:32 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/09 20:32:24 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,11 @@ static void	child_process(t_pipe *pipe_s, t_shell *shell)
 		close(pipe_s->pipe_fd[1]);
 	}
 	if (apply_redirects(pipe_s->cmd->redirs) == -1)
-		exit(1);
+	{
+		free(pipe_s);
+		update_exit_status(shell, 1);
+		clean_exit(shell);
+	}
 	shell->cmds = pipe_s->cmd;
 	if (is_builtin(shell))
 		return (free(pipe_s), run_builtin(shell), clean_exit(shell));

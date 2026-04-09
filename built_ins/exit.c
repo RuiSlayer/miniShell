@@ -6,7 +6,7 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 20:19:27 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/08 21:54:11 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/09 21:01:54 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,3 +63,5 @@ void	clean_exit(t_shell *shell)
 		ft_dprintf(2, "exit\n");
 	exit(shell->exit_status);
 }
+
+
