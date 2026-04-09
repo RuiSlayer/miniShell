@@ -6,7 +6,7 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 23:14:58 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/08 11:31:59 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/09 04:47:09 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,38 +93,42 @@ int	ft_setup_heredocs(t_cmd *cmds)
 	return (0);
 }
 
+static void	open_fd(t_redir	*redir, int fd)
+{
+	if (redir->type == R_IN)
+		return (fd = open(redir->file, O_RDONLY));
+	if (redir->type == R_OUT)
+		return (fd = open(redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0644));
+	if (redir->type == R_APPEND)
+		return (fd = open(redir->file, O_WRONLY | O_CREAT | O_APPEND, 0644));
+}
+
 int	apply_redirects(t_redir *redir)
 {
 	int	fd;
-
-	while (redir)
+	
+	fd = 0;
+	while (redir->next)
 	{
-		if (redir->type == R_IN)
-			fd = open(redir->file, O_RDONLY);
-		else if (redir->type == R_OUT)
-			fd = open(redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		else if (redir->type == R_APPEND)
-			fd = open(redir->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		else if (redir->type == R_HEREDOC)
-		{
-			dup2(redir->heredoc_fd, STDIN_FILENO);
-			close(redir->heredoc_fd);
-			redir = redir->next;
-			continue ;
-		}
-		else
-		{
-			redir = redir->next;
-			continue ;
-		}
+		open_fd(redir, &fd);
 		if (fd == -1)
 			return (perror(redir->file), -1);
-		if (redir->type == R_IN)
-			dup2(fd, STDIN_FILENO);
-		else
-			dup2(fd, STDOUT_FILENO);
-		close(fd);
+		if(fd != 0)
+			close(fd);
+		fd = 0;
 		redir = redir->next;
 	}
+	open_fd(redir, &fd);
+	if (redir->type == R_IN)
+		dup2(fd, STDIN_FILENO);
+	else if (redir->type == R_HEREDOC)
+	{
+		dup2(redir->heredoc_fd, STDIN_FILENO);
+		close(redir->heredoc_fd);
+	}
+	else
+		dup2(fd, STDOUT_FILENO);
+	close(fd);
 	return (0);
 }
+
