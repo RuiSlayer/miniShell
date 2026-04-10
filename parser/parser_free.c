@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   parser_free.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 00:09:09 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/08 02:36:36 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/09 21:24:39 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/parser.h"
+
+/* void	clear_heredocs(t_cmd	*curr)
+{
+
+	if(curr->redirs->heredoc_fd)
+	{
+		close(curr->redirs->heredoc_fd);
+		unlink(curr->redirs->herefile);
+	}
+
+} */
 
 void	ft_free_redir_list(t_redir *redir)
 {
@@ -19,6 +30,7 @@ void	ft_free_redir_list(t_redir *redir)
 	while (redir)
 	{
 		next = redir->next;
+		free(redir->herefile);
 		free(redir->file);
 		free(redir);
 		redir = next;
@@ -42,6 +54,7 @@ void	ft_free_cmd_list(t_cmd **lst)
 				free(curr->args[i++]);
 			free(curr->args);
 		}
+		// clear_heredocs(curr);
 		ft_free_redir_list(curr->redirs);
 		free(curr);
 		curr = next;
