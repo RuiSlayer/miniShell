@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 00:29:36 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/08 11:24:43 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/10 23:05:52 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ typedef struct s_shell
 	t_cmd	*cmds;
 	short	exit_status;
 	int		cmd_count;
+	int		saved_in;
+	int		saved_out;
 	int		is_subshell;
 }	t_shell;
 

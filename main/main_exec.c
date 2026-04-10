@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:13 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/09 21:23:03 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/10 23:06:27 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static void	shell_init(t_shell *shell, char **envp)
 	shell->cmds = NULL;
 	shell->exit_status = 0;
 	shell->is_subshell = 0;
+	shell->saved_in = -1;
+	shell->saved_out = -1;
 	save_env(&shell->env, envp);
 	setup_signals();
 }

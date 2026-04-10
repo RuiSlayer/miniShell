@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 21:28:55 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/01 01:15:14 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/10 23:57:46 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	pwd(void)
 	if (!getcwd(cwd, PATH_MAX))
 	{
 		perror("pwd");
-		return (1);
+		return (2);
 	}
 	printf("%s\n", cwd);
 	return (0);
