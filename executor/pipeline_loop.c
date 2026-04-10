@@ -6,7 +6,7 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 21:47:26 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/09 20:32:24 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/10 17:03:42 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,29 @@ void	set_status(t_shell *shell, int status)
 		shell->exit_status = 128 + WTERMSIG(status);
 }
 
+void	redirect_no_coms(t_pipe	*pipe_s)
+{
+	int	saved_stdin;
+	int	saved_stdout;
+
+	saved_stdin = dup(STDIN_FILENO);
+	saved_stdout = dup(STDOUT_FILENO);
+	if (apply_redirects(pipe_s->cmd->redirs) == -1)
+	{
+		close(saved_stdin);
+		close(saved_stdout);
+		free(pipe_s);
+		return ;
+	}
+	dup2(saved_stdin, STDIN_FILENO);
+	dup2(saved_stdout, STDOUT_FILENO);
+	close(saved_stdin);
+	close(saved_stdout);
+	free(pipe_s);
+	return ;
+}
+
+
 void	execute_pipeline(t_shell *shell)
 {
 	t_pipe	*pipe_s;
@@ -76,6 +99,8 @@ void	execute_pipeline(t_shell *shell)
 
 	i = 0;
 	pipe_setup(&pipe_s, shell);
+	if (!(shell->cmds && shell->cmds->args))
+		return (redirect_no_coms(pipe_s));
 	if (!pipe_s->cmd->next && is_builtin(shell))
 		return (run_builtin_in_parent(pipe_s, shell));
 	while (pipe_s->cmd)
