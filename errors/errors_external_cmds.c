@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors_external_cmds.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 03:26:41 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/07 23:36:32 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/09 00:31:06 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	parse_external_cmd_path(t_shell *shell, char *path)
 	}
 	if (is_directory(path) == 1)
 	{
-		ft_dprintf(2, "%s: is a directory\n", shell->cmds->args[0]);
+		ft_dprintf(2, "%s: Is a directory\n", shell->cmds->args[0]);
 		return (external_cmd_exit(shell, path, 126));
 	}
 	if (access(path, X_OK) != 0)

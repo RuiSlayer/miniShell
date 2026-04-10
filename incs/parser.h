@@ -6,7 +6,7 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 21:38:51 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/08 21:40:52 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/09 02:36:58 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_redir
 	char			*file;// filename or heredoc delimiter
 	struct s_redir	*next;
 	int				heredoc_fd;
+	char			*herefile;
 }	t_redir;
 
 typedef struct s_cmd
