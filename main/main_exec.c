@@ -6,7 +6,7 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:13 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/10 23:06:27 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/11 06:09:10 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,17 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_shell	shell;
 	char	*line;
+	char	*prompt;
 
 	(void)argc;
 	(void)argv;
 	shell_init(&shell, envp);
+	print_banner();
 	while (1)
 	{
-		line = readline("prompt> ");
+		prompt = get_prompt();
+		line = readline(prompt);
+		free(prompt);
 		if (!line)
 			return (handle_eof(&shell), shell.exit_status);
 		if (*line == '\0')

@@ -6,7 +6,7 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 20:19:27 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/10 23:28:04 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/11 05:43:09 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	clean_exit(t_shell *shell)
 	free_env(shell->env);
 	ft_free_cmd_list(&shell->cmds);
 	if (!shell->is_subshell)
-		ft_dprintf(2, "exit\n");
+		ft_dprintf(2, RED"exit\n"RST);
 	exit(shell->exit_status);
 }
 
