@@ -6,7 +6,7 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:13 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/11 06:09:10 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/11 19:56:10 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ static void	handle_eof(t_shell *shell)
 static void	process_line(t_shell *shell, char *line)
 {
 	t_token	*tokens;
-	t_cmd	*head_cmds;
 
 	add_history(line);
 	tokens = ft_tokenization_handler(line);
@@ -45,14 +44,13 @@ static void	process_line(t_shell *shell, char *line)
 	ft_clear_token_list(&tokens);
 	if (!shell->cmds)
 		return ;
+	shell->cmds_head = shell->cmds;
 	if (ft_expand(shell) == -1)
-		return (ft_free_cmd_list(&shell->cmds));
+		return (update_exit_status(shell, 1), ft_free_cmd_list(&shell->cmds_head));
 	if (ft_setup_heredocs(shell->cmds) == -1)
-		return (ft_free_cmd_list(&shell->cmds));
-	head_cmds = shell->cmds;
+		return (ft_free_cmd_list(&shell->cmds_head));
 	execute_pipeline(shell);
-	shell->cmds = head_cmds;
-	ft_free_cmd_list(&shell->cmds);
+	ft_free_cmd_list(&shell->cmds_head);
 }
 
 int	main(int argc, char **argv, char **envp)

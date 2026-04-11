@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline_loop.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 21:47:26 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/10 17:03:42 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/11 19:46:44 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,6 @@ static void	child_process(t_pipe *pipe_s, t_shell *shell)
 	external_cmds(shell);
 }
 
-static void	pipe_setup(t_pipe **pipe_s, t_shell *shell)
-{
-	*pipe_s = malloc(sizeof(t_pipe));
-	if (!*pipe_s)
-		return ;
-	(*pipe_s)->prev_fd = -1;
-	(*pipe_s)->cmd = shell->cmds;
-}
-
 static void	parent_in_loop(t_pipe *pipe_s)
 {
 	if (pipe_s->prev_fd != -1)
@@ -60,36 +51,14 @@ static void	parent_in_loop(t_pipe *pipe_s)
 	pipe_s->cmd = pipe_s->cmd->next;
 }
 
-void	set_status(t_shell *shell, int status)
+int	no_child_cases(t_shell *shell, t_pipe *pipe_s)
 {
-	if (WIFEXITED(status))
-		shell->exit_status = WEXITSTATUS(status);
-	else if (WIFSIGNALED(status))
-		shell->exit_status = 128 + WTERMSIG(status);
+	if (!(shell->cmds && shell->cmds->args))
+		return (redirect_no_coms(shell, pipe_s), 1);
+	if (!pipe_s->cmd->next && is_builtin(shell))
+		return (run_builtin_in_parent(pipe_s, shell), 1);
+	return (0);
 }
-
-void	redirect_no_coms(t_pipe	*pipe_s)
-{
-	int	saved_stdin;
-	int	saved_stdout;
-
-	saved_stdin = dup(STDIN_FILENO);
-	saved_stdout = dup(STDOUT_FILENO);
-	if (apply_redirects(pipe_s->cmd->redirs) == -1)
-	{
-		close(saved_stdin);
-		close(saved_stdout);
-		free(pipe_s);
-		return ;
-	}
-	dup2(saved_stdin, STDIN_FILENO);
-	dup2(saved_stdout, STDOUT_FILENO);
-	close(saved_stdin);
-	close(saved_stdout);
-	free(pipe_s);
-	return ;
-}
-
 
 void	execute_pipeline(t_shell *shell)
 {
@@ -99,10 +68,8 @@ void	execute_pipeline(t_shell *shell)
 
 	i = 0;
 	pipe_setup(&pipe_s, shell);
-	if (!(shell->cmds && shell->cmds->args))
-		return (redirect_no_coms(pipe_s));
-	if (!pipe_s->cmd->next && is_builtin(shell))
-		return (run_builtin_in_parent(pipe_s, shell));
+	if (no_child_cases(shell, pipe_s))
+		return ;
 	while (pipe_s->cmd)
 	{
 		if (pipe_s->cmd->next && pipe(pipe_s->pipe_fd) == -1)

@@ -6,7 +6,7 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:38 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/11 16:19:28 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/11 20:18:35 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_pipe
 {
 	int		pipe_fd[2];
 	int		prev_fd;
+	int		pipe_count;
 	t_cmd	*cmd;
 	pid_t	last_pid;
 }	t_pipe;
@@ -76,4 +77,7 @@ void	parse_external_cmd_path(t_shell *shell, char *path);
 void	parse_external_cmd_execve(t_shell *shell, char *path, int error);
 void	print_banner(void);
 char	*get_prompt();
+void	pipe_setup(t_pipe **pipe_s, t_shell *shell);
+void	set_status(t_shell *shell, int status);
+void	redirect_no_coms(t_shell *shell, t_pipe *pipe_s);
 #endif
