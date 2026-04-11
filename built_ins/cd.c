@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 17:55:19 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/08 19:43:59 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/11 04:42:17 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,6 @@ int	cd(t_cmd *cmds, t_env **env)
 	char	*old_pwd;
 
 	old_pwd = getcwd(NULL, 0);
-	/* if (!old_pwd || ft_strcmp(old_pwd, "") == 0)
-		return (perror("minishell: cd: PWD not set\n"), 1); */
 	if (!cmds->args[1])
 		return (chage_by_var(old_pwd, env, "HOME"));
 	if (ft_strcmp(cmds->args[1], "--") == 0 && cmds->args[2])

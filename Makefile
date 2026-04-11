@@ -10,11 +10,11 @@ FT_DPRINTF = ft_dprintf/format_delegator.c ft_dprintf/ft_printf.c ft_dprintf/pri
 PARSER = parser/parser.c parser/parser_free.c parser/parser_lst.c
 TOKENS = tokens/tokens_handler.c tokens/tokens_appenders.c tokens/tokens_lst.c tokens/tokens_utils.c
 GET_NEXT_LINE = ft_get_next_line/get_next_line.c ft_get_next_line/get_next_line_utils.c
-MAIN = main/main_exec.c main/signal_handle.c 
+MAIN = main/main_exec.c main/signal_handle.c main/prompt.c
 SRCS = $(GET_NEXT_LINE) $(BUILT_INS) $(ENV_UTILS) $(ERRORS) $(EXECUTOR) $(EXPANSION) $(FT_DPRINTF) $(PARSER) $(TOKENS) $(MAIN)
 OBJS = $(SRCS:.c=.o)
 LIBS = 42libft/libft.a
-VALGRIND = valgrind --show-leak-kinds=all --leak-check=full --track-origins=yes --trace-children=yes --track-fds=all -s --suppressions=./readline.supp ./minishell
+VALGRIND = valgrind --show-leak-kinds=all --leak-check=full --track-origins=yes --track-fds=yes -s --suppressions=./readline.supp ./minishell
 
 $(NAME): $(OBJS)
 	$(MAKE) -C 42libft
