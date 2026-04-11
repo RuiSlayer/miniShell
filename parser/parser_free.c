@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_free.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 00:09:09 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/09 21:24:39 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/11 18:34:40 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	ft_free_cmd_list(t_cmd **lst)
 				free(curr->args[i++]);
 			free(curr->args);
 		}
-		// clear_heredocs(curr);
 		ft_free_redir_list(curr->redirs);
 		free(curr);
 		curr = next;

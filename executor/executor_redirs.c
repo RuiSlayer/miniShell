@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   executor_redirs.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 23:14:58 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/09 21:01:18 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/11 19:36:55 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/miniShell_exec.h"
 
-static char	*ft_strip_delimiter(char *str)
+/* static char	*ft_strip_delimiter(char *str)
 {
 	char	*result;
 	int		i;
@@ -33,6 +33,40 @@ static char	*ft_strip_delimiter(char *str)
 			if (str[i])
 				i++;
 		}
+		else
+		{
+			ft_append_char(&result, str[i]);
+			i++;
+		}
+	}
+	return (result);
+} */
+
+static void	ft_strip_quoted(char *str, int *i, char **result)
+{
+	char	quote;
+
+	quote = str[(*i)++];
+	while (str[*i] && str[*i] != quote)
+	{
+		ft_append_char(result, str[*i]);
+		(*i)++;
+	}
+	if (str[*i])
+		(*i)++;
+}
+
+static char	*ft_strip_delimiter(char *str)
+{
+	char	*result;
+	int		i;
+
+	result = ft_strdup("");
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '"' || str[i] == '\'')
+			ft_strip_quoted(str, &i, &result);
 		else
 		{
 			ft_append_char(&result, str[i]);
@@ -129,4 +163,3 @@ int	apply_redirects(t_redir *redir)
 	}
 	return (0);
 }
-
