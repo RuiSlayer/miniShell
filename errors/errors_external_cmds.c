@@ -6,7 +6,7 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 03:26:41 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/07 23:36:32 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/11 19:31:04 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,28 +28,21 @@ int	is_directory(const char *path)
 	return (S_ISDIR(st.st_mode));
 }
 
+static void	print_error(t_shell *shell, char *path, char *message, int status)
+{
+	ft_dprintf(2, "%s: %s\n", shell->cmds->args[0], message);
+	return (external_cmd_exit(shell, path, status));
+}
+
 void	parse_external_cmd_execve(t_shell *shell, char *path, int error)
 {
 	if (error == EACCES)
-	{
-		ft_dprintf(2, "%s: Permission denied\n", shell->cmds->args[0]);
-		external_cmd_exit(shell, path, 126);
-	}
-	else if (error == ENOEXEC)
-	{
-		ft_dprintf(2, "%s: Exec format error\n", shell->cmds->args[0]);
-		external_cmd_exit(shell, path, 126);
-	}
-	else if (error == ENOENT)
-	{
-		ft_dprintf(2, "%s: No such file or directory\n", shell->cmds->args[0]);
-		external_cmd_exit(shell, path, 127);
-	}
-	else
-	{
-		ft_dprintf(2, "%s: execve failed\n", shell->cmds->args[0]);
-		external_cmd_exit(shell, path, 126);
-	}
+		return (print_error(shell, path, "Permission denied", 126));
+	if (error == ENOEXEC)
+		return (print_error(shell, path, "Exec format error", 126));
+	if (error == ENOENT)
+		return (print_error(shell, path, "No such file or directory", 127));
+	return (print_error(shell, path, "execve failed", 126));
 }
 
 void	parse_external_cmd_path(t_shell *shell, char *path)
@@ -57,29 +50,14 @@ void	parse_external_cmd_path(t_shell *shell, char *path)
 	if (!path || access(path, F_OK) != 0)
 	{
 		if (errno == ENOTDIR)
-		{
-			ft_dprintf(2, "%s: Not a directory\n", shell->cmds->args[0]);
-			return (external_cmd_exit(shell, path, 126));
-		}
+			return (print_error(shell, path, "Not a directory", 126));
 		if (ft_strchr(shell->cmds->args[0], '/')
 			|| ft_strncmp(shell->cmds->args[0], "./", 2) == 0)
-		{
-			ft_dprintf(2, "%s: No such file or directory\n",
-				shell->cmds->args[0]);
-			return (external_cmd_exit(shell, path, 127));
-		}
-		ft_dprintf(2, "minishell: %s: command not found\n",
-			shell->cmds->args[0]);
-		return (update_exit_status(shell, 127), clean_exit(shell));
+			return (print_error(shell, path, "No such file or directory", 127));
+		return (print_error(shell, path, "command not found", 127));
 	}
 	if (is_directory(path) == 1)
-	{
-		ft_dprintf(2, "%s: is a directory\n", shell->cmds->args[0]);
-		return (external_cmd_exit(shell, path, 126));
-	}
+		return (print_error(shell, path, "Is a directory", 126));
 	if (access(path, X_OK) != 0)
-	{
-		ft_dprintf(2, "%s: Permission denied\n", shell->cmds->args[0]);
-		return (external_cmd_exit(shell, path, 126));
-	}
+		return (print_error(shell, path, "Permission denied", 126));
 }

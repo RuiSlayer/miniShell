@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/01 16:29:21 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/08 02:40:56 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/08 22:22:27 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/tokens.h"
+
+static int	ft_is_empty(char *value)
+{
+	int	i;
+
+	i = 0;
+	while (value[i])
+	{
+		if (!ft_isspace(value[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 int	ft_handle_separator(char **line_ptr, t_token **token_list)
 {
@@ -34,6 +48,8 @@ t_token	*ft_tokenization_handler(char *line)
 
 	error = 0;
 	token_list = NULL;
+	if (ft_is_empty(line))
+		return (token_list);
 	while (*line)
 	{
 		if (error)

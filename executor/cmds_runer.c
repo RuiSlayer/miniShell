@@ -6,7 +6,7 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 21:44:59 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/08 02:18:39 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/11 19:38:53 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,23 +75,26 @@ int	is_builtin(t_shell *shell)
 
 void	run_builtin_in_parent(t_pipe *pipe_s, t_shell *shell)
 {
-	int	saved_in;
-	int	saved_out;
-
 	free(pipe_s);
-	saved_in = dup(STDIN_FILENO);
-	saved_out = dup(STDOUT_FILENO);
+	shell->saved_in = dup(STDIN_FILENO);
+	shell->saved_out = dup(STDOUT_FILENO);
 	if (apply_redirects(shell->cmds->redirs) == -1)
 	{
-		dup2(saved_in, STDIN_FILENO);
-		dup2(saved_out, STDOUT_FILENO);
-		close(saved_in);
-		close(saved_out);
-		return ;
+		if (shell->saved_in != -1)
+		{
+			dup2(shell->saved_in, STDIN_FILENO);
+			dup2(shell->saved_out, STDOUT_FILENO);
+			close(shell->saved_in);
+			close(shell->saved_out);
+			return ;
+		}
 	}
 	run_builtin(shell);
-	dup2(saved_in, STDIN_FILENO);
-	dup2(saved_out, STDOUT_FILENO);
-	close(saved_in);
-	close(saved_out);
+	if (shell->saved_in != -1)
+	{
+		dup2(shell->saved_in, STDIN_FILENO);
+		dup2(shell->saved_out, STDOUT_FILENO);
+		close(shell->saved_in);
+		close(shell->saved_out);
+	}
 }

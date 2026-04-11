@@ -6,11 +6,22 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 00:09:09 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/08 02:36:36 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/11 18:34:40 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/parser.h"
+
+/* void	clear_heredocs(t_cmd	*curr)
+{
+
+	if(curr->redirs->heredoc_fd)
+	{
+		close(curr->redirs->heredoc_fd);
+		unlink(curr->redirs->herefile);
+	}
+
+} */
 
 void	ft_free_redir_list(t_redir *redir)
 {
@@ -19,6 +30,7 @@ void	ft_free_redir_list(t_redir *redir)
 	while (redir)
 	{
 		next = redir->next;
+		free(redir->herefile);
 		free(redir->file);
 		free(redir);
 		redir = next;

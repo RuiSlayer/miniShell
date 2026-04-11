@@ -6,7 +6,7 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 00:29:36 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/08 02:32:42 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/11 20:16:12 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,14 @@
 
 typedef struct s_shell
 {
-    t_env   *env;
-    t_cmd   *cmds;
-    short     exit_status;
-    int     cmd_count;
-    int is_subshell;
-}   t_shell;
+	t_env	*env;
+	t_cmd	*cmds;
+	t_cmd	*cmds_head;
+	short	exit_status;
+	int		cmd_count;
+	int		saved_in;
+	int		saved_out;
+	int		is_subshell;
+}	t_shell;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:38 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/08 02:32:33 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/11 20:18:35 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,29 @@
 # include <linux/limits.h>
 # include "expansion.h"
 # include "shell.h"
+# include <sysexits.h>
+# include "../ft_get_next_line/get_next_line.h"
 
 typedef struct s_pipe
 {
 	int		pipe_fd[2];
 	int		prev_fd;
+	int		pipe_count;
 	t_cmd	*cmd;
 	pid_t	last_pid;
 }	t_pipe;
+
+/* #define Y		"\033[1;33m"
+#define G		"\033[1;32m"
+
+
+#define RST 	"\033[0m" */
+#define C 		"\033[1;36m"
+#define GREEN   "\033[32m"
+#define BBLUE       "\033[1;34m"
+#define BLUE_NEON     "\033[38;5;27m" 
+#define RED		"\033[1;31m"
+#define RST   "\033[0m"
 
 int		echo(t_cmd	*cmd);
 int		pwd(void);
@@ -60,5 +75,9 @@ int		apply_redirects(t_redir *redir);
 void	external_cmd_exit(t_shell *shell, char *path, int status);
 void	parse_external_cmd_path(t_shell *shell, char *path);
 void	parse_external_cmd_execve(t_shell *shell, char *path, int error);
-
+void	print_banner(void);
+char	*get_prompt();
+void	pipe_setup(t_pipe **pipe_s, t_shell *shell);
+void	set_status(t_shell *shell, int status);
+void	redirect_no_coms(t_shell *shell, t_pipe *pipe_s);
 #endif

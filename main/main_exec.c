@@ -6,7 +6,7 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:13 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/08 02:33:58 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/11 19:56:10 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static void	shell_init(t_shell *shell, char **envp)
 	shell->cmds = NULL;
 	shell->exit_status = 0;
 	shell->is_subshell = 0;
+	shell->saved_in = -1;
+	shell->saved_out = -1;
 	save_env(&shell->env, envp);
 	setup_signals();
 }
@@ -32,7 +34,6 @@ static void	handle_eof(t_shell *shell)
 static void	process_line(t_shell *shell, char *line)
 {
 	t_token	*tokens;
-	t_cmd	*head_cmds;
 
 	add_history(line);
 	tokens = ft_tokenization_handler(line);
@@ -43,26 +44,30 @@ static void	process_line(t_shell *shell, char *line)
 	ft_clear_token_list(&tokens);
 	if (!shell->cmds)
 		return ;
-	ft_expand(shell);
-	if (ft_setup_heredocs(shell->cmds) == -1 || )
-		return (ft_free_cmd_list(&shell->cmds));
-	head_cmds = shell->cmds;
+	shell->cmds_head = shell->cmds;
+	if (ft_expand(shell) == -1)
+		return (update_exit_status(shell, 1), ft_free_cmd_list(&shell->cmds_head));
+	if (ft_setup_heredocs(shell->cmds) == -1)
+		return (ft_free_cmd_list(&shell->cmds_head));
 	execute_pipeline(shell);
-	shell->cmds = head_cmds;
-	ft_free_cmd_list(&shell->cmds);
+	ft_free_cmd_list(&shell->cmds_head);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell	shell;
 	char	*line;
+	char	*prompt;
 
 	(void)argc;
 	(void)argv;
 	shell_init(&shell, envp);
+	print_banner();
 	while (1)
 	{
-		line = readline("prompt> ");
+		prompt = get_prompt();
+		line = readline(prompt);
+		free(prompt);
 		if (!line)
 			return (handle_eof(&shell), shell.exit_status);
 		if (*line == '\0')
