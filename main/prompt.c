@@ -6,7 +6,7 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 06:08:49 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/11 06:33:51 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/11 18:41:02 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	print_banner(void)
 	line = get_next_line(fd);
 	while (line)
 	{
-		printf(GREEN"%s", line);
+		printf(GREEN"%s"RST, line);
 		free(line);
 		line = get_next_line(fd);
 	}
@@ -30,16 +30,15 @@ void	print_banner(void)
 	get_next_line(-1);
 }
 
-char	*get_prompt()
+char	*get_prompt(void)
 {
 	char	cwd[PATH_MAX];
 	char	*tmp;
 	char	*prompt;
 
 	getcwd(cwd, PATH_MAX);
-	tmp  = ft_strjoin(GREEN, cwd);
-	prompt = ft_strjoin(tmp, RST "$> ");
+	tmp = ft_strjoin(BBLUE, cwd);
+	prompt = ft_strjoin(tmp, BLUE_NEON"$> "RST);
 	free(tmp);
-
 	return (prompt);
 }

@@ -6,7 +6,7 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 20:19:27 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/11 05:43:09 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/11 18:20:34 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,15 @@ void	exit_built_in(t_shell *shell)
 
 void	clean_exit(t_shell *shell)
 {
-	close(shell->saved_in);
-	close(shell->saved_out);
+	if (shell->saved_in != -1)
+		close(shell->saved_in);
+	if (shell->saved_out != -1)
+		close(shell->saved_out);
 	free_env(shell->env);
-	ft_free_cmd_list(&shell->cmds);
+	ft_free_cmd_list(&shell->cmds_head);
 	if (!shell->is_subshell)
 		ft_dprintf(2, RED"exit\n"RST);
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
 	exit(shell->exit_status);
 }
-
-

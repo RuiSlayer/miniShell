@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/23 15:05:35 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/08 11:30:15 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/11 18:26:35 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,32 +23,35 @@ char	*ft_getenv(t_env *env, char *name)
 	return (NULL);
 }
 
+static int	ft_env_count(t_env *env)
+{
+	int	i;
+
+	i = 0;
+	while (env)
+	{
+		i++;
+		env = env->next;
+	}
+	return (i);
+}
+
 char	**env_to_array(t_env *env)
 {
-	t_env	*curr;
 	char	**array;
 	char	*tmp;
-	int		count;
 	int		i;
 
-	count = 0;
-	curr = env;
-	while (curr)
-	{
-		count++;
-		curr = curr->next;
-	}
-	array = malloc(sizeof(char *) * (count + 1));
+	array = malloc(sizeof(char *) * (ft_env_count(env) + 1));
 	if (!array)
 		return (NULL);
-	curr = env;
 	i = 0;
-	while (curr)
+	while (env)
 	{
-		tmp = ft_strjoin(curr->var, "=");
-		array[i] = ft_strjoin(tmp, curr->val);
+		tmp = ft_strjoin(env->var, "=");
+		array[i] = ft_strjoin(tmp, env->val);
 		free(tmp);
-		curr = curr->next;
+		env = env->next;
 		i++;
 	}
 	array[i] = NULL;

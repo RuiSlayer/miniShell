@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 19:52:42 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/08 11:32:15 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/11 19:54:50 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int	ft_expand(t_shell *shell)
 				{
 					ft_dprintf(2, "minishell: %s: ambiguous redirect\n", original);
 					free(original);
+					redir->file = NULL;
 					return (-1);
 				}
 				free(original);
