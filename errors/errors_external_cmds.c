@@ -30,6 +30,7 @@ int	is_directory(const char *path)
 
 static void	print_error(t_shell *shell, char *path, char *message, int status)
 {
+	ft_dprintf(2, "test\n");
 	ft_dprintf(2, "%s: %s\n", shell->cmds->args[0], message);
 	return (external_cmd_exit(shell, path, status));
 }

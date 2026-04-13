@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handle.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 15:24:21 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/08 22:11:06 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/11 21:14:15 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,17 @@
 static void	handle_sigint(int sig)
 {
 	(void)sig;
-	write(STDOUT_FILENO, "\n", 1);// async-signal-safe newline
-	rl_on_new_line();// move to a new, empty line
-	rl_replace_line("", 0);// clear current buffer
-	rl_redisplay();// show prompt again
+	write(STDOUT_FILENO, "\n", 1);
+	if (g_signal == CHILD_RUNNING)  // child is running — just write newline
+	{
+		g_signal = SIGINT;          // let the parent know SIGINT happened
+		return;                     // DON'T redisplay prompt here ← key fix
+	}
+	// shell is idle at prompt — redisplay
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+	g_signal = SIGINT;
 }
 
 static void	handle_sigquit(int sig)

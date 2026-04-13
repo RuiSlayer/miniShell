@@ -12,6 +12,8 @@
 
 #include "../incs/miniShell_exec.h"
 
+int	g_signal = 0;
+
 static void	shell_init(t_shell *shell, char **envp)
 {
 	shell->env = NULL;

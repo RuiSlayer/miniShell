@@ -30,9 +30,11 @@
 [0m[32m
 [0m[32m
 [0m[?2004h[1;34m/minishell[38;5;27m$> [0m> echo ola > > tes.text\      ste.txt
-[?2004lminishell: syntax error near unexpected token `>'
+[?2004l
+minishell: syntax error near unexpected token `>'
 [?2004h[1;34m/minishell[38;5;27m$> [0mexit
-[?2004l[1;31mexit
+[?2004l
+[1;31mexit
 [0m==74614== 
 ==74614== FILE DESCRIPTORS: 1 open (1 std) at exit.
 ==74614== 
