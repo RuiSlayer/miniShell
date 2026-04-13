@@ -6,7 +6,7 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 15:24:21 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/11 21:14:15 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/13 18:55:05 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,6 @@ static void	handle_sigint(int sig)
 	g_signal = SIGINT;
 }
 
-static void	handle_sigquit(int sig)
-{
-	(void)sig;
-	// At the interactive prompt, usually do nothing
-	// You could also print a newline if you want:
-	// write(STDOUT_FILENO, "Quit (ignored)\n", 15);
-}
-
 void	setup_signals(void)
 {
 	struct sigaction	sa;
@@ -44,7 +36,7 @@ void	setup_signals(void)
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = SA_RESTART;
 	sigaction(SIGINT, &sa, NULL);
-	sa.sa_handler = handle_sigquit;
+	sa.sa_handler = SIG_IGN;
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = 0;
 	sigaction(SIGQUIT, &sa, NULL);
