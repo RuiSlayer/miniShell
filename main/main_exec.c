@@ -6,11 +6,13 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:13 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/11 20:31:46 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/11 21:14:22 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/miniShell_exec.h"
+
+int	g_signal = 0;
 
 static void	shell_init(t_shell *shell, char **envp)
 {

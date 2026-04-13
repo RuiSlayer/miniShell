@@ -6,7 +6,7 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 18:44:24 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/11 19:47:40 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/11 21:12:14 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,13 @@ void	pipe_setup(t_pipe **pipe_s, t_shell *shell)
 
 void	set_status(t_shell *shell, int status)
 {
+	if (g_signal == SIGINT)
+		write(STDOUT_FILENO, "\n", 1);
 	if (WIFEXITED(status))
 		shell->exit_status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
 		shell->exit_status = 128 + WTERMSIG(status);
+	shell->is_subshell = 0;
 }
 
 void	redirect_no_coms(t_shell *shell, t_pipe *pipe_s)

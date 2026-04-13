@@ -6,7 +6,7 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 21:47:26 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/11 19:46:44 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/11 21:09:47 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	execute_pipeline(t_shell *shell)
 			child_process(pipe_s, shell);
 		parent_in_loop(pipe_s);
 	}
+	g_signal = CHILD_RUNNING;
 	while (i--)
 		waitpid(pipe_s->last_pid, &status, 0);
 	set_status(shell, status);
