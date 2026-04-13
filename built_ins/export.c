@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 17:46:41 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/07 23:30:16 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/12 11:38:38 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ int	built_export(t_cmd *cmds, t_env **env)
 	{
 		if (parse_var_name(cmds->args[i]))
 		{
-			printf("export: `%s': not a valid identifier\n", cmds->args[i]);
+			ft_dprintf(2, "export: `%s': not a valid identifier\n", cmds->args[i]);
 			i++;
 			status = 1;
 			continue ;
