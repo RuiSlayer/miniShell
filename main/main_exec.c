@@ -6,11 +6,13 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:13 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/11 19:56:10 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/11 21:14:22 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/miniShell_exec.h"
+
+int	g_signal = 0;
 
 static void	shell_init(t_shell *shell, char **envp)
 {
@@ -39,11 +41,11 @@ static void	process_line(t_shell *shell, char *line)
 	tokens = ft_tokenization_handler(line);
 	free(line);
 	if (!tokens)
-		return ;
+		return update_exit_status(shell, 2);
 	shell->cmds = ft_parse(tokens);
 	ft_clear_token_list(&tokens);
 	if (!shell->cmds)
-		return ;
+		return update_exit_status(shell, 2);
 	shell->cmds_head = shell->cmds;
 	if (ft_expand(shell) == -1)
 		return (update_exit_status(shell, 1), ft_free_cmd_list(&shell->cmds_head));
