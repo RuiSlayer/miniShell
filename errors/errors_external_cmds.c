@@ -6,7 +6,7 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 03:26:41 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/12 11:38:28 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/14 21:29:14 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	is_directory(const char *path)
 
 static void	print_error(t_shell *shell, char *path, char *message, int status)
 {
-	ft_dprintf(2, "test\n");
 	ft_dprintf(2, "%s: %s\n", shell->cmds->args[0], message);
 	return (external_cmd_exit(shell, path, status));
 }

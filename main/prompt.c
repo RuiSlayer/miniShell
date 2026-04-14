@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 06:08:49 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/11 18:41:02 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/14 22:01:11 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ char	*get_prompt(void)
 	char	*prompt;
 
 	getcwd(cwd, PATH_MAX);
-	tmp = ft_strjoin(BBLUE, cwd);
-	prompt = ft_strjoin(tmp, BLUE_NEON"$> "RST);
+	tmp = ft_strjoin(BLUE_NEON, cwd);
+	prompt = ft_strjoin(tmp, GREEN"$> "RST);
 	free(tmp);
 	return (prompt);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 21:28:55 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/10 23:57:46 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/14 21:55:50 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@ int	pwd(void)
 		perror("pwd");
 		return (2);
 	}
-	printf("%s\n", cwd);
+	ft_dprintf(STDOUT_FILENO, "%s\n", cwd);
 	return (0);
 }
