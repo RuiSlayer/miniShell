@@ -6,7 +6,7 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 18:44:24 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/11 21:12:14 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/13 19:00:34 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	pipe_setup(t_pipe **pipe_s, t_shell *shell)
 
 void	set_status(t_shell *shell, int status)
 {
-	if (g_signal == SIGINT)
-		write(STDOUT_FILENO, "\n", 1);
+	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
+		ft_dprintf(2, "Quit (core dumped)\n");
 	if (WIFEXITED(status))
 		shell->exit_status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
