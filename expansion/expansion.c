@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 19:52:42 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/11 19:54:50 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/14 22:11:46 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/expansion.h"
 
-static int	ft_word_count(char *str)
+/* static int	ft_word_count(char *str)
 {
 	int	i;
 	int	in_word;
@@ -36,7 +36,7 @@ static int	ft_word_count(char *str)
 		str++;
 	}
 	return (i);
-}
+} */
 
 void	ft_handle_expansion(char *str, size_t *i, char **result, t_shell *shell)
 {
@@ -90,7 +90,7 @@ int	ft_expand(t_shell *shell)
 			{
 				original = ft_strdup(redir->file);
 				redir->file = ft_expand_string(redir->file, shell);
-				if (redir->file == NULL || ft_word_count(redir->file) != 1)
+				if (redir->file == NULL)
 				{
 					ft_dprintf(2, "minishell: %s: ambiguous redirect\n", original);
 					free(original);
