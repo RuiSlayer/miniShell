@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 06:08:49 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/14 22:01:11 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/14 22:08:43 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	print_banner(void)
 	int		fd;
 
 	fd = open("banner.txt", O_RDONLY);
+	if (fd < 0)
+		return ;
 	line = NULL;
 	line = get_next_line(fd);
 	while (line)
