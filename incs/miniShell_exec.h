@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniShell_exec.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:38 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/13 18:27:48 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/15 00:30:33 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ extern int  g_signal;
 # define RED		"\033[1;31m"
 # define RST		"\033[0m"
 # define CHILD_RUNNING	1
-
+#define HEREDOC_RUNNING	2
 
 int		echo(t_cmd	*cmd);
 int		pwd(void);
@@ -70,7 +70,6 @@ void	exit_built_in(t_shell *shell);
 void	clean_exit(t_shell *shell);
 int		apply_heredoc(t_redir *redir);
 int		ft_setup_heredocs(t_cmd *cmds);
-int		apply_redirects(t_redir *redir);
 void	external_cmd_exit(t_shell *shell, char *path, int status);
 void	parse_external_cmd_path(t_shell *shell, char *path);
 void	parse_external_cmd_execve(t_shell *shell, char *path, int error);
@@ -79,4 +78,6 @@ char	*get_prompt();
 void	pipe_setup(t_pipe **pipe_s, t_shell *shell);
 void	set_status(t_shell *shell, int status);
 void	redirect_no_coms(t_shell *shell, t_pipe *pipe_s);
+void	child_signals(void);
+
 #endif

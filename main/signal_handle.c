@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handle.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 15:24:21 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/13 18:55:05 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/15 00:29:26 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,11 @@ static void	handle_sigint(int sig)
 {
 	(void)sig;
 	write(STDOUT_FILENO, "\n", 1);
-	if (g_signal == CHILD_RUNNING)  // child is running — just write newline
+	if (g_signal == CHILD_RUNNING || g_signal == HEREDOC_RUNNING)
 	{
-		g_signal = SIGINT;          // let the parent know SIGINT happened
-		return;                     // DON'T redisplay prompt here ← key fix
+		g_signal = SIGINT;
+		return;
 	}
-	// shell is idle at prompt — redisplay
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
@@ -40,4 +39,10 @@ void	setup_signals(void)
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = 0;
 	sigaction(SIGQUIT, &sa, NULL);
+}
+
+void	child_signals(void)
+{
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 }
