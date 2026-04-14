@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmds_runer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 21:44:59 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/11 19:38:53 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/14 21:51:10 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void	run_builtin_in_parent(t_pipe *pipe_s, t_shell *shell)
 			return ;
 		}
 	}
+	/* ft_dprintf(2, "fd: %d\n", ); */
 	run_builtin(shell);
 	if (shell->saved_in != -1)
 	{
