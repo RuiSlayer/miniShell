@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 20:19:27 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/11 18:20:34 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/14 22:15:18 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ int	ft_is_numeric(char *str)
 	int	i;
 
 	i = 0;
-	if (str[i] == '-' || str[i] == '+')
+	if (str[i] == '-' || str[i] == '+' || str[i] == ' ' || str[i] == '\t' || str[i] == '0')
 		i++;
+	if (!str[i])
+		return 0;
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
