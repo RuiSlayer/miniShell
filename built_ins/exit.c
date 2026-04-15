@@ -6,7 +6,7 @@
 /*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 20:19:27 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/14 22:46:16 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/15 04:52:48 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ int	ft_is_numeric(char *str)
 	int	i;
 
 	i = 0;
-	if (str[i] == '-' || str[i] == '+' || str[i] == ' ' || str[i] == '\t' || str[i] == '0')
+	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
 		i++;
 	if (!str[i])
-		return (ft_dprintf(2, "entrei!!!\n"), 0);
+		return (0);
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
@@ -41,7 +41,7 @@ void	exit_built_in(t_shell *shell)
 
 	if (!shell->cmds->args[1])
 		clean_exit(shell);
-	if (!ft_is_numeric(shell->cmds->args[1]))
+	if (!ft_is_numeric(shell->cmds->args[1]) || ft_atol(shell->cmds->args[1]) > INT_MAX)
 	{
 		ft_dprintf(2, "miniShell: exit: %s: numeric argument required\n",
 			shell->cmds->args[1]);
