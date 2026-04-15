@@ -6,13 +6,13 @@
 /*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:13 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/15 00:39:45 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/15 01:43:36 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/miniShell_exec.h"
 
-int	g_signal = 0;
+volatile sig_atomic_t	g_signal = 0;
 
 static void	shell_init(t_shell *shell, char **envp)
 {
@@ -23,6 +23,7 @@ static void	shell_init(t_shell *shell, char **envp)
 	shell->saved_in = -1;
 	shell->saved_out = -1;
 	save_env(&shell->env, envp);
+	rl_catch_signals = 0;
 	setup_signals();
 }
 

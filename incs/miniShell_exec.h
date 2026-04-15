@@ -6,7 +6,7 @@
 /*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:38 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/15 00:30:33 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/15 03:03:39 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_pipe
 	pid_t	last_pid;
 }	t_pipe;
 
-extern int  g_signal;
+extern volatile sig_atomic_t	g_signal;
 
 # define C			"\033[1;36m"
 # define GREEN		"\033[32m"
@@ -47,8 +47,8 @@ extern int  g_signal;
 # define BLUE_NEON	"\033[38;5;27m"
 # define RED		"\033[1;31m"
 # define RST		"\033[0m"
-# define CHILD_RUNNING	1
-#define HEREDOC_RUNNING	2
+# define CHILD_RUNNING	100
+#define HEREDOC_RUNNING	200
 
 int		echo(t_cmd	*cmd);
 int		pwd(void);
@@ -79,5 +79,6 @@ void	pipe_setup(t_pipe **pipe_s, t_shell *shell);
 void	set_status(t_shell *shell, int status);
 void	redirect_no_coms(t_shell *shell, t_pipe *pipe_s);
 void	child_signals(void);
-
+void	heredoc_signals(void);
+int		heredoc_event_hook(void);
 #endif
