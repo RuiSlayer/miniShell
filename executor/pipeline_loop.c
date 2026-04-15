@@ -6,7 +6,7 @@
 /*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 21:47:26 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/14 23:52:44 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/15 03:59:32 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,43 @@ int	no_child_cases(t_shell *shell, t_pipe *pipe_s)
 	return (0);
 }
 
+
+void	inside_exec_pipeline_loop(t_shell *shell, t_pipe *pipe_s, pid_t	pids[], int i)
+{
+	if (pipe_s->cmd->next && pipe(pipe_s->pipe_fd) == -1)
+		return (free(pipe_s), perror("pipe: failior"));
+	pids[i] = fork();
+	if (pids[i] == -1)
+		return (free(pipe_s), perror("fork: failior"));
+	if (pids[i] == 0)
+		child_process(pipe_s, shell);
+	parent_in_loop(pipe_s);
+}
+
 void	execute_pipeline(t_shell *shell)
+{
+	t_pipe	*pipe_s;
+	int		status;
+	int		i;
+	pid_t	pids[shell->cmd_count];
+
+	i = 0;
+	pipe_setup(&pipe_s, shell);
+	if (no_child_cases(shell, pipe_s))
+		return ;
+	g_signal = CHILD_RUNNING;
+	while (pipe_s->cmd)
+	{
+		inside_exec_pipeline_loop(shell, pipe_s, pids, i);
+		i++;
+	}
+	while (i--)
+		waitpid(pids[i], &status, 0);
+	set_status(shell, status);
+	free(pipe_s);
+}
+
+/* void	execute_pipeline(t_shell *shell)
 {
 	t_pipe	*pipe_s;
 	int		status;
@@ -88,4 +124,4 @@ void	execute_pipeline(t_shell *shell)
 		waitpid(pipe_s->last_pid, &status, 0);
 	set_status(shell, status);
 	free(pipe_s);
-}
+} */
