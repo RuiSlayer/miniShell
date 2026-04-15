@@ -6,7 +6,7 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 21:44:59 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/14 21:51:10 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/15 03:20:00 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,11 @@ void	external_cmds(t_shell *shell)
 	int		error;
 
 	if (!shell->cmds->args[0] || shell->cmds->args[0][0] == '\0')
-		return (update_exit_status(shell, 0), clean_exit(shell));
+	{
+		ft_dprintf(2, "minishell: %s: command not found\n",
+			shell->cmds->args[0]);
+		return (update_exit_status(shell, 127), clean_exit(shell));
+	}
 	if (ft_strcmp(shell->cmds->args[0], "..") == 0
 		|| ft_strcmp(shell->cmds->args[0], ".") == 0)
 	{
