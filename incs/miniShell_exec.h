@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniShell_exec.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:38 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/13 18:27:48 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/15 03:03:39 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_pipe
 	pid_t	last_pid;
 }	t_pipe;
 
-extern int  g_signal;
+extern volatile sig_atomic_t	g_signal;
 
 # define C			"\033[1;36m"
 # define GREEN		"\033[32m"
@@ -47,8 +47,8 @@ extern int  g_signal;
 # define BLUE_NEON	"\033[38;5;27m"
 # define RED		"\033[1;31m"
 # define RST		"\033[0m"
-# define CHILD_RUNNING	1
-
+# define CHILD_RUNNING	100
+#define HEREDOC_RUNNING	200
 
 int		echo(t_cmd	*cmd);
 int		pwd(void);
@@ -70,7 +70,6 @@ void	exit_built_in(t_shell *shell);
 void	clean_exit(t_shell *shell);
 int		apply_heredoc(t_redir *redir);
 int		ft_setup_heredocs(t_cmd *cmds);
-int		apply_redirects(t_redir *redir);
 void	external_cmd_exit(t_shell *shell, char *path, int status);
 void	parse_external_cmd_path(t_shell *shell, char *path);
 void	parse_external_cmd_execve(t_shell *shell, char *path, int error);
@@ -79,4 +78,7 @@ char	*get_prompt();
 void	pipe_setup(t_pipe **pipe_s, t_shell *shell);
 void	set_status(t_shell *shell, int status);
 void	redirect_no_coms(t_shell *shell, t_pipe *pipe_s);
+void	child_signals(void);
+void	heredoc_signals(void);
+int		heredoc_event_hook(void);
 #endif

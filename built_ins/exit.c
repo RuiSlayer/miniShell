@@ -6,7 +6,7 @@
 /*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 20:19:27 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/14 22:15:18 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/14 22:46:16 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_is_numeric(char *str)
 	if (str[i] == '-' || str[i] == '+' || str[i] == ' ' || str[i] == '\t' || str[i] == '0')
 		i++;
 	if (!str[i])
-		return 0;
+		return (ft_dprintf(2, "entrei!!!\n"), 0);
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
@@ -52,7 +52,7 @@ void	exit_built_in(t_shell *shell)
 	if (shell->cmds->args[2])
 	{
 		ft_dprintf(2, "miniShell: exit: too many arguments\n");
-		update_exit_status(shell, 2);
+		update_exit_status(shell, 1);
 		return ;
 	}
 	update_exit_status(shell, arg);
