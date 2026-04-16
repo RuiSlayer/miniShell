@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmds_runer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 21:44:59 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/16 01:25:53 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/16 03:45:59 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	is_builtin(t_shell *shell)
 
 void	run_builtin_in_parent(t_pipe *pipe_s, t_shell *shell)
 {
-	free(pipe_s);
+	free_pipe(pipe_s);
 	shell->saved_in = dup(STDIN_FILENO);
 	shell->saved_out = dup(STDOUT_FILENO);
 	if (apply_redirects(shell->cmds->redirs) == -1)
