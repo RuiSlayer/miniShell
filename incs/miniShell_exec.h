@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniShell_exec.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:38 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/16 00:21:44 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/16 03:45:59 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_pipe
 	int		pipe_count;
 	t_cmd	*cmd;
 	pid_t	last_pid;
+	pid_t	*pids;
 }	t_pipe;
 
 extern volatile sig_atomic_t	g_signal;
@@ -83,4 +84,5 @@ void	heredoc_signals(void);
 int		heredoc_event_hook(void);
 void	close_heredocs(t_cmd *cmd);
 void	close_all_heredocs(t_cmd *cmds);
+void	free_pipe(t_pipe *pipe_s);
 #endif
