@@ -1,40 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/07 18:37:36 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/15 04:43:29 by rucosta          ###   ########.fr       */
+/*   Created: 2026/04/15 04:30:10 by rucosta           #+#    #+#             */
+/*   Updated: 2026/04/15 04:30:22 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *nptr)
+long	ft_atol(const char *s)
 {
-	int	i;
-	int	sign;
-	int	result;
+	size_t	i;
+	long	sign;
+	long	num;
 
 	i = 0;
+	num = 0;
 	sign = 1;
-	result = 0;
-	while (nptr[i] == ' ' || (nptr[i] >= 9 && nptr[i] <= 13))
+	while (ft_isspace(s[i]))
 		i++;
-	if (nptr[i] == '-' || nptr[i] == '+')
+	if (s[i] == '+' || s[i] == '-')
 	{
-		if (nptr[i] == '-')
+		if (s[i] == '-')
 			sign *= -1;
 		i++;
 	}
-	while (nptr[i] >= '0' && nptr[i] <= '9')
+	while (ft_isdigit(s[i]))
 	{
-		result *= 10;
-		result += nptr[i] - '0';
+		num = num * 10 + (s[i] - '0');
+		if (num * sign < INT_MIN || num * sign > INT_MAX)
+			return (LONG_MAX);
 		i++;
 	}
-	result *= sign;
-	return (result);
+	return (num * sign);
 }
