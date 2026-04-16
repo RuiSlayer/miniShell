@@ -1,91 +1,55 @@
-==2098252== Memcheck, a memory error detector
-==2098252== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==2098252== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==2098252== Command: ./minishell ./minishell
-==2098252== 
-[?2004h[38;5;27m/home/rucosta/Desktop/miniShell[32m$> [0mcat | pwd | cat
-[?2004l/home/rucosta/Desktop/miniShell
-==2098258== 
-==2098258== FILE DESCRIPTORS: 1 open (1 std) at exit.
-==2098258== 
-==2098258== HEAP SUMMARY:
-==2098258==     in use at exit: 208,314 bytes in 225 blocks
-==2098258==   total heap usage: 682 allocs, 457 frees, 238,727 bytes allocated
-==2098258== 
-==2098258== LEAK SUMMARY:
-==2098258==    definitely lost: 0 bytes in 0 blocks
-==2098258==    indirectly lost: 0 bytes in 0 blocks
-==2098258==      possibly lost: 0 bytes in 0 blocks
-==2098258==    still reachable: 0 bytes in 0 blocks
-==2098258==         suppressed: 208,314 bytes in 225 blocks
-==2098258== 
-==2098258== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
---2098258-- 
---2098258-- used_suppression:     66 readline_reachable ./readline.supp:2 suppressed: 208,314 bytes in 225 blocks
-==2098258== 
-==2098258== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-[?2004h[38;5;27m/home/rucosta/Desktop/miniShell[32m$> [0mls
-[?2004l42libft
-built_ins
-env_utils
-errors
-executor
-expansion
-ft_dprintf
-ft_get_next_line
-incs
-main
-Makefile
-minishell
-norminette.sh
-parser
-readline.supp
-tokens
-valgrind.log
-[?2004h[38;5;27m/home/rucosta/Desktop/miniShell[32m$> [0mls -lA
-[?2004ltotal 160
-drwxr-xr-x 2 rucosta 2025_lisboa   4096 abr 15 04:01 42libft
-drwxr-xr-x 2 rucosta 2025_lisboa   4096 abr 15 04:01 built_ins
--rw-r--r-- 1 rucosta 2025_lisboa  10244 abr 14 22:06 .DS_Store
-drwxr-xr-x 2 rucosta 2025_lisboa    116 abr 15 04:01 env_utils
-drwxr-xr-x 2 rucosta 2025_lisboa     98 abr 15 04:01 errors
-drwxr-xr-x 2 rucosta 2025_lisboa   4096 abr 15 04:01 executor
-drwxr-xr-x 2 rucosta 2025_lisboa    192 abr 15 04:01 expansion
-drwxr-xr-x 2 rucosta 2025_lisboa   4096 abr 15 04:01 ft_dprintf
-drwxr-xr-x 2 rucosta 2025_lisboa    133 abr 15 04:01 ft_get_next_line
-drwxr-xr-x 8 rucosta 2025_lisboa   4096 abr 15 03:13 .git
--rw-r--r-- 1 rucosta 2025_lisboa     41 abr  6 23:40 .gitignore
-drwxr-xr-x 2 rucosta 2025_lisboa    125 abr 14 22:06 incs
-drwxr-xr-x 2 rucosta 2025_lisboa    122 abr 15 04:01 main
--rw-r--r-- 1 rucosta 2025_lisboa   1759 abr 14 22:06 Makefile
--rwxr-xr-x 1 rucosta 2025_lisboa 101600 abr 15 04:01 minishell
--rwxr-xr-x 1 rucosta 2025_lisboa     32 abr 14 22:06 norminette.sh
-drwxr-xr-x 2 rucosta 2025_lisboa    120 abr 15 04:01 parser
--rw-r--r-- 1 rucosta 2025_lisboa    219 abr  8 22:59 readline.supp
-drwxr-xr-x 4 rucosta 2025_lisboa   4096 abr 14 22:41 .tester
-drwxr-xr-x 2 rucosta 2025_lisboa   4096 abr 15 04:01 tokens
--rw-r--r-- 1 rucosta 2025_lisboa   1548 abr 15 04:01 valgrind.log
-drwxr-xr-x 2 rucosta 2025_lisboa     75 abr 14 22:06 .vscode
-[?2004h[38;5;27m/home/rucosta/Desktop/miniShell[32m$> [0mclear
-[?2004l[H[2J[3J[?2004h[38;5;27m/home/rucosta/Desktop/miniShell[32m$> [0mexit
+==2301211== Memcheck, a memory error detector
+==2301211== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==2301211== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==2301211== Command: ./minishell ./minishell
+==2301211== 
+[32m
+[0m[32m
+[0m[32m   $$\      $$\ $$$$$$\ $$\   $$\ $$$$$$\            
+[0m[32m   $$$\    $$$ |\_$$  _|$$$\  $$ |\_$$  _|           
+[0m[32m   $$$$\  $$$$ |  $$ |  $$$$\ $$ |  $$ |             
+[0m[32m   $$\$$\$$ $$ |  $$ |  $$ $$\$$ |  $$ |             
+[0m[32m   $$ \$$$  $$ |  $$ |  $$ \$$$$ |  $$ |             
+[0m[32m   $$ |\$  /$$ |  $$ |  $$ |\$$$ |  $$ |             
+[0m[32m   $$ | \_/ $$ |$$$$$$\ $$ | \$$ |$$$$$$\            
+[0m[32m   \__|     \__|\______|\__|  \__|\______|           
+[0m[32m                                                     
+[0m[32m    $$$$$$\  $$\   $$\ $$$$$$$$\ $$\       $$\       
+[0m[32m   $$  __$$\ $$ |  $$ |$$  _____|$$ |      $$ |      
+[0m[32m   $$ /  \__|$$ |  $$ |$$ |      $$ |      $$ |      
+[0m[32m   \$$$$$$\  $$$$$$$$ |$$$$$\    $$ |      $$ |      
+[0m[32m    \____$$\ $$  __$$ |$$  __|   $$ |      $$ |      
+[0m[32m   $$\   $$ |$$ |  $$ |$$ |      $$ |      $$ |      
+[0m[32m   \$$$$$$  |$$ |  $$ |$$$$$$$$\ $$$$$$$$\ $$$$$$$$\ 
+[0m[32m    \______/ \__|  \__|\________|\________|\________|
+[0m[32m                                                     
+[0m[32m                                                     
+[0m[32m                                                     
+[0m[32m
+[0m[32m
+[0m[32m
+[0m[32m
+[0m[?2004h[38;5;27m/home/rucosta/Desktop/miniShell[32m$> [0mecho ""
+[?2004l
+[?2004h[38;5;27m/home/rucosta/Desktop/miniShell[32m$> [0mexit
 [?2004l[1;31mexit
-[0m==2098252== 
-==2098252== FILE DESCRIPTORS: 1 open (1 std) at exit.
-==2098252== 
-==2098252== HEAP SUMMARY:
-==2098252==     in use at exit: 208,479 bytes in 237 blocks
-==2098252==   total heap usage: 775 allocs, 538 frees, 240,589 bytes allocated
-==2098252== 
-==2098252== LEAK SUMMARY:
-==2098252==    definitely lost: 0 bytes in 0 blocks
-==2098252==    indirectly lost: 0 bytes in 0 blocks
-==2098252==      possibly lost: 0 bytes in 0 blocks
-==2098252==    still reachable: 0 bytes in 0 blocks
-==2098252==         suppressed: 208,479 bytes in 237 blocks
-==2098252== 
-==2098252== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
---2098252-- 
---2098252-- used_suppression:     65 readline_reachable ./readline.supp:2 suppressed: 208,471 bytes in 236 blocks
---2098252-- used_suppression:      1 libtinfo_ncurses_reachable ./readline.supp:10 suppressed: 8 bytes in 1 blocks
-==2098252== 
-==2098252== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+[0m==2301211== 
+==2301211== FILE DESCRIPTORS: 1 open (1 std) at exit.
+==2301211== 
+==2301211== HEAP SUMMARY:
+==2301211==     in use at exit: 208,347 bytes in 228 blocks
+==2301211==   total heap usage: 716 allocs, 488 frees, 240,074 bytes allocated
+==2301211== 
+==2301211== LEAK SUMMARY:
+==2301211==    definitely lost: 0 bytes in 0 blocks
+==2301211==    indirectly lost: 0 bytes in 0 blocks
+==2301211==      possibly lost: 0 bytes in 0 blocks
+==2301211==    still reachable: 0 bytes in 0 blocks
+==2301211==         suppressed: 208,347 bytes in 228 blocks
+==2301211== 
+==2301211== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+--2301211-- 
+--2301211-- used_suppression:     65 readline_reachable ./readline.supp:2 suppressed: 208,339 bytes in 227 blocks
+--2301211-- used_suppression:      1 libtinfo_ncurses_reachable ./readline.supp:10 suppressed: 8 bytes in 1 blocks
+==2301211== 
+==2301211== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
