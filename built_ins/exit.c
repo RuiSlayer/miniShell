@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 20:19:27 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/16 01:26:50 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/16 19:25:06 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,9 @@ void	exit_built_in(t_shell *shell)
 	if (shell->cmds->args[2])
 	{
 		ft_dprintf(2, "miniShell: exit: too many arguments\n");
-		update_exit_status(shell, 1);
+		if (!shell->is_subshell)
+			ft_dprintf(2, RED"exit\n"RST);
+		update_exit_status(shell, 2);
 		return ;
 	}
 	update_exit_status(shell, arg);
