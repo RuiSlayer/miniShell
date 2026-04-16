@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handle.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 15:24:21 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/15 03:05:42 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/16 19:04:00 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,25 @@ static void handle_sigint(int sig)
 		rl_done = 1;
 		return ;
 	}
-	write(STDOUT_FILENO, "\n", 1);        // interactive: just newline
+	write(STDOUT_FILENO, "^C\n", 3);
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
 	g_signal = SIGINT;
 }
 
-void    heredoc_signals(void)
+void	heredoc_signals(void)
 {
-    struct sigaction    sa;
+	struct sigaction    sa;
 
-    sa.sa_handler = handle_sigint;
-    sigemptyset(&sa.sa_mask);
-    sa.sa_flags = 0;              // SA_RESTART deliberately omitted
-    sigaction(SIGINT, &sa, NULL);
-    sa.sa_handler = SIG_IGN;
-    sigemptyset(&sa.sa_mask);
-    sa.sa_flags = 0;
-    sigaction(SIGQUIT, &sa, NULL);
+	sa.sa_handler = handle_sigint;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = 0;              // SA_RESTART deliberately omitted
+	sigaction(SIGINT, &sa, NULL);
+	sa.sa_handler = SIG_IGN;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = 0;
+	sigaction(SIGQUIT, &sa, NULL);
 }
 
 int	heredoc_event_hook(void)
@@ -76,4 +76,3 @@ void	child_signals(void)
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 }
-
