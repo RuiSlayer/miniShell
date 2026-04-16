@@ -32,7 +32,8 @@
 [0m[?2004h[38;5;27m/home/rucosta/Desktop/miniShell[32m$> [0mecho ""
 [?2004l
 [?2004h[38;5;27m/home/rucosta/Desktop/miniShell[32m$> [0mexit
-[?2004l[1;31mexit
+[?2004l
+[1;31mexit
 [0m==2301211== 
 ==2301211== FILE DESCRIPTORS: 1 open (1 std) at exit.
 ==2301211== 

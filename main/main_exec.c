@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:13 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/15 03:53:50 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/16 01:19:17 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,9 @@ static void	process_line(t_shell *shell, char *line)
 	count_cmds(shell);
 	if (ft_expand(shell) == -1)
 		return (update_exit_status(shell, 1), ft_free_cmd_list(&shell->cmds_head));
+	normalize_all_cmds(shell);
 	if (ft_setup_heredocs(shell->cmds) == -1)
-		return (ft_free_cmd_list(&shell->cmds_head));
+		return (update_exit_status(shell, 1), ft_free_cmd_list(&shell->cmds_head));
 	execute_pipeline(shell);
 	ft_free_cmd_list(&shell->cmds_head);
 }
