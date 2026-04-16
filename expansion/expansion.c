@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 19:52:42 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/11 19:54:50 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/15 22:00:18 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/expansion.h"
 
-static int	ft_word_count(char *str)
+/* static int	ft_word_count(char *str)
 {
 	int	i;
 	int	in_word;
@@ -36,7 +36,7 @@ static int	ft_word_count(char *str)
 		str++;
 	}
 	return (i);
-}
+} */
 
 void	ft_handle_expansion(char *str, size_t *i, char **result, t_shell *shell)
 {
@@ -71,17 +71,19 @@ int	ft_expand(t_shell *shell)
 {
 	t_cmd	*cmd;
 	t_redir	*redir;
-	int		i;
+	char	**new_args;
 	char	*original;
 
 	cmd = shell->cmds;
 	while (cmd)
 	{
-		i = 0;
-		while (cmd->args && cmd->args[i])
+		if (cmd->args)
 		{
-			cmd->args[i] = ft_expand_string(cmd->args[i], shell);
-			i++;
+			new_args = ft_expand_args(cmd->args, cmd->args_quoted, shell);
+			ft_free_old_args(cmd->args);
+			free(cmd->args_quoted);
+			cmd->args = new_args;
+			cmd->args_quoted = NULL;
 		}
 		redir = cmd->redirs;
 		while (redir)
@@ -90,7 +92,7 @@ int	ft_expand(t_shell *shell)
 			{
 				original = ft_strdup(redir->file);
 				redir->file = ft_expand_string(redir->file, shell);
-				if (redir->file == NULL || ft_word_count(redir->file) != 1)
+				if (redir->file == NULL)
 				{
 					ft_dprintf(2, "minishell: %s: ambiguous redirect\n", original);
 					free(original);

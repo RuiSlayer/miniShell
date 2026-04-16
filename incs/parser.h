@@ -6,7 +6,7 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 21:38:51 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/09 02:36:58 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/16 01:12:32 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ typedef struct s_redir
 typedef struct s_cmd
 {
 	char			**args;// NULL-terminated array: args[0] = command name
+	bool			*args_quoted;
+	bool			is_empty;
 	t_redir			*redirs;// linked list of redirections
 	struct s_cmd	*next;// next command in pipeline
 }	t_cmd;
@@ -46,6 +48,6 @@ t_cmd	*ft_parse(t_token *tokens);
 t_cmd	*ft_parse_pipeline(t_token **tok);
 t_cmd	*ft_parse_command(t_token **tok);
 //BUILD
-int		ft_add_arg(t_cmd *cmd, char *value);
+int	ft_add_arg(t_cmd *cmd, char *value, bool is_quoted);
 int		ft_add_redir(t_cmd *cmd, t_redir_type type, char *file);
 #endif

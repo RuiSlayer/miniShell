@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 11:51:21 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/11 18:38:14 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/15 22:02:44 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_cmd	*ft_parse_command(t_token **tok)
 	{
 		if ((*tok)->type == T_IDENTIFIER)
 		{
-			if (!ft_add_arg(cmd, (*tok)->value))
+			if (!ft_add_arg(cmd, (*tok)->value, (*tok)->is_quoted))
 				return (ft_free_cmd_list(&cmd), NULL);
 			*tok = (*tok)->next;
 		}

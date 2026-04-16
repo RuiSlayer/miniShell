@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 06:08:49 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/11 18:41:02 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/14 22:08:43 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	print_banner(void)
 	int		fd;
 
 	fd = open("banner.txt", O_RDONLY);
+	if (fd < 0)
+		return ;
 	line = NULL;
 	line = get_next_line(fd);
 	while (line)
@@ -37,8 +39,8 @@ char	*get_prompt(void)
 	char	*prompt;
 
 	getcwd(cwd, PATH_MAX);
-	tmp = ft_strjoin(BBLUE, cwd);
-	prompt = ft_strjoin(tmp, BLUE_NEON"$> "RST);
+	tmp = ft_strjoin(BLUE_NEON, cwd);
+	prompt = ft_strjoin(tmp, GREEN"$> "RST);
 	free(tmp);
 	return (prompt);
 }

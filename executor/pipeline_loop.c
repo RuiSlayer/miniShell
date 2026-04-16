@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline_loop.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 21:47:26 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/11 19:46:44 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/16 03:45:59 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	child_process(t_pipe *pipe_s, t_shell *shell)
 {
+	child_signals();
 	shell->is_subshell = 1;
 	if (pipe_s->prev_fd != -1)
 	{
@@ -28,14 +29,15 @@ static void	child_process(t_pipe *pipe_s, t_shell *shell)
 	}
 	if (apply_redirects(pipe_s->cmd->redirs) == -1)
 	{
-		free(pipe_s);
+		free_pipe(pipe_s);
 		update_exit_status(shell, 1);
 		clean_exit(shell);
 	}
+	close_heredocs(pipe_s->cmd);
 	shell->cmds = pipe_s->cmd;
 	if (is_builtin(shell))
-		return (free(pipe_s), run_builtin(shell), clean_exit(shell));
-	free(pipe_s);
+		return (free_pipe(pipe_s), run_builtin(shell), clean_exit(shell));
+	free_pipe(pipe_s);
 	external_cmds(shell);
 }
 
@@ -60,30 +62,43 @@ int	no_child_cases(t_shell *shell, t_pipe *pipe_s)
 	return (0);
 }
 
+void	pipeline_loop(t_shell *shell, t_pipe *pipe_s, int i)
+{
+	if (pipe_s->cmd->next && pipe(pipe_s->pipe_fd) == -1)
+		return (free_pipe(pipe_s), perror("pipe: failior"));
+	pipe_s->pids[i] = fork();
+	if (pipe_s->pids[i] == -1)
+		return (free_pipe(pipe_s), perror("fork: failior"));
+	if (pipe_s->pids[i] == 0)
+		child_process(pipe_s, shell);
+	close_heredocs(pipe_s->cmd);
+	parent_in_loop(pipe_s);
+}
+
 void	execute_pipeline(t_shell *shell)
 {
 	t_pipe	*pipe_s;
 	int		status;
+	int		last_status;
 	int		i;
 
 	i = 0;
+	last_status = 0;
 	pipe_setup(&pipe_s, shell);
 	if (no_child_cases(shell, pipe_s))
 		return ;
+	g_signal = CHILD_RUNNING;
 	while (pipe_s->cmd)
 	{
-		if (pipe_s->cmd->next && pipe(pipe_s->pipe_fd) == -1)
-			return (free(pipe_s), perror("pipe: failior"));
-		pipe_s->last_pid = fork();
+		pipeline_loop(shell, pipe_s, i);
 		i++;
-		if (pipe_s->last_pid == -1)
-			return (free(pipe_s), perror("fork: failior"));
-		if (pipe_s->last_pid == 0)
-			child_process(pipe_s, shell);
-		parent_in_loop(pipe_s);
 	}
 	while (i--)
-		waitpid(pipe_s->last_pid, &status, 0);
-	set_status(shell, status);
-	free(pipe_s);
+	{
+		waitpid(pipe_s->pids[i], &status, 0);
+		if (i == shell->cmd_count - 1)
+			last_status = status;
+	}
+	set_status(shell, last_status);
+	free_pipe(pipe_s);
 }

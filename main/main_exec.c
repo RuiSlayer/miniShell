@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:13 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/11 19:56:10 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/16 02:22:26 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/miniShell_exec.h"
+
+volatile sig_atomic_t	g_signal = 0;
 
 static void	shell_init(t_shell *shell, char **envp)
 {
@@ -21,6 +23,7 @@ static void	shell_init(t_shell *shell, char **envp)
 	shell->saved_in = -1;
 	shell->saved_out = -1;
 	save_env(&shell->env, envp);
+	rl_catch_signals = 0;
 	setup_signals();
 }
 
@@ -31,6 +34,21 @@ static void	handle_eof(t_shell *shell)
 	free_env(shell->env);
 }
 
+void	count_cmds(t_shell *shell)
+{
+	t_cmd	*tmp;
+	int		count;
+
+	count = 0;
+	tmp = shell->cmds;
+	while (tmp)
+	{
+		count++;
+		tmp = tmp->next;
+	}
+	shell->cmd_count = count;
+}
+
 static void	process_line(t_shell *shell, char *line)
 {
 	t_token	*tokens;
@@ -39,16 +57,18 @@ static void	process_line(t_shell *shell, char *line)
 	tokens = ft_tokenization_handler(line);
 	free(line);
 	if (!tokens)
-		return ;
+		return (update_exit_status(shell, 2));
 	shell->cmds = ft_parse(tokens);
 	ft_clear_token_list(&tokens);
 	if (!shell->cmds)
-		return ;
+		return (update_exit_status(shell, 2));
 	shell->cmds_head = shell->cmds;
+	count_cmds(shell);
 	if (ft_expand(shell) == -1)
 		return (update_exit_status(shell, 1), ft_free_cmd_list(&shell->cmds_head));
+	normalize_all_cmds(shell);
 	if (ft_setup_heredocs(shell->cmds) == -1)
-		return (ft_free_cmd_list(&shell->cmds_head));
+		return (update_exit_status(shell, 1), ft_free_cmd_list(&shell->cmds_head));
 	execute_pipeline(shell);
 	ft_free_cmd_list(&shell->cmds_head);
 }
@@ -57,7 +77,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_shell	shell;
 	char	*line;
-	char	*prompt;
+	// char	*prompt;
 
 	(void)argc;
 	(void)argv;
@@ -65,9 +85,9 @@ int	main(int argc, char **argv, char **envp)
 	print_banner();
 	while (1)
 	{
-		prompt = get_prompt();
-		line = readline(prompt);
-		free(prompt);
+		// prompt = get_prompt();
+		line = readline("prompt> ");
+		// free(prompt);
 		if (!line)
 			return (handle_eof(&shell), shell.exit_status);
 		if (*line == '\0')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmds_runer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 21:44:59 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/11 19:38:53 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/16 04:02:06 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,11 @@ void	external_cmds(t_shell *shell)
 	int		error;
 
 	if (!shell->cmds->args[0] || shell->cmds->args[0][0] == '\0')
-		return (update_exit_status(shell, 0), clean_exit(shell));
+	{
+		ft_dprintf(2, "minishell: %s: command not found\n",
+			shell->cmds->args[0]);
+		return (update_exit_status(shell, 127), clean_exit(shell));
+	}
 	if (ft_strcmp(shell->cmds->args[0], "..") == 0
 		|| ft_strcmp(shell->cmds->args[0], ".") == 0)
 	{
@@ -38,6 +42,8 @@ void	external_cmds(t_shell *shell)
 
 void	run_builtin(t_shell *shell)
 {
+	if (!shell->cmds || !shell->cmds->args || !shell->cmds->args[0])
+		return;
 	if (ft_strcmp(shell->cmds->args[0], "exit") == 0)
 		exit_built_in(shell);
 	else if (ft_strcmp(shell->cmds->args[0], "echo") == 0)
@@ -75,11 +81,12 @@ int	is_builtin(t_shell *shell)
 
 void	run_builtin_in_parent(t_pipe *pipe_s, t_shell *shell)
 {
-	free(pipe_s);
+	free_pipe(pipe_s);
 	shell->saved_in = dup(STDIN_FILENO);
 	shell->saved_out = dup(STDOUT_FILENO);
 	if (apply_redirects(shell->cmds->redirs) == -1)
 	{
+		update_exit_status(shell, 1);
 		if (shell->saved_in != -1)
 		{
 			dup2(shell->saved_in, STDIN_FILENO);
@@ -89,6 +96,7 @@ void	run_builtin_in_parent(t_pipe *pipe_s, t_shell *shell)
 			return ;
 		}
 	}
+	/* ft_dprintf(2, "fd: %d\n", ); */
 	run_builtin(shell);
 	if (shell->saved_in != -1)
 	{
