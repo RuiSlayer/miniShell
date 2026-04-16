@@ -6,7 +6,7 @@
 /*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 21:44:59 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/16 03:45:59 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/16 04:02:06 by rucosta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void	run_builtin_in_parent(t_pipe *pipe_s, t_shell *shell)
 	shell->saved_out = dup(STDOUT_FILENO);
 	if (apply_redirects(shell->cmds->redirs) == -1)
 	{
+		update_exit_status(shell, 1);
 		if (shell->saved_in != -1)
 		{
 			dup2(shell->saved_in, STDIN_FILENO);
