@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 19:52:39 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/11 17:25:09 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/16 01:25:38 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,34 @@ void	ft_append_str(char **result, char *str)
 	tmp = ft_strjoin(*result, str);
 	free(*result);
 	*result = tmp;
+}
+
+void	normalize_cmd(t_cmd *cmd)
+{
+	if (!cmd)
+		return;
+	if (!cmd->args)
+	{
+		cmd->is_empty = 1;
+		return ;
+	}
+	if (!cmd->args || !cmd->args[0])
+	{
+		ft_free_old_args(cmd->args);
+		cmd->args = NULL;
+		cmd->is_empty = 1;
+		return;
+	}
+	cmd->is_empty = 0;
+}
+
+void normalize_all_cmds(t_shell *shell)
+{
+	t_cmd *tmp = shell->cmds;
+
+	while (tmp)
+	{
+		normalize_cmd(tmp);
+		tmp = tmp->next;
+	}
 }

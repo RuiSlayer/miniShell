@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_loop_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 18:44:24 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/15 03:42:52 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/16 00:24:47 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,46 @@ void	redirect_no_coms(t_shell *shell, t_pipe *pipe_s)
 	close(saved_stdout);
 	free(pipe_s);
 	return ;
+}
+
+void	close_heredocs(t_cmd *cmd)
+{
+	t_redir	*r;
+	
+	r = cmd->redirs;
+
+	while (r)
+	{
+		if (r->type == R_HEREDOC && r->heredoc_fd != -1)
+		{
+			close(r->heredoc_fd);
+			r->heredoc_fd = -1;
+		}
+		r = r->next;
+	}
+}
+
+void	close_all_heredocs(t_cmd *cmds)
+{
+	t_cmd	*c;
+	t_redir	*r;
+
+	c = cmds;
+	while (c)
+	{
+		r = c->redirs;
+		while (r)
+		{
+			if (r->type == R_HEREDOC)
+			{
+				if (r->heredoc_fd != -1)
+				{
+					close(r->heredoc_fd);
+					r->heredoc_fd = -1;
+				}
+			}
+			r = r->next;
+		}
+		c = c->next;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 21:44:59 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/15 03:20:00 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/16 01:25:53 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	external_cmds(t_shell *shell)
 
 void	run_builtin(t_shell *shell)
 {
+	if (!shell->cmds || !shell->cmds->args || !shell->cmds->args[0])
+		return;
 	if (ft_strcmp(shell->cmds->args[0], "exit") == 0)
 		exit_built_in(shell);
 	else if (ft_strcmp(shell->cmds->args[0], "echo") == 0)
