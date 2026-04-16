@@ -6,7 +6,7 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/23 15:05:03 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/08 11:05:30 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/16 03:31:17 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,26 @@ char	*ft_expand_string(char *str, t_shell *shell)
 	}
 	free(str);
 	return (result);
+}
+
+void	ft_free_words(char **words)
+{
+	size_t	j;
+
+	if (!words)
+		return ;
+	j = 0;
+	while (words[j])
+		free(words[j++]);
+	free(words);
+}
+
+void	ft_free_expanded(char **expanded, size_t len)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < len)
+		free(expanded[i++]);
+	free(expanded);
 }
