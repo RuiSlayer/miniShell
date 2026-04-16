@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:13 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/16 02:22:26 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/16 19:08:12 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void	shell_init(t_shell *shell, char **envp)
 	save_env(&shell->env, envp);
 	rl_catch_signals = 0;
 	setup_signals();
+	print_banner();
 }
 
 static void	handle_eof(t_shell *shell)
@@ -77,17 +78,19 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_shell	shell;
 	char	*line;
-	// char	*prompt;
+	char	*prompt;
 
 	(void)argc;
 	(void)argv;
 	shell_init(&shell, envp);
-	print_banner();
 	while (1)
 	{
-		// prompt = get_prompt();
-		line = readline("prompt> ");
-		// free(prompt);
+		g_signal = 0;
+		prompt = get_prompt();
+		line = readline(prompt);
+		free(prompt);
+		if (g_signal == SIGINT)
+			shell.exit_status = 128 + SIGINT;
 		if (!line)
 			return (handle_eof(&shell), shell.exit_status);
 		if (*line == '\0')

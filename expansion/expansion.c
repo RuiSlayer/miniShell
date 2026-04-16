@@ -3,40 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 19:52:42 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/15 22:00:18 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/16 19:18:49 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/expansion.h"
-
-/* static int	ft_word_count(char *str)
-{
-	int	i;
-	int	in_word;
-
-	i = 0;
-	in_word = 0;
-	if (!str)
-		return (0);
-	while (*str)
-	{
-		if ((*str != ' ' && *str != '\t' && *str != '\n'))
-		{
-			if (!in_word)
-			{
-				in_word = 1;
-				i++;
-			}
-		}
-		else
-			in_word = 0;
-		str++;
-	}
-	return (i);
-} */
 
 void	ft_handle_expansion(char *str, size_t *i, char **result, t_shell *shell)
 {
