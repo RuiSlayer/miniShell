@@ -6,7 +6,7 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/01 12:24:29 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/08 11:44:26 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/15 21:56:52 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,20 @@ t_token **token_list)
 	if (type == T_DLESS || type == T_DGREAT)
 		(*line_ptr)++;
 	return (1);
+}
+
+static bool	ft_has_quotes(char *str, size_t len)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < len)
+	{
+		if (ft_is_quote(str[i]))
+			return (true);
+		i++;
+	}
+	return (false);
 }
 
 int	ft_append_identifier(char **line_ptr, t_token **token_list)
@@ -52,6 +66,7 @@ int	ft_append_identifier(char **line_ptr, t_token **token_list)
 	token = ft_new_token(value, T_IDENTIFIER);
 	if (!token)
 		return (free(value), 0);
+	token->is_quoted = ft_has_quotes(value, i);
 	*line_ptr += i;
 	return (ft_token_list_add_back(token_list, token), 1);
 }

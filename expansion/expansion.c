@@ -6,7 +6,7 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 19:52:42 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/14 22:11:46 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/15 22:00:18 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,17 +71,19 @@ int	ft_expand(t_shell *shell)
 {
 	t_cmd	*cmd;
 	t_redir	*redir;
-	int		i;
+	char	**new_args;
 	char	*original;
 
 	cmd = shell->cmds;
 	while (cmd)
 	{
-		i = 0;
-		while (cmd->args && cmd->args[i])
+		if (cmd->args)
 		{
-			cmd->args[i] = ft_expand_string(cmd->args[i], shell);
-			i++;
+			new_args = ft_expand_args(cmd->args, cmd->args_quoted, shell);
+			ft_free_old_args(cmd->args);
+			free(cmd->args_quoted);
+			cmd->args = new_args;
+			cmd->args_quoted = NULL;
 		}
 		redir = cmd->redirs;
 		while (redir)

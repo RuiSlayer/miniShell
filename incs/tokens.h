@@ -6,7 +6,7 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 23:10:22 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/08 11:25:46 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/15 21:56:03 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_token
 	char				*value;
 	struct s_token		*next;
 	struct s_token		*prev;
+	bool				is_quoted;
 }	t_token;
 
 int			ft_append_separator(t_token_type type, char **line_ptr,

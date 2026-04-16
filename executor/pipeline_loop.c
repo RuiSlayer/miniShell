@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline_loop.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 21:47:26 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/15 03:59:32 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/16 00:23:56 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static void	child_process(t_pipe *pipe_s, t_shell *shell)
 		update_exit_status(shell, 1);
 		clean_exit(shell);
 	}
+	close_heredocs(pipe_s->cmd);
 	shell->cmds = pipe_s->cmd;
 	if (is_builtin(shell))
 		return (free(pipe_s), run_builtin(shell), clean_exit(shell));
@@ -61,7 +62,6 @@ int	no_child_cases(t_shell *shell, t_pipe *pipe_s)
 	return (0);
 }
 
-
 void	inside_exec_pipeline_loop(t_shell *shell, t_pipe *pipe_s, pid_t	pids[], int i)
 {
 	if (pipe_s->cmd->next && pipe(pipe_s->pipe_fd) == -1)
@@ -71,6 +71,7 @@ void	inside_exec_pipeline_loop(t_shell *shell, t_pipe *pipe_s, pid_t	pids[], int
 		return (free(pipe_s), perror("fork: failior"));
 	if (pids[i] == 0)
 		child_process(pipe_s, shell);
+	close_heredocs(pipe_s->cmd);
 	parent_in_loop(pipe_s);
 }
 
@@ -93,6 +94,7 @@ void	execute_pipeline(t_shell *shell)
 	}
 	while (i--)
 		waitpid(pids[i], &status, 0);
+	close_all_heredocs(shell->cmds);
 	set_status(shell, status);
 	free(pipe_s);
 }
