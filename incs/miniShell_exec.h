@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniShell_exec.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:38 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/16 03:45:59 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/16 18:14:42 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,13 @@ typedef struct s_pipe
 
 extern volatile sig_atomic_t	g_signal;
 
-# define C			"\033[1;36m"
-# define GREEN		"\033[32m"
-# define BBLUE		"\033[1;34m"
-# define BLUE_NEON	"\033[38;5;27m"
-# define RED		"\033[1;31m"
-# define RST		"\033[0m"
+# define C          "\x01\033[1;36m\x02"
+# define GREEN      "\x01\033[32m\x02"
+# define BBLUE      "\x01\033[1;34m\x02"
+# define BLUE_NEON  "\x01\033[38;5;27m\x02"
+# define RED        "\x01\033[1;31m\x02"
+# define RST        "\x01\033[0m\x02"
+
 # define CHILD_RUNNING	100
 #define HEREDOC_RUNNING	200
 

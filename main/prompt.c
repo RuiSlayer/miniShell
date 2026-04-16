@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 06:08:49 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/14 22:08:43 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/16 18:38:19 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,19 @@ void	print_banner(void)
 char	*get_prompt(void)
 {
 	char	cwd[PATH_MAX];
-	char	*tmp;
+	char	*tmp1;
+	char	*tmp2;
+	char	*tmp3;
 	char	*prompt;
 
-	getcwd(cwd, PATH_MAX);
-	tmp = ft_strjoin(BLUE_NEON, cwd);
-	prompt = ft_strjoin(tmp, GREEN"$> "RST);
-	free(tmp);
+	if (!getcwd(cwd, PATH_MAX))
+		return (strdup("prompt$> "));
+	tmp1 = ft_strjoin(BLUE_NEON, cwd);
+	tmp2 = ft_strjoin(tmp1, RST);
+	tmp3 = ft_strjoin(tmp2, GREEN);
+	prompt = ft_strjoin(tmp3, "$> " RST);
+	free(tmp1);
+	free(tmp2);
+	free(tmp3);
 	return (prompt);
 }

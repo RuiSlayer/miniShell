@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:13 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/16 02:22:26 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/16 18:30:14 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_shell	shell;
 	char	*line;
-	// char	*prompt;
+	char	*prompt;
 
 	(void)argc;
 	(void)argv;
@@ -85,9 +85,9 @@ int	main(int argc, char **argv, char **envp)
 	print_banner();
 	while (1)
 	{
-		// prompt = get_prompt();
-		line = readline("prompt> ");
-		// free(prompt);
+		prompt = get_prompt();
+		line = readline(prompt);
+		free(prompt);
 		if (!line)
 			return (handle_eof(&shell), shell.exit_status);
 		if (*line == '\0')
