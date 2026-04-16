@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline_loop.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 21:47:26 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/16 03:45:59 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/16 19:12:04 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	execute_pipeline(t_shell *shell)
 		pipeline_loop(shell, pipe_s, i);
 		i++;
 	}
-	while (i--)
+	while (i-- > 0)
 	{
 		waitpid(pipe_s->pids[i], &status, 0);
 		if (i == shell->cmd_count - 1)
