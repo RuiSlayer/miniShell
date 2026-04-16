@@ -14,7 +14,7 @@ MAIN = main/main_exec.c main/signal_handle.c main/prompt.c
 SRCS = $(GET_NEXT_LINE) $(BUILT_INS) $(ENV_UTILS) $(ERRORS) $(EXECUTOR) $(EXPANSION) $(FT_DPRINTF) $(PARSER) $(TOKENS) $(MAIN)
 OBJS = $(SRCS:.c=.o)
 LIBS = 42libft/libft.a
-VALGRIND = valgrind --show-leak-kinds=all --leak-check=full --track-origins=yes --track-fds=all --trace-children=yes -s --suppressions=./readline.supp ./minishell
+VALGRIND = valgrind --show-leak-kinds=all --leak-check=full --track-origins=yes --track-fds=all --suppressions=./readline.supp ./minishell
 
 $(NAME): $(OBJS)
 	$(MAKE) -C 42libft

@@ -6,33 +6,11 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 21:59:26 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/16 01:39:24 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/16 03:31:12 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/expansion.h"
-
-void	ft_free_words(char **words)
-{
-	size_t	j;
-
-	if (!words)
-		return ;
-	j = 0;
-	while (words[j])
-		free(words[j++]);
-	free(words);
-}
-
-void	ft_free_expanded(char **expanded, size_t len)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < len)
-		free(expanded[i++]);
-	free(expanded);
-}
 
 static char	**ft_expand_all(char **old_args, size_t len, t_shell *shell)
 {
@@ -54,29 +32,37 @@ static char	**ft_expand_all(char **old_args, size_t len, t_shell *shell)
 	return (expanded);
 }
 
-static size_t	ft_count_words_total(char **expanded, size_t len)
+static size_t	ft_count_words_total(char **expanded,
+				size_t len, bool *quoted)
 {
 	size_t	total;
 	size_t	i;
-	size_t	j;
 	char	**words;
+	size_t	j;
 
 	total = 0;
 	i = 0;
 	while (i < len)
 	{
-		words = ft_split_words(expanded[i]);
-		j = 0;
-		if (words)
+		if (expanded[i] && expanded[i][0] == '\0'
+			&& (!quoted || !quoted[i]))
 		{
-			while (words[j])
+			i++;
+			continue ;
+		}
+		if (quoted && quoted[i])
+			total++;
+		else
+		{
+			words = ft_split_words(expanded[i]);
+			j = 0;
+			while (words && words[j])
 				j++;
+			total += j;
 			ft_free_words(words);
 		}
-		total += j;
 		i++;
 	}
-	total++;
 	return (total);
 }
 
@@ -92,13 +78,11 @@ static void	ft_fill_new_args(char **expanded, size_t len,
 	i = 0;
 	while (i < len)
 	{
-		if (!expanded[i] || expanded[i][0] == '\0')
+		if (!expanded[i] && expanded[i][0] == '\0'
+			&& (!quoted || !quoted[i]))
 		{
-			if (!quoted || !quoted[i])
-			{
 				i++;
 				continue;
-			}
 		}
 		if (quoted && quoted[i])
 			new_args[k++] = ft_strdup(expanded[i]);
@@ -143,7 +127,7 @@ char	**ft_expand_args(char **old_args, bool *quoted, t_shell *shell)
 	expanded = ft_expand_all(old_args, old_len, shell);
 	if (!expanded)
 		return (NULL);
-	new_len = ft_count_words_total(expanded, old_len);
+	new_len = ft_count_words_total(expanded, old_len, quoted);
 	new_args = malloc(sizeof(char *) * (new_len + 1));
 	if (!new_args)
 		return (ft_free_expanded(expanded, old_len), NULL);
