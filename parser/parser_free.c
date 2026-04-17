@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_free.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 00:09:09 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/15 22:05:56 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/17 19:48:58 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 	if(curr->redirs->heredoc_fd)
 	{
-		close(curr->redirs->heredoc_fd);
+		close_fd(curr->redirs->heredoc_fd);
 		unlink(curr->redirs->herefile);
 	}
 
