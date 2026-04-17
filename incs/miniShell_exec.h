@@ -6,7 +6,7 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:38 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/17 21:00:14 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/17 23:49:54 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,7 @@ typedef struct s_pipe
 
 extern volatile sig_atomic_t	g_signal;
 
-# define C          "\x01\033[1;36m\x02"
 # define GREEN      "\x01\033[32m\x02"
-# define BBLUE      "\x01\033[1;34m\x02"
 # define BLUE_NEON  "\x01\033[38;5;27m\x02"
 # define RED        "\x01\033[1;31m\x02"
 # define RST        "\x01\033[0m\x02"
@@ -93,4 +91,5 @@ void	ft_strip_quoted(char *str, int *i, char **result);
 char	*ft_strip_delimiter(char *str);
 char	*expand_heredoc(char *line, t_shell *shell);
 int		open_fd(t_redir	*redir);
+int		clear_after(char *line, int pipefd[], char *delimiter, t_redir *redir);
 #endif

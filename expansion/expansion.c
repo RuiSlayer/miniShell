@@ -6,7 +6,7 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 19:52:42 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/16 19:18:49 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/17 23:21:43 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,31 @@ void	ft_handle_expansion(char *str, size_t *i, char **result, t_shell *shell)
 	free(var_name);
 }
 
+int	expand_loop(t_redir	*redir, t_shell *shell)
+{
+	char	*original;
+
+	if (redir->type != R_HEREDOC)
+	{
+		original = ft_strdup(redir->file);
+		redir->file = ft_expand_string(redir->file, shell);
+		if (redir->file == NULL)
+		{
+			ft_dprintf(2, "minishell: %s: ambiguous redirect\n", original);
+			free(original);
+			redir->file = NULL;
+			return (1);
+		}
+		free(original);
+	}
+	return (0);
+}
+
 int	ft_expand(t_shell *shell)
 {
 	t_cmd	*cmd;
 	t_redir	*redir;
 	char	**new_args;
-	char	*original;
 
 	cmd = shell->cmds;
 	while (cmd)
@@ -62,19 +81,8 @@ int	ft_expand(t_shell *shell)
 		redir = cmd->redirs;
 		while (redir)
 		{
-			if (redir->type != R_HEREDOC)
-			{
-				original = ft_strdup(redir->file);
-				redir->file = ft_expand_string(redir->file, shell);
-				if (redir->file == NULL)
-				{
-					ft_dprintf(2, "minishell: %s: ambiguous redirect\n", original);
-					free(original);
-					redir->file = NULL;
-					return (-1);
-				}
-				free(original);
-			}
+			if (expand_loop(redir, shell))
+				return (-1);
 			redir = redir->next;
 		}
 		cmd = cmd->next;
