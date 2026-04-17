@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniShell_exec.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:38 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/17 16:43:18 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/17 19:55:51 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ void	redirect_no_coms(t_shell *shell, t_pipe *pipe_s);
 void	child_signals(void);
 void	heredoc_signals(void);
 int		heredoc_event_hook(void);
-void	close_heredocs(t_cmd *cmd);
-void	close_all_heredocs(t_cmd *cmds);
+void	close_fd_heredocs(t_cmd *cmd);
+void	close_fd_all_heredocs(t_cmd *cmds);
 void	free_pipe(t_pipe *pipe_s);
+void	close_fd(int *fd);
 #endif

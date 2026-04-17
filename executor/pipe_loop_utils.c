@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_loop_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 18:44:24 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/16 03:45:59 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/17 19:57:32 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	set_status(t_shell *shell, int status)
 		shell->exit_status = 128 + WTERMSIG(status);
 	g_signal = 0;
 	shell->is_subshell = 0;
-	close_all_heredocs(shell->cmds);
+	close_fd_all_heredocs(shell->cmds);
 	setup_signals();
 }
 
@@ -55,20 +55,20 @@ void	redirect_no_coms(t_shell *shell, t_pipe *pipe_s)
 	if (apply_redirects(pipe_s->cmd->redirs) == -1)
 	{
 		update_exit_status(shell, 1);
-		close(saved_stdin);
-		close(saved_stdout);
+		close_fd(&saved_stdin);
+		close_fd(&saved_stdout);
 		free_pipe(pipe_s);
 		return ;
 	}
 	dup2(saved_stdin, STDIN_FILENO);
 	dup2(saved_stdout, STDOUT_FILENO);
-	close(saved_stdin);
-	close(saved_stdout);
+	close_fd(&saved_stdin);
+	close_fd(&saved_stdout);
 	free_pipe(pipe_s);
 	return ;
 }
 
-void	close_heredocs(t_cmd *cmd)
+void	close_fd_heredocs(t_cmd *cmd)
 {
 	t_redir	*r;
 	
@@ -78,14 +78,14 @@ void	close_heredocs(t_cmd *cmd)
 	{
 		if (r->type == R_HEREDOC && r->heredoc_fd != -1)
 		{
-			close(r->heredoc_fd);
+			close_fd(&r->heredoc_fd);
 			r->heredoc_fd = -1;
 		}
 		r = r->next;
 	}
 }
 
-void	close_all_heredocs(t_cmd *cmds)
+void	close_fd_all_heredocs(t_cmd *cmds)
 {
 	t_cmd	*c;
 	t_redir	*r;
@@ -100,7 +100,7 @@ void	close_all_heredocs(t_cmd *cmds)
 			{
 				if (r->heredoc_fd != -1)
 				{
-					close(r->heredoc_fd);
+					close_fd(&r->heredoc_fd);
 					r->heredoc_fd = -1;
 				}
 			}
