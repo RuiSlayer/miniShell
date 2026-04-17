@@ -6,7 +6,7 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:38 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/17 19:55:51 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/17 21:00:14 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ extern volatile sig_atomic_t	g_signal;
 # define RST        "\x01\033[0m\x02"
 
 # define CHILD_RUNNING	100
-#define HEREDOC_RUNNING	200
+# define HEREDOC_RUNNING	200
 
 int		echo(t_cmd	*cmd);
 int		pwd(void);
@@ -76,7 +76,7 @@ void	external_cmd_exit(t_shell *shell, char *path, int status);
 void	parse_external_cmd_path(t_shell *shell, char *path);
 void	parse_external_cmd_execve(t_shell *shell, char *path, int error);
 void	print_banner(void);
-char	*get_prompt();
+char	*get_prompt(void);
 void	pipe_setup(t_pipe **pipe_s, t_shell *shell);
 void	set_status(t_shell *shell, int status);
 void	redirect_no_coms(t_shell *shell, t_pipe *pipe_s);
@@ -87,4 +87,10 @@ void	close_fd_heredocs(t_cmd *cmd);
 void	close_fd_all_heredocs(t_cmd *cmds);
 void	free_pipe(t_pipe *pipe_s);
 void	close_fd(int *fd);
+int		print_export(t_env **env);
+int		parse_var_name(char *arg);
+void	ft_strip_quoted(char *str, int *i, char **result);
+char	*ft_strip_delimiter(char *str);
+char	*expand_heredoc(char *line, t_shell *shell);
+int		open_fd(t_redir	*redir);
 #endif

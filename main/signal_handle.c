@@ -6,13 +6,13 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 15:24:21 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/16 19:04:00 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/17 20:33:56 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/miniShell_exec.h"
 
-static void handle_sigint(int sig)
+static void	handle_sigint(int sig)
 {
 	(void)sig;
 	if (g_signal == HEREDOC_RUNNING)
@@ -38,11 +38,11 @@ static void handle_sigint(int sig)
 
 void	heredoc_signals(void)
 {
-	struct sigaction    sa;
+	struct sigaction	sa;
 
 	sa.sa_handler = handle_sigint;
 	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = 0;              // SA_RESTART deliberately omitted
+	sa.sa_flags = 0;
 	sigaction(SIGINT, &sa, NULL);
 	sa.sa_handler = SIG_IGN;
 	sigemptyset(&sa.sa_mask);

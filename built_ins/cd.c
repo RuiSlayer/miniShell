@@ -6,7 +6,7 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 17:55:19 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/17 19:14:17 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/17 20:24:13 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,10 @@ int	chage_by_var(char *old_pwd, t_env **env, char *name)
 
 	val = ft_getenv(*env, name);
 	if (!val || ft_strcmp(val, "") == 0)
-		return (ft_dprintf(2, "minishell: cd: %s not set\n", name), free(old_pwd), 1);
+	{
+		return (ft_dprintf(2, "minishell: cd: %s not set\n", name),
+			free(old_pwd), 1);
+	}
 	return (change_dir(val, old_pwd, env), 0);
 }
 

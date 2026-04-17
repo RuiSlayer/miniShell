@@ -6,7 +6,7 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 18:44:24 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/17 19:57:32 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/17 20:48:51 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,46 +66,4 @@ void	redirect_no_coms(t_shell *shell, t_pipe *pipe_s)
 	close_fd(&saved_stdout);
 	free_pipe(pipe_s);
 	return ;
-}
-
-void	close_fd_heredocs(t_cmd *cmd)
-{
-	t_redir	*r;
-	
-	r = cmd->redirs;
-
-	while (r)
-	{
-		if (r->type == R_HEREDOC && r->heredoc_fd != -1)
-		{
-			close_fd(&r->heredoc_fd);
-			r->heredoc_fd = -1;
-		}
-		r = r->next;
-	}
-}
-
-void	close_fd_all_heredocs(t_cmd *cmds)
-{
-	t_cmd	*c;
-	t_redir	*r;
-
-	c = cmds;
-	while (c)
-	{
-		r = c->redirs;
-		while (r)
-		{
-			if (r->type == R_HEREDOC)
-			{
-				if (r->heredoc_fd != -1)
-				{
-					close_fd(&r->heredoc_fd);
-					r->heredoc_fd = -1;
-				}
-			}
-			r = r->next;
-		}
-		c = c->next;
-	}
 }
