@@ -6,13 +6,13 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 21:59:26 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/17 20:37:58 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/17 23:58:55 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/expansion.h"
 
-static char	**ft_expand_all(char **old_args, size_t len, t_shell *shell)
+char	**ft_expand_all(char **old_args, size_t len, t_shell *shell)
 {
 	char	**expanded;
 	size_t	i;
@@ -32,13 +32,11 @@ static char	**ft_expand_all(char **old_args, size_t len, t_shell *shell)
 	return (expanded);
 }
 
-static size_t	ft_count_words_total(char **expanded,
+size_t	ft_count_words_total(char **expanded,
 				size_t len, bool *quoted)
 {
 	size_t	total;
 	size_t	i;
-	char	**words;
-	size_t	j;
 
 	total = 0;
 	i = 0;
@@ -54,12 +52,7 @@ static size_t	ft_count_words_total(char **expanded,
 			total++;
 		else
 		{
-			words = ft_split_words(expanded[i]);
-			j = 0;
-			while (words && words[j])
-				j++;
-			total += j;
-			ft_free_words(words);
+			total += else_branch_count(expanded[i]);
 		}
 		i++;
 	}
@@ -70,9 +63,7 @@ static void	ft_fill_new_args(char **expanded, size_t len,
 			char **new_args, bool *quoted)
 {
 	size_t	i;
-	size_t	j;
 	size_t	k;
-	char	**words;
 
 	k = 0;
 	i = 0;
@@ -88,14 +79,7 @@ static void	ft_fill_new_args(char **expanded, size_t len,
 			new_args[k++] = ft_strdup(expanded[i]);
 		else
 		{
-			words = ft_split_words(expanded[i]);
-			if (words)
-			{
-				j = 0;
-				while (words[j])
-					new_args[k++] = words[j++];
-				free(words);
-			}
+			k = else_branch_args(expanded[i], new_args, k);
 		}
 		i++;
 	}

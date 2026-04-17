@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 19:50:50 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/16 03:29:58 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/17 23:12:58 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,6 @@ void	ft_free_words(char **words);
 void	ft_free_expanded(char **expanded, size_t len);
 void	normalize_cmd(t_cmd *cmd);
 void	normalize_all_cmds(t_shell *shell);
+size_t	else_branch_count(char *expanded);
+size_t	else_branch_args(char *expanded, char **new_args, size_t k);
 #endif
