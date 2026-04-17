@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmds_runer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rucosta <rucosta@student.42.fr>            +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 21:44:59 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/16 04:02:06 by rucosta          ###   ########.fr       */
+/*   Updated: 2026/04/17 19:56:11 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ void	run_builtin_in_parent(t_pipe *pipe_s, t_shell *shell)
 		{
 			dup2(shell->saved_in, STDIN_FILENO);
 			dup2(shell->saved_out, STDOUT_FILENO);
-			close(shell->saved_in);
-			close(shell->saved_out);
+			close_fd(&shell->saved_in);
+			close_fd(&shell->saved_out);
 			return ;
 		}
 	}
@@ -102,7 +102,7 @@ void	run_builtin_in_parent(t_pipe *pipe_s, t_shell *shell)
 	{
 		dup2(shell->saved_in, STDIN_FILENO);
 		dup2(shell->saved_out, STDOUT_FILENO);
-		close(shell->saved_in);
-		close(shell->saved_out);
+		close_fd(&shell->saved_in);
+		close_fd(&shell->saved_out);
 	}
 }

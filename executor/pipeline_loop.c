@@ -6,7 +6,7 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 21:47:26 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/16 19:12:04 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/17 19:58:00 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ static void	child_process(t_pipe *pipe_s, t_shell *shell)
 	if (pipe_s->prev_fd != -1)
 	{
 		dup2(pipe_s->prev_fd, STDIN_FILENO);
-		close(pipe_s->prev_fd);
+		close_fd(&pipe_s->prev_fd);
 	}
 	if (pipe_s->cmd->next)
 	{
 		dup2(pipe_s->pipe_fd[1], STDOUT_FILENO);
-		close(pipe_s->pipe_fd[0]);
-		close(pipe_s->pipe_fd[1]);
+		close_fd(&pipe_s->pipe_fd[0]);
+		close_fd(&pipe_s->pipe_fd[1]);
 	}
 	if (apply_redirects(pipe_s->cmd->redirs) == -1)
 	{
@@ -33,7 +33,7 @@ static void	child_process(t_pipe *pipe_s, t_shell *shell)
 		update_exit_status(shell, 1);
 		clean_exit(shell);
 	}
-	close_heredocs(pipe_s->cmd);
+	close_fd_heredocs(pipe_s->cmd);
 	shell->cmds = pipe_s->cmd;
 	if (is_builtin(shell))
 		return (free_pipe(pipe_s), run_builtin(shell), clean_exit(shell));
@@ -44,10 +44,10 @@ static void	child_process(t_pipe *pipe_s, t_shell *shell)
 static void	parent_in_loop(t_pipe *pipe_s)
 {
 	if (pipe_s->prev_fd != -1)
-		close(pipe_s->prev_fd);
+		close_fd(&pipe_s->prev_fd);
 	if (pipe_s->cmd->next)
 	{
-		close(pipe_s->pipe_fd[1]);
+		close_fd(&pipe_s->pipe_fd[1]);
 		pipe_s->prev_fd = pipe_s->pipe_fd[0];
 	}
 	pipe_s->cmd = pipe_s->cmd->next;
@@ -71,7 +71,7 @@ void	pipeline_loop(t_shell *shell, t_pipe *pipe_s, int i)
 		return (free_pipe(pipe_s), perror("fork: failior"));
 	if (pipe_s->pids[i] == 0)
 		child_process(pipe_s, shell);
-	close_heredocs(pipe_s->cmd);
+	close_fd_heredocs(pipe_s->cmd);
 	parent_in_loop(pipe_s);
 }
 

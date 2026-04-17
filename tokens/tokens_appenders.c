@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_appenders.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/01 12:24:29 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/15 21:56:52 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/17 19:48:58 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	ft_append_identifier(char **line_ptr, t_token **token_list)
 		if (ft_is_quote(tmp_line[i]))
 		{
 			if (!ft_skip_quotes(tmp_line, &i))
-				return (ft_putstr_fd("minishell: syntax error: unclosed quote\n", 2), 0);
+				return (ft_putstr_fd("minishell: syntax error: unclose_fdd quote\n", 2), 0);
 		}
 		else
 			i++;
