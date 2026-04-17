@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion_args.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 21:59:26 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/16 03:31:12 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/17 20:37:58 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ static void	ft_fill_new_args(char **expanded, size_t len,
 		if (!expanded[i] && expanded[i][0] == '\0'
 			&& (!quoted || !quoted[i]))
 		{
-				i++;
-				continue;
+			i++;
+			continue ;
 		}
 		if (quoted && quoted[i])
 			new_args[k++] = ft_strdup(expanded[i]);
@@ -102,9 +102,9 @@ static void	ft_fill_new_args(char **expanded, size_t len,
 	new_args[k] = NULL;
 }
 
-void ft_free_old_args(char **args)
+void	ft_free_old_args(char **args)
 {
-	size_t i;
+	size_t	i;
 
 	if (!args)
 		return ;

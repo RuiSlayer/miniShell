@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 21:38:51 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/16 01:12:32 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/17 20:32:42 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@
 
 typedef enum e_redir_type
 {
-	R_IN,//
-	R_OUT,//>
-	R_HEREDOC,//
-	R_APPEND//>>
+	R_IN,
+	R_OUT,
+	R_HEREDOC,
+	R_APPEND
 }	t_redir_type;
 
 typedef struct s_redir
 {
 	t_redir_type	type;
-	char			*file;// filename or heredoc delimiter
+	char			*file;
 	struct s_redir	*next;
 	int				heredoc_fd;
 	char			*herefile;
@@ -33,21 +33,18 @@ typedef struct s_redir
 
 typedef struct s_cmd
 {
-	char			**args;// NULL-terminated array: args[0] = command name
+	char			**args;
 	bool			*args_quoted;
 	bool			is_empty;
-	t_redir			*redirs;// linked list of redirections
-	struct s_cmd	*next;// next command in pipeline
+	t_redir			*redirs;
+	struct s_cmd	*next;
 }	t_cmd;
 
-//FREE MEMORY
-void	ft_free_redir_list(t_redir *redir);//free the list of redirections */
-void	ft_free_cmd_list(t_cmd **lst);//free the cmd struct
-//PARSE
+void	ft_free_redir_list(t_redir *redir);
+void	ft_free_cmd_list(t_cmd **lst);
 t_cmd	*ft_parse(t_token *tokens);
 t_cmd	*ft_parse_pipeline(t_token **tok);
 t_cmd	*ft_parse_command(t_token **tok);
-//BUILD
-int	ft_add_arg(t_cmd *cmd, char *value, bool is_quoted);
+int		ft_add_arg(t_cmd *cmd, char *value, bool is_quoted);
 int		ft_add_redir(t_cmd *cmd, t_redir_type type, char *file);
 #endif
