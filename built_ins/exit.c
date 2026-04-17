@@ -6,7 +6,7 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 20:19:27 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/17 20:08:11 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/17 20:22:54 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,12 @@ void	update_exit_status(t_shell *shell, int status)
 
 void	exit_built_in(t_shell *shell)
 {
-	int	arg;
+	int		arg;
+	long	val;
 
 	if (!shell->cmds->args[1])
 		clean_exit(shell);
-	long val = ft_atol(shell->cmds->args[1]);
+	val = ft_atol(shell->cmds->args[1]);
 	if (!ft_is_numeric(shell->cmds->args[1]) || val > INT_MAX || val < INT_MIN)
 	{
 		ft_dprintf(2, "miniShell: exit: %s: numeric argument required\n",

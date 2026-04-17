@@ -6,68 +6,20 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 23:14:58 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/17 19:56:46 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/17 22:44:25 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/miniShell_exec.h"
 
-static void	ft_strip_quoted(char *str, int *i, char **result)
-{
-	char	quote;
-
-	quote = str[(*i)++];
-	while (str[*i] && str[*i] != quote)
-	{
-		ft_append_char(result, str[*i]);
-		(*i)++;
-	}
-	if (str[*i])
-		(*i)++;
-}
-
-static char	*ft_strip_delimiter(char *str)
-{
-	char	*result;
-	int		i;
-
-	result = ft_strdup("");
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '"' || str[i] == '\'')
-			ft_strip_quoted(str, &i, &result);
-		else
-		{
-			ft_append_char(&result, str[i]);
-			i++;
-		}
-	}
-	return (result);
-}
-
-int	clear_after_heredoc(char *line, int pipefd[], char *delimiter, t_redir *redir)
-{
-	free(line);
-	free(delimiter);
-	setup_signals();
-	close_fd(&pipefd[1]);
-	rl_event_hook = NULL;
-	if (g_signal == SIGINT)
-	{
-		close_fd(&pipefd[0]);
-		redir->heredoc_fd = -1;
-		return (1);
-	}
-	redir->heredoc_fd = pipefd[0];
-	return (0);
-}
-
 int	heredoc_loop_breaks(char *line, char *delimiter)
 {
+	char	*e;
+
+	e = "minishell: warning: here-document delimited by end-of-file (wanted `";
 	if (!line)
 	{
-		ft_putstr_fd("minishell: warning: here-document delimited by end-of-file (wanted `", STDERR_FILENO);
+		ft_putstr_fd(e, STDERR_FILENO);
 		ft_putstr_fd(delimiter, STDERR_FILENO);
 		ft_putstr_fd("')\n", STDERR_FILENO);
 		return (1);
@@ -79,28 +31,19 @@ int	heredoc_loop_breaks(char *line, char *delimiter)
 	return (0);
 }
 
-static char	*expand_heredoc(char* line, t_shell *shell)
+void	heredoc_loop(char *line, int pipefd, t_shell *shell, t_redir *redir)
 {
-	size_t	i;
-	char	*res;
+	char	*expanded;
 
-	res = ft_strdup("");
-	if (!res)
-		return (NULL);
-	i = 0;
-	while(line[i])
+	if (!(ft_strchr(redir->file, '\'') || ft_strchr(redir->file, '"')))
 	{
-		if (line[i] == '\'')
-			ft_handle_single_quote(line, &i, &res);
-		else if (line[i] == '$')
-			ft_handle_expansion(line, &i, &res, shell);
-		else
-		{
-			ft_append_char(&res, line[i]);
-			i++;
-		}
+		expanded = expand_heredoc(line, shell);
+		free(line);
+		line = expanded;
 	}
-	return(res);
+	write(pipefd, line, ft_strlen(line));
+	write(pipefd, "\n", 1);
+	free(line);
 }
 
 int	apply_heredoc(t_redir *redir, t_shell *shell)
@@ -108,7 +51,6 @@ int	apply_heredoc(t_redir *redir, t_shell *shell)
 	int		pipefd[2];
 	char	*line;
 	char	*delimiter;
-	char	*expanded;
 
 	g_signal = HEREDOC_RUNNING;
 	if (pipe(pipefd) == -1)
@@ -116,7 +58,6 @@ int	apply_heredoc(t_redir *redir, t_shell *shell)
 	delimiter = ft_strip_delimiter(redir->file);
 	if (!delimiter)
 		return (close_fd(&pipefd[0]), close_fd(&pipefd[1]), -1);
-	g_signal = HEREDOC_RUNNING;
 	heredoc_signals();
 	rl_event_hook = heredoc_event_hook;
 	while (1)
@@ -124,17 +65,9 @@ int	apply_heredoc(t_redir *redir, t_shell *shell)
 		line = readline("> ");
 		if (heredoc_loop_breaks(line, delimiter))
 			break ;
-		if (!(ft_strchr(redir->file, '\'') || ft_strchr(redir->file, '"')))
-		{
-			expanded = expand_heredoc(line, shell);
-			free(line);
-			line = expanded;
-		}
-		write(pipefd[1], line, ft_strlen(line));
-		write(pipefd[1], "\n", 1);
-		free(line);
+		heredoc_loop(line, pipefd[1], shell, redir);
 	}
-	return (clear_after_heredoc(line, pipefd, delimiter, redir));
+	return (clear_after(line, pipefd, delimiter, redir));
 }
 
 int	ft_setup_heredocs(t_cmd *cmds, t_shell *shell)
@@ -158,17 +91,6 @@ int	ft_setup_heredocs(t_cmd *cmds, t_shell *shell)
 		cmd = cmd->next;
 	}
 	return (0);
-}
-
-static int	open_fd(t_redir	*redir)
-{
-	if (redir->type == R_IN)
-		return (open(redir->file, O_RDONLY));
-	if (redir->type == R_OUT)
-		return (open(redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0644));
-	if (redir->type == R_APPEND)
-		return (open(redir->file, O_WRONLY | O_CREAT | O_APPEND, 0644));
-	return (-1);
 }
 
 int	apply_redirects(t_redir *redir)

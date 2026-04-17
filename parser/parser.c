@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 11:51:21 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/15 22:02:44 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/17 23:32:47 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/parser.h"
 
-static t_redir_type	ft_redir_type(t_token *tok)
+t_redir_type	ft_redir_type(t_token *tok)
 {
 	if (tok->type == T_LESS)
 		return (R_IN);
@@ -23,7 +23,7 @@ static t_redir_type	ft_redir_type(t_token *tok)
 	return (R_APPEND);
 }
 
-static char	*ft_token_to_str(t_token_type type)
+char	*ft_token_to_str(t_token_type type)
 {
 	if (type == T_LESS)
 		return ("<");
@@ -40,8 +40,7 @@ static char	*ft_token_to_str(t_token_type type)
 
 t_cmd	*ft_parse_command(t_token **tok)
 {
-	t_cmd			*cmd;
-	t_redir_type	type;
+	t_cmd	*cmd;
 
 	cmd = ft_calloc(1, sizeof(t_cmd));
 	if (!cmd)
@@ -56,18 +55,8 @@ t_cmd	*ft_parse_command(t_token **tok)
 		}
 		else
 		{
-			type = ft_redir_type(*tok);
-			*tok = (*tok)->next;
-			if (!*tok || (*tok)->type != T_IDENTIFIER)
-			{
-				if (!*tok || (*tok)->type == T_EOF)
-					ft_syntax_error("newline");
-				else
-					ft_syntax_error(ft_token_to_str((*tok)->type));
-				return (ft_free_cmd_list(&cmd), NULL);
-			}
-			if (!ft_add_redir(cmd, type, (*tok)->value))
-				return (ft_free_cmd_list(&cmd), NULL);
+			if (else_branch_parse(tok, cmd))
+				return (NULL);
 			*tok = (*tok)->next;
 		}
 	}
