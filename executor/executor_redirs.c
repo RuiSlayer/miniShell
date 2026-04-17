@@ -6,7 +6,7 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 23:14:58 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/15 22:58:25 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/17 16:50:02 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,12 +102,36 @@ int	heredoc_loop_breaks(char *line, char *delimiter)
 		return (1);
 	return (0);
 }
+static char	*expand_heredoc(char* line, t_shell *shell)
+{
+	size_t	i;
+	char	*res;
 
-int	apply_heredoc(t_redir *redir)
+	res = ft_strdup("");
+	if (!res)
+		return (NULL);
+	i = 0;
+	while(line[i])
+	{
+		if (line[i] == '\'')
+			ft_handle_single_quote(line, &i, &res);
+		else if (line[i] == '$')
+			ft_handle_expansion(line, &i, &res, shell);
+		else
+		{
+			ft_append_char(&res, line[i]);
+			i++;
+		}
+	}
+	return(res);
+}
+
+int	apply_heredoc(t_redir *redir, t_shell *shell)
 {
 	int		pipefd[2];
 	char	*line;
 	char	*delimiter;
+	char	*expanded;
 
 	g_signal = HEREDOC_RUNNING;
 	if (pipe(pipefd) == -1)
@@ -123,6 +147,12 @@ int	apply_heredoc(t_redir *redir)
 		line = readline("> ");
 		if (heredoc_loop_breaks(line, delimiter))
 			break ;
+		if (!(ft_strchr(redir->file, '\'') || ft_strchr(redir->file, '"')))
+		{
+			expanded = expand_heredoc(line, shell);
+			free(line);
+			line = expanded;
+		}
 		write(pipefd[1], line, ft_strlen(line));
 		write(pipefd[1], "\n", 1);
 		free(line);
@@ -176,7 +206,7 @@ int	apply_heredoc(t_redir *redir)
 } */
 
 
-int	ft_setup_heredocs(t_cmd *cmds)
+int	ft_setup_heredocs(t_cmd *cmds, t_shell *shell)
 {
 	t_cmd	*cmd;
 	t_redir	*redir;
@@ -189,7 +219,7 @@ int	ft_setup_heredocs(t_cmd *cmds)
 		{
 			if (redir->type == R_HEREDOC)
 			{
-				if (apply_heredoc(redir) == -1)
+				if (apply_heredoc(redir, shell) == -1)
 					return (-1);
 			}
 			redir = redir->next;
