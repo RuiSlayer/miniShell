@@ -3,44 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   executor_redirs.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 23:14:58 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/17 16:50:02 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/17 19:41:22 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/miniShell_exec.h"
-
-/* static char	*ft_strip_delimiter(char *str)
-{
-	char	*result;
-	int		i;
-	char	quote;
-
-	result = ft_strdup("");
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '"')
-		{
-			quote = str[i++];
-			while (str[i] && str[i] != quote)
-			{
-				ft_append_char(&result, str[i]);
-				i++;
-			}
-			if (str[i])
-				i++;
-		}
-		else
-		{
-			ft_append_char(&result, str[i]);
-			i++;
-		}
-	}
-	return (result);
-} */
 
 static void	ft_strip_quoted(char *str, int *i, char **result)
 {
@@ -83,6 +53,12 @@ int	clear_after_heredoc(char *line, int pipefd[], char *delimiter, t_redir *redi
 	setup_signals();
 	close(pipefd[1]);
 	rl_event_hook = NULL;
+	if (g_signal == SIGINT)
+	{
+		close(pipefd[0]);
+		redir->heredoc_fd = -1;
+		return (1);
+	}
 	redir->heredoc_fd = pipefd[0];
 	return (0);
 }
@@ -160,52 +136,6 @@ int	apply_heredoc(t_redir *redir, t_shell *shell)
 	return (clear_after_heredoc(line, pipefd, delimiter, redir));
 }
 
-/* int	apply_heredoc(t_redir *redir)
-{
-    int		pipefd[2];
-    char	*line;
-    char	*delimiter;
-
-    if (pipe(pipefd) == -1)
-        return (perror("pipe"), -1);
-    delimiter = ft_strip_delimiter(redir->file);
-    if (!delimiter)
-        return (close(pipefd[0]), close(pipefd[1]), -1);
-    g_signal = HEREDOC_RUNNING;
-    heredoc_signals();              // <-- replaces your bare g_signal = HEREDOC_RUNNING
-	rl_event_hook = heredoc_event_hook;
-    while (1)
-    {
-        line = readline("> ");
-        if (g_signal == SIGINT)     // <-- Ctrl+C: readline returned via rl_done
-        {
-            free(line);
-            line = NULL;
-            break ;
-        }
-        if (!line || ft_strcmp(line, delimiter) == 0)
-            break ;
-        write(pipefd[1], line, ft_strlen(line));
-        write(pipefd[1], "\n", 1);
-        free(line);
-    }
-    free(line);
-    free(delimiter);
-    close(pipefd[1]);
-    setup_signals();                // <-- restore normal interactive handlers
-    rl_event_hook = NULL;
-    if (g_signal == SIGINT)
-    {
-        close(pipefd[0]);
-        rl_cleanup_after_signal();  // restores terminal settings
-        rl_reset_after_signal();    // reinitializes readline internals
-        return (-1);
-    }
-    redir->heredoc_fd = pipefd[0];
-    return (0);
-} */
-
-
 int	ft_setup_heredocs(t_cmd *cmds, t_shell *shell)
 {
 	t_cmd	*cmd;
@@ -219,7 +149,7 @@ int	ft_setup_heredocs(t_cmd *cmds, t_shell *shell)
 		{
 			if (redir->type == R_HEREDOC)
 			{
-				if (apply_heredoc(redir, shell) == -1)
+				if (apply_heredoc(redir, shell) != 0)
 					return (-1);
 			}
 			redir = redir->next;
