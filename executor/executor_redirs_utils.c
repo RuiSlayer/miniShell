@@ -6,7 +6,7 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 20:56:16 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/17 21:00:02 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/17 22:45:10 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,21 @@ int	open_fd(t_redir	*redir)
 	if (redir->type == R_APPEND)
 		return (open(redir->file, O_WRONLY | O_CREAT | O_APPEND, 0644));
 	return (-1);
+}
+
+int	clear_after(char *line, int pipefd[], char *delimiter, t_redir *redir)
+{
+	free(line);
+	free(delimiter);
+	setup_signals();
+	close_fd(&pipefd[1]);
+	rl_event_hook = NULL;
+	if (g_signal == SIGINT)
+	{
+		close_fd(&pipefd[0]);
+		redir->heredoc_fd = -1;
+		return (1);
+	}
+	redir->heredoc_fd = pipefd[0];
+	return (0);
 }

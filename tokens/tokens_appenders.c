@@ -6,7 +6,7 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/01 12:24:29 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/17 20:54:52 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/17 22:17:56 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,21 @@ static bool	ft_has_quotes(char *str, size_t len)
 	return (false);
 }
 
+static int	val_tok(char *value, t_token *token)
+{
+	if (!value)
+		return (1);
+	if (!token)
+		return (free(value), 1);
+	return (0);
+}
+
+static void	print_error(void)
+{
+	ft_putstr_fd(
+		"minishell: syntax error: unclose_fdd quote\n", 2);
+}
+
 int	ft_append_identifier(char **line_ptr, t_token **token_list)
 {
 	char		*tmp_line;
@@ -55,19 +70,15 @@ int	ft_append_identifier(char **line_ptr, t_token **token_list)
 		if (ft_is_quote(tmp_line[i]))
 		{
 			if (!ft_skip_quotes(tmp_line, &i))
-				return (
-					ft_putstr_fd(
-						"minishell: syntax error: unclose_fdd quote\n", 2), 0);
+				return (print_error(), 0);
 		}
 		else
 			i++;
 	}
 	value = ft_substr(tmp_line, 0, i);
-	if (!value)
-		return (0);
 	token = ft_new_token(value, T_IDENTIFIER);
-	if (!token)
-		return (free(value), 0);
+	if (val_tok(value, token))
+		return (0);
 	token->is_quoted = ft_has_quotes(value, i);
 	*line_ptr += i;
 	return (ft_token_list_add_back(token_list, token), 1);

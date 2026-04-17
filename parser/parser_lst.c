@@ -3,25 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   parser_lst.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 00:35:32 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/15 22:01:01 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/17 23:41:18 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/parser.h"
 
-static void	ft_copy_args(char **old_args, bool *old_q,
-			char **new_args, bool *new_q, int count)
+static void	ft_copy_args(t_cmd *cmd, char **new_args, bool *new_q, int count)
 {
 	int	i;
 
 	i = 0;
 	while (i < count)
 	{
-		new_args[i] = old_args[i];
-		new_q[i] = old_q ? old_q[i] : false;
+		new_args[i] = cmd->args[i];
+		if (cmd->args_quoted)
+			new_q[i] = cmd->args_quoted[i];
+		else
+			new_q[i] = false;
 		i++;
 	}
 }
@@ -39,7 +41,7 @@ int	ft_add_arg(t_cmd *cmd, char *value, bool is_quoted)
 	new_q = malloc(sizeof(bool) * (count + 2));
 	if (!new_args || !new_q)
 		return (0);
-	ft_copy_args(cmd->args, cmd->args_quoted, new_args, new_q, count);
+	ft_copy_args(cmd, new_args, new_q, count);
 	new_args[count] = ft_strdup(value);
 	new_q[count] = is_quoted;
 	new_args[count + 1] = NULL;
