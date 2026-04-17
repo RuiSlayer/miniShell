@@ -6,17 +6,22 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 06:08:49 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/16 18:38:19 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/17 06:54:56 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/miniShell_exec.h"
 
+void clear_terminal(void)
+{
+	write(1, "\033[H\033[2J", 7);
+}
+
 void	print_banner(void)
 {
 	char	*line;
 	int		fd;
-
+	clear_terminal();
 	fd = open("banner.txt", O_RDONLY);
 	if (fd < 0)
 		return ;
