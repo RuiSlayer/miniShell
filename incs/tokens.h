@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 23:10:22 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/15 21:56:03 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/17 20:40:52 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 # include <stdbool.h>
 # include "../42libft/libft.h"
 # include "../ft_dprintf/ft_printf.h"
-
 
 typedef enum e_token_type
 {
@@ -26,7 +25,7 @@ typedef enum e_token_type
 	T_DLESS,
 	T_DGREAT,
 	T_EOF
-} t_token_type;
+}	t_token_type;
 
 typedef struct s_token
 {
@@ -45,7 +44,7 @@ t_token		*ft_tokenization_handler(char *line);
 t_token		*ft_new_token(char *value, t_token_type type);
 void		ft_token_list_add_back(t_token **lst, t_token *new_token);
 void		ft_clear_token_list(t_token **lst);
-const char *token_type_to_str(t_token_type type);
+const char	*token_type_to_str(t_token_type type);
 void		print_tokens(t_token *tokens);
 int			ft_is_quote(char c);
 int			ft_is_separator(char *s);

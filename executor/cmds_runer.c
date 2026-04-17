@@ -6,7 +6,7 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 21:44:59 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/17 19:56:11 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/17 20:25:12 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	external_cmds(t_shell *shell)
 void	run_builtin(t_shell *shell)
 {
 	if (!shell->cmds || !shell->cmds->args || !shell->cmds->args[0])
-		return;
+		return ;
 	if (ft_strcmp(shell->cmds->args[0], "exit") == 0)
 		exit_built_in(shell);
 	else if (ft_strcmp(shell->cmds->args[0], "echo") == 0)
@@ -96,7 +96,6 @@ void	run_builtin_in_parent(t_pipe *pipe_s, t_shell *shell)
 			return ;
 		}
 	}
-	/* ft_dprintf(2, "fd: %d\n", ); */
 	run_builtin(shell);
 	if (shell->saved_in != -1)
 	{

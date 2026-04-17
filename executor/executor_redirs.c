@@ -6,47 +6,13 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 23:14:58 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/17 19:56:46 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/17 20:59:47 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/miniShell_exec.h"
 
-static void	ft_strip_quoted(char *str, int *i, char **result)
-{
-	char	quote;
-
-	quote = str[(*i)++];
-	while (str[*i] && str[*i] != quote)
-	{
-		ft_append_char(result, str[*i]);
-		(*i)++;
-	}
-	if (str[*i])
-		(*i)++;
-}
-
-static char	*ft_strip_delimiter(char *str)
-{
-	char	*result;
-	int		i;
-
-	result = ft_strdup("");
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '"' || str[i] == '\'')
-			ft_strip_quoted(str, &i, &result);
-		else
-		{
-			ft_append_char(&result, str[i]);
-			i++;
-		}
-	}
-	return (result);
-}
-
-int	clear_after_heredoc(char *line, int pipefd[], char *delimiter, t_redir *redir)
+int	clear_after(char *line, int pipefd[], char *delimiter, t_redir *redir)
 {
 	free(line);
 	free(delimiter);
@@ -77,30 +43,6 @@ int	heredoc_loop_breaks(char *line, char *delimiter)
 	if (!line || ft_strcmp(line, delimiter) == 0)
 		return (1);
 	return (0);
-}
-
-static char	*expand_heredoc(char* line, t_shell *shell)
-{
-	size_t	i;
-	char	*res;
-
-	res = ft_strdup("");
-	if (!res)
-		return (NULL);
-	i = 0;
-	while(line[i])
-	{
-		if (line[i] == '\'')
-			ft_handle_single_quote(line, &i, &res);
-		else if (line[i] == '$')
-			ft_handle_expansion(line, &i, &res, shell);
-		else
-		{
-			ft_append_char(&res, line[i]);
-			i++;
-		}
-	}
-	return(res);
 }
 
 int	apply_heredoc(t_redir *redir, t_shell *shell)
@@ -134,7 +76,7 @@ int	apply_heredoc(t_redir *redir, t_shell *shell)
 		write(pipefd[1], "\n", 1);
 		free(line);
 	}
-	return (clear_after_heredoc(line, pipefd, delimiter, redir));
+	return (clear_after(line, pipefd, delimiter, redir));
 }
 
 int	ft_setup_heredocs(t_cmd *cmds, t_shell *shell)
@@ -158,17 +100,6 @@ int	ft_setup_heredocs(t_cmd *cmds, t_shell *shell)
 		cmd = cmd->next;
 	}
 	return (0);
-}
-
-static int	open_fd(t_redir	*redir)
-{
-	if (redir->type == R_IN)
-		return (open(redir->file, O_RDONLY));
-	if (redir->type == R_OUT)
-		return (open(redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0644));
-	if (redir->type == R_APPEND)
-		return (open(redir->file, O_WRONLY | O_CREAT | O_APPEND, 0644));
-	return (-1);
 }
 
 int	apply_redirects(t_redir *redir)
