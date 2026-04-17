@@ -6,7 +6,7 @@
 /*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:38 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/16 18:14:42 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/17 19:55:51 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ int		apply_redirects(t_redir *redir);
 void	update_exit_status(t_shell *shell, int status);
 void	exit_built_in(t_shell *shell);
 void	clean_exit(t_shell *shell);
-int		apply_heredoc(t_redir *redir);
-int		ft_setup_heredocs(t_cmd *cmds);
+int		apply_heredoc(t_redir *redir, t_shell *shell);
+int		ft_setup_heredocs(t_cmd *cmds, t_shell *shell);
 void	external_cmd_exit(t_shell *shell, char *path, int status);
 void	parse_external_cmd_path(t_shell *shell, char *path);
 void	parse_external_cmd_execve(t_shell *shell, char *path, int error);
@@ -83,7 +83,8 @@ void	redirect_no_coms(t_shell *shell, t_pipe *pipe_s);
 void	child_signals(void);
 void	heredoc_signals(void);
 int		heredoc_event_hook(void);
-void	close_heredocs(t_cmd *cmd);
-void	close_all_heredocs(t_cmd *cmds);
+void	close_fd_heredocs(t_cmd *cmd);
+void	close_fd_all_heredocs(t_cmd *cmds);
 void	free_pipe(t_pipe *pipe_s);
+void	close_fd(int *fd);
 #endif

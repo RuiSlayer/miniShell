@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   pipe_loop_utils2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/28 21:28:55 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/17 16:59:21 by fgameiro         ###   ########.fr       */
+/*   Created: 2026/04/17 19:46:57 by slayer            #+#    #+#             */
+/*   Updated: 2026/04/17 19:55:45 by slayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/miniShell_exec.h"
 
-int	pwd(void)
+void	close_fd(int *fd)
 {
-	char	cwd[PATH_MAX];
-
-	if (!getcwd(cwd, PATH_MAX))
+	if(*fd != -1)
 	{
-		perror("pwd");
-		return (2);
+		close(*fd);
+		*fd = -1;
 	}
-	ft_dprintf(STDOUT_FILENO, "%s\n", cwd);
-	return (0);
 }
