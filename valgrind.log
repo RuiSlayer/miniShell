@@ -1,9 +1,9 @@
-==75173== Memcheck, a memory error detector
-==75173== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==75173== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==75173== Command: ./minishell ./minishell
-==75173== 
-[32m
+==153381== Memcheck, a memory error detector
+==153381== Copyright (C) 2002-2024, and GNU GPL'd, by Julian Seward et al.
+==153381== Using Valgrind-3.26.0 and LibVEX; rerun with -h for copyright info
+==153381== Command: ./minishell ./minishell
+==153381== 
+[H[2J[32m
 [0m[32m
 [0m[32m   $$\      $$\ $$$$$$\ $$\   $$\ $$$$$$\            
 [0m[32m   $$$\    $$$ |\_$$  _|$$$\  $$ |\_$$  _|           
@@ -29,21 +29,51 @@
 [0m[32m
 [0m[32m
 [0m[32m
-[0m[?2004h[38;5;27m/minishell[0m[32m$> [0mexit
+[0m[?2004h[38;5;27m/home/slayer/Documents/miniShell[0m[32m$> [0mola
+[?2004lola: command not found
+==153387== 
+==153387== FILE DESCRIPTORS: 1 open (1 inherited) at exit.
+==153387== Open file descriptor 11: /dev/dri/renderD128
+==153387==    <inherited from parent>
+==153387== 
+==153387== 
+==153387== HEAP SUMMARY:
+==153387==     in use at exit: 241,198 bytes in 242 blocks
+==153387==   total heap usage: 846 allocs, 604 frees, 274,105 bytes allocated
+==153387== 
+==153387== LEAK SUMMARY:
+==153387==    definitely lost: 0 bytes in 0 blocks
+==153387==    indirectly lost: 0 bytes in 0 blocks
+==153387==      possibly lost: 0 bytes in 0 blocks
+==153387==    still reachable: 0 bytes in 0 blocks
+==153387==         suppressed: 241,198 bytes in 242 blocks
+==153387== 
+==153387== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+--153387-- 
+--153387-- used_suppression:     78 readline_reachable ./readline.supp:2 suppressed: 241,198 bytes in 242 blocks
+==153387== 
+==153387== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+[?2004h[38;5;27m/home/slayer/Documents/miniShell[0m[32m$> [0mexit
 [?2004l[1;31mexit
-[0m==75173== 
-==75173== FILE DESCRIPTORS: 0 open (0 std) at exit.
-==75173== 
-==75173== HEAP SUMMARY:
-==75173==     in use at exit: 208,202 bytes in 225 blocks
-==75173==   total heap usage: 524 allocs, 299 frees, 230,554 bytes allocated
-==75173== 
-==75173== LEAK SUMMARY:
-==75173==    definitely lost: 0 bytes in 0 blocks
-==75173==    indirectly lost: 0 bytes in 0 blocks
-==75173==      possibly lost: 0 bytes in 0 blocks
-==75173==    still reachable: 0 bytes in 0 blocks
-==75173==         suppressed: 208,202 bytes in 225 blocks
-==75173== 
-==75173== For lists of detected and suppressed errors, rerun with: -s
-==75173== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+[0m==153381== 
+==153381== FILE DESCRIPTORS: 1 open (1 inherited) at exit.
+==153381== Open file descriptor 11: /dev/dri/renderD128
+==153381==    <inherited from parent>
+==153381== 
+==153381== 
+==153381== HEAP SUMMARY:
+==153381==     in use at exit: 241,239 bytes in 245 blocks
+==153381==   total heap usage: 853 allocs, 608 frees, 274,133 bytes allocated
+==153381== 
+==153381== LEAK SUMMARY:
+==153381==    definitely lost: 0 bytes in 0 blocks
+==153381==    indirectly lost: 0 bytes in 0 blocks
+==153381==      possibly lost: 0 bytes in 0 blocks
+==153381==    still reachable: 0 bytes in 0 blocks
+==153381==         suppressed: 241,239 bytes in 245 blocks
+==153381== 
+==153381== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+--153381-- 
+--153381-- used_suppression:     78 readline_reachable ./readline.supp:2 suppressed: 241,239 bytes in 245 blocks
+==153381== 
+==153381== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
