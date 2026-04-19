@@ -6,7 +6,7 @@
 /*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 21:28:55 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/17 16:59:21 by fgameiro         ###   ########.fr       */
+/*   Updated: 2026/04/18 20:48:23 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	pwd(void)
 	if (!getcwd(cwd, PATH_MAX))
 	{
 		perror("pwd");
-		return (2);
+		return (1);
 	}
 	ft_dprintf(STDOUT_FILENO, "%s\n", cwd);
 	return (0);

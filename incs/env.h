@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 21:56:02 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/08 02:29:59 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/19 00:01:10 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,8 @@ void	add_var(char *arg, t_env **env);
 void	remove_var(char *arg, t_env **env);
 char	**env_to_array(t_env *env);
 char	*ft_getenv(t_env *env, char *name);
+int		ft_is_char_in(const char *s, int c);
+void	free_var_val(char **var_val);
+void	create_node(char **var_val, t_env **env, int var_has_equal);
+char	**ft_split_var(char *arg);
 #endif

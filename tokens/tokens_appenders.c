@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_appenders.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/01 12:24:29 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/17 22:17:56 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/18 22:59:42 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	val_tok(char *value, t_token *token)
 static void	print_error(void)
 {
 	ft_putstr_fd(
-		"minishell: syntax error: unclose_fdd quote\n", 2);
+		"minishell: syntax error: unclosed quote\n", 2);
 }
 
 int	ft_append_identifier(char **line_ptr, t_token **token_list)

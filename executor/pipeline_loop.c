@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline_loop.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 21:47:26 by rucosta           #+#    #+#             */
-/*   Updated: 2026/04/17 19:58:00 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/18 20:46:26 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	child_process(t_pipe *pipe_s, t_shell *shell)
 {
 	child_signals();
-	shell->is_subshell = 1;
+	shell->is_inchild = 1;
 	if (pipe_s->prev_fd != -1)
 	{
 		dup2(pipe_s->prev_fd, STDIN_FILENO);

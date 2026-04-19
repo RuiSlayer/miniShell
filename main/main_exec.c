@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 18:58:13 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/17 23:41:42 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/19 01:08:23 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	shell_init(t_shell *shell, char **envp)
 	shell->env = NULL;
 	shell->cmds = NULL;
 	shell->exit_status = 0;
-	shell->is_subshell = 0;
+	shell->is_inchild = 0;
 	shell->saved_in = -1;
 	shell->saved_out = -1;
 	save_env(&shell->env, envp);

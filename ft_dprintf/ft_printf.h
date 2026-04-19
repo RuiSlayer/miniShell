@@ -3,39 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/05 22:42:50 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/05 22:42:55 by slayer           ###   ########.fr       */
+/*   Created: 2025/05/07 18:28:15 by rucosta           #+#    #+#             */
+/*   Updated: 2026/04/18 21:03:32 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
-
-# include <stdarg.h>
-# include <sys/types.h>
+# include <stddef.h>
+# include <fcntl.h>
 # include <unistd.h>
-# define HEX_UPPER "0123456789ABCDEF"
-# define HEX_LOWER "0123456789abcdef"
-# define NULLSTR "(null)"
-# define NULLPTR "(nil)"
+# include <string.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <limits.h>
+# include <stdarg.h>
+# include <stdint.h>
 
-typedef unsigned long	t_ulong;
-// Write formatted output to stdout.
-int				ft_printf(const char *format, ...);
-// Write formatted output to a file descriptor `fd`.
-int				ft_dprintf(int fd, const char *format, ...);
-
-int				format_delegator(
-					int fd,
-					va_list params,
-					const char *format);
-int				print_char(int fd, int c);
-int				print_dec_int(int fd, int n);
-int				print_pointer(int fd, void *ptr);
-int				print_string(int fd, char *str);
-int				print_uint(int fd, uint num);
-int				print_hex(int fd, uint hex, char *hex_case);
-
+int			ft_putchar(int fd, char c);
+int			ft_putstr(int fd, char *s);
+int			put_pointer(int fd, void *ptr);
+int			put_hex(int fd, unsigned int n, int uppercase);
+int			put_unsigned(int fd, unsigned int n);
+int			put_int(int fd, int n);
+int			ft_dprintf(int fd, const char *ptr, ...);
 #endif

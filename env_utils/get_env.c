@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/23 15:05:35 by fgameiro          #+#    #+#             */
-/*   Updated: 2026/04/11 18:26:35 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/18 21:51:31 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,17 @@ char	**env_to_array(t_env *env)
 	}
 	array[i] = NULL;
 	return (array);
+}
+
+int	ft_is_char_in(const char *s, int c)
+{
+	while (*s)
+	{
+		if ((char)c == *s)
+			return (1);
+		s++;
+	}
+	if ((char)c == '\0')
+		return (0);
+	return (0);
 }

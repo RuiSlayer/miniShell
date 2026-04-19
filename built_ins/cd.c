@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slayer <slayer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fgameiro <fgameiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 17:55:19 by slayer            #+#    #+#             */
-/*   Updated: 2026/04/17 20:24:13 by slayer           ###   ########.fr       */
+/*   Updated: 2026/04/18 20:50:58 by fgameiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	cd(t_cmd *cmds, t_env **env)
 		return (change_dir(cmds->args[2], old_pwd, env));
 	if (cmds->args[2])
 		return (ft_dprintf(2, "minishell: cd: too many arguments\n"),
-			free(old_pwd), 2);
+			free(old_pwd), 1);
 	if (ft_strcmp(cmds->args[1], "-") == 0)
 	{
 		if (chage_by_var(old_pwd, env, "OLDPWD"))
